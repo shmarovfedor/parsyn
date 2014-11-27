@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<data>
+	<declare>
+		<var type="var">
+			<name>v</name>
+			<domain>
+				<left>-100</left>
+				<right>100</right>
+			</domain>
+		</var>
+		<var type="var">
+			<name>a</name>
+			<domain>
+				<left>-10</left>
+				<right>10</right>
+			</domain>
+		</var>
+		<var type="var">
+			<name>b</name>
+			<domain>
+				<left>-0.0001</left>
+				<right>0.0001</right>
+			</domain>
+		</var>
+		<var type="param">
+			<name>k</name>
+			<domain>
+				<left>0</left>
+				<right>4</right>
+			</domain>
+		</var>
+		<var type="param">
+			<name>z</name>
+			<domain>
+				<left>-0.99999</left>
+				<right>0.99999</right>
+			</domain>
+		</var>
+		<var type="time">
+			<name>t</name>name>
+		</var>
+	</declare>
+	<odes>
+		<ode>(= d/dt[v] (* k t))</ode>
+		<ode>(= d/dt[a] (* v b))</ode>
+		<ode>(= d/dt[b] (* a t))</ode>
+	</odes>
+	<series>
+		<point time="0">
+			<interval>
+				<left>-0.00001</left>
+				<right>0.00001]</right>
+			</interval>
+			<interval>
+				<left>-0.00001</left>
+				<right>0.00001]</right>
+			</interval>
+			<interval>
+				<left>-0.00001</left>
+				<right>0.00001]</right>
+			</interval>
+		</point>
+		<point time="1">
+			<interval>
+				<left>0.99</left>
+				<right>1.01]</right>
+			</interval>
+			<interval>
+				<left>0.99</left>
+				<right>1.01]</right>
+			</interval>
+			<interval>
+				<left>0.99</left>
+				<right>1.01]</right>
+			</interval>
+		</point>
+		<point time="2">
+			<interval>
+				<left>3.99</left>
+				<right>4.01]</right>
+			</interval>
+			<interval>
+				<left>3.99</left>
+				<right>4.01]</right>
+			</interval>
+			<interval>
+				<left>3.99</left>
+				<right>4.01]</right>
+			</interval>
+		</point>
+	</series>
+	<delta>0.000001</delta>
+	<epsilon>0.000001</epsilon>
+</data>

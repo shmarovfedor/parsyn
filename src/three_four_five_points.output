@@ -1,0 +1,346 @@
+======Old ParSyn for 3 time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.000000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.500000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.250000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.250000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.125000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.562500000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.812500000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.906250000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.953125000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.765625000000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.882812500000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.441406250000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.220703125000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.103515625000e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.051757812500e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.525878906250e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.629394531250e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.814697265625e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.907348632812e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.999956130981e+00, 2.000043869019e+00]
+====================UNDEC BOXES:==================
+0) [1.999944686890e+00, 1.999956130981e+00]
+1) [2.000043869019e+00, 2.000055313110e+00]
+====================UNSAT BOXES:==================
+0) [0.000000000000e+00, 1.999944686890e+00]
+1) [2.000055313110e+00, 4.000000000000e+00]
+======================TIME:========================
+1.500000000000e+01 seconds
+===================================================
+
+
+======New ParSyn for the second time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.000000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.500000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.250000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.250000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.125000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.562500000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.812500000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.906250000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.953125000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.765625000000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.882812500000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.441406250000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.220703125000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.103515625000e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.051757812500e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.525878906250e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.629394531250e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.814697265625e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.907348632812e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.999820709229e+00, 2.000179290771e+00]
+====================UNDEC BOXES:==================
+0) [1.999778747559e+00, 1.999820709229e+00]
+1) [2.000179290771e+00, 2.000221252441e+00]
+====================UNSAT BOXES:==================
+0) [0.000000000000e+00, 1.999778747559e+00]
+1) [2.000221252441e+00, 4.000000000000e+00]
+
+
+======New ParSyn for the third time points:===========
+
+Evaluating boxes of size : 3.585815429688e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.792907714844e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 8.964538574219e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.482269287109e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.241134643555e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.120567321777e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.602836608887e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.801418304443e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.400709152222e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.999955177307e+00, 2.000044822693e+00]
+====================UNDEC BOXES:==================
+0) [1.999943971634e+00, 1.999955177307e+00]
+1) [2.000044822693e+00, 2.000056028366e+00]
+====================UNSAT BOXES:==================
+0) [1.999820709229e+00, 1.999943971634e+00]
+1) [2.000056028366e+00, 2.000179290771e+00]
+================RESULTING INTERSECTION============
+0) [1.999955177307e+00, 2.000044822693e+00]
+======================TIME:========================
+1.000000000000e+01 seconds
+===================================================
+======Old ParSyn for 4 time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.000000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.500000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.250000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.250000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.125000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.562500000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.812500000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.906250000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.953125000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.765625000000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.882812500000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.441406250000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.220703125000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.103515625000e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.051757812500e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.525878906250e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.629394531250e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.814697265625e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.907348632812e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.997781753540e+00, 2.002218246460e+00]
+====================UNDEC BOXES:==================
+0) [1.997774124146e+00, 1.997781753540e+00]
+1) [2.002218246460e+00, 2.002225875854e+00]
+====================UNSAT BOXES:==================
+0) [0.000000000000e+00, 1.997774124146e+00]
+1) [2.002225875854e+00, 4.000000000000e+00]
+======================TIME:========================
+5.250000000000e+02 seconds
+===================================================
+
+
+======New ParSyn for the second time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.000000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.500000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.250000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.250000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.125000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.562500000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.812500000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.906250000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.953125000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.765625000000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.882812500000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.441406250000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.220703125000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.103515625000e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.051757812500e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.525878906250e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.629394531250e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.814697265625e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.907348632812e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.980020523071e+00, 2.019979476929e+00]
+====================UNDEC BOXES:==================
+0) [1.979978561401e+00, 1.980020523071e+00]
+1) [2.019979476929e+00, 2.020021438599e+00]
+====================UNSAT BOXES:==================
+0) [0.000000000000e+00, 1.979978561401e+00]
+1) [2.020021438599e+00, 4.000000000000e+00]
+
+
+======New ParSyn for the third time points:===========
+
+Evaluating boxes of size : 3.995895385742e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.997947692871e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.989738464355e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.994869232178e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.497434616089e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.248717308044e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.243586540222e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.121793270111e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.560896635056e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.804483175278e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.902241587639e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.951120793819e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.755603969097e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.877801984549e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.438900992274e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.219450496137e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.995005130768e+00, 2.004994869232e+00]
+====================UNDEC BOXES:==================
+0) [1.994994155713e+00, 1.995005130768e+00]
+1) [2.004994869232e+00, 2.005005844287e+00]
+====================UNSAT BOXES:==================
+0) [1.980020523071e+00, 1.994994155713e+00]
+1) [2.005005844287e+00, 2.019979476929e+00]
+
+
+======New ParSyn for the fourth time points:===========
+
+Evaluating boxes of size : 9.989738464355e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.994869232178e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.497434616089e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.248717308044e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.243586540222e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.121793270111e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.560896635056e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.804483175278e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.902241587639e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.951120793819e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.755603969097e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.877801984549e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.438900992274e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.219450496137e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.997780600097e+00, 2.002219399903e+00]
+====================UNDEC BOXES:==================
+0) [1.997774502845e+00, 1.997780600097e+00]
+1) [2.002219399903e+00, 2.002225497155e+00]
+====================UNSAT BOXES:==================
+0) [1.995005130768e+00, 1.997774502845e+00]
+1) [2.002225497155e+00, 2.004994869232e+00]
+================RESULTING INTERSECTION============
+0) [1.997780600097e+00, 2.002219399903e+00]
+======================TIME:========================
+1.500000000000e+01 seconds
+===================================================
+======Old ParSyn for 5 time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+
+!!! WAS INTERRUPTED BY ME AFTER 1100 MIN AS NO PROGRESS WAS MADE!!!
+
+======New ParSyn for the second time points:===========
+
+Evaluating boxes of size : 4.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.000000000000e+00 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.000000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.500000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.250000000000e-01 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.250000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.125000000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.562500000000e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.812500000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.906250000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.953125000000e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.765625000000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.882812500000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.441406250000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.220703125000e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.103515625000e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.051757812500e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.525878906250e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.629394531250e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.814697265625e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.907348632812e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.980020523071e+00, 2.019979476929e+00]
+====================UNDEC BOXES:==================
+0) [1.979978561401e+00, 1.980020523071e+00]
+1) [2.019979476929e+00, 2.020021438599e+00]
+====================UNSAT BOXES:==================
+0) [0.000000000000e+00, 1.979978561401e+00]
+1) [2.020021438599e+00, 4.000000000000e+00]
+
+
+======New ParSyn for the third time points:===========
+
+Evaluating boxes of size : 3.995895385742e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.997947692871e-02 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.989738464355e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.994869232178e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.497434616089e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.248717308044e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.243586540222e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.121793270111e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.560896635056e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.804483175278e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.902241587639e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.951120793819e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.755603969097e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.877801984549e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.438900992274e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.219450496137e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.995005130768e+00, 2.004994869232e+00]
+====================UNDEC BOXES:==================
+0) [1.994994155713e+00, 1.995005130768e+00]
+1) [2.004994869232e+00, 2.005005844287e+00]
+====================UNSAT BOXES:==================
+0) [1.980020523071e+00, 1.994994155713e+00]
+1) [2.005005844287e+00, 2.019979476929e+00]
+
+
+======New ParSyn for the fourth time points:===========
+
+Evaluating boxes of size : 9.989738464355e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.994869232178e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.497434616089e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.248717308044e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.243586540222e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.121793270111e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.560896635056e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 7.804483175278e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.902241587639e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.951120793819e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 9.755603969097e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.877801984549e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.438900992274e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.219450496137e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.997780600097e+00, 2.002219399903e+00]
+====================UNDEC BOXES:==================
+0) [1.997774502845e+00, 1.997780600097e+00]
+1) [2.002219399903e+00, 2.002225497155e+00]
+====================UNSAT BOXES:==================
+0) [1.995005130768e+00, 1.997774502845e+00]
+1) [2.002225497155e+00, 2.004994869232e+00]
+
+
+======New ParSyn for the fifth time points:===========
+
+Evaluating boxes of size : 4.438799805939e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.219399902970e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.109699951485e-03 ---> 1.000000000000e-06
+Evaluating boxes of size : 5.548499757424e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.774249878712e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.387124939356e-04 ---> 1.000000000000e-06
+Evaluating boxes of size : 6.935624696780e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 3.467812348390e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.733906174195e-05 ---> 1.000000000000e-06
+Evaluating boxes of size : 8.669530870975e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 4.334765435487e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 2.167382717744e-06 ---> 1.000000000000e-06
+Evaluating boxes of size : 1.083691358872e-06 ---> 1.000000000000e-06
+=====================SAT BOXES:===================
+0) [1.998751587555e+00, 2.001248412445e+00]
+====================UNDEC BOXES:==================
+0) [1.998748336481e+00, 1.998751587555e+00]
+1) [2.001248412445e+00, 2.001251663519e+00]
+====================UNSAT BOXES:==================
+0) [1.997780600097e+00, 1.998748336481e+00]
+1) [2.001251663519e+00, 2.002219399903e+00]
+================RESULTING INTERSECTION============
+0) [1.998751587555e+00, 2.001248412445e+00]
+======================TIME:========================
+1.500000000000e+01 seconds
+===================================================
+

@@ -18,7 +18,15 @@ using namespace capd;
 Box::Box(vector<DInterval> dimensions)
 {
 	this->dimensions = dimensions;
-	calculate_params();
+	if(dimensions.size() > 0)
+	{
+		calculate_params();
+	}
+	else
+	{
+		Box();
+	}
+	
 }
 
 Box::Box()

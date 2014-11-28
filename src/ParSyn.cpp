@@ -24,6 +24,7 @@ using namespace std;
 using namespace capd;
 using namespace pugi;
 
+
 ostream& operator<<(ostream& strm, Box& box)
 {
 	for(int i = 0; i < box.get_dimension_size() - 1; i++)
@@ -35,6 +36,7 @@ ostream& operator<<(ostream& strm, Box& box)
 	return strm;
 }
 
+/*
 vector< vector<Box> > ParSyn(string phi_path, string phi_c_path, vector<string> params, vector<Box> boxes, double delta, double epsilon)
 {
 	vector<string> temp, temp_c;
@@ -661,6 +663,7 @@ void solve_five_points()
 	cout << time(NULL) - start_time << " seconds" << endl;
 	cout << "===================================================" << endl;
 }
+*/
 
 int main(int argc, char* argv[])
 {
@@ -674,52 +677,188 @@ int main(int argc, char* argv[])
     cout << doc.child("mesh").child("node").attribute("attr1").value() << endl;
 	*/
 
-    SMT2Generator gen("data.xml");
+    string xml_file_path = argv[1];
 
-    vector<string> var = gen.get_vars();
-    Box var_domain = gen.get_var_domain();
-
-    vector<string> param = gen.get_params();
-    Box param_domain = gen.get_param_domain();
-
-    string time_var = gen.get_time_var();
-    vector<string> odes = gen.get_odes();
-
-    std::map<double, Box> time_series = gen.get_time_series();
-
-    cout << "Vars:" << endl;    
-    for(int i = 0; i < var.size(); i++)
+    try
     {
-    	cout << i << ") " << var.at(i) << endl;
-    }
+    	double start_time = time(NULL);
 
-    cout << "Var domain: " << var_domain << endl;
+	    SMT2Generator gen(xml_file_path);
 
-    cout << "Params:" << endl;    
-    for(int i = 0; i < param.size(); i++)
+	    
+	    //Box param_domain = gen.get_param_domain();
+	   	//int eval_res = DecisionProcedure::evaluate(gen.generate_smt2(1, param_domain), gen.get_delta());
+	    //cout << "Box: " << param_domain << " is " << eval_res << endl;
+	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes;
+
+	    vector<Box> boxes;
+	    boxes.push_back(gen.get_param_domain());
+	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
+	    {
+			cout << "=====================TIME POINT " << (j + 1) << " :===================" << endl;	    	
+			double prev_volume = 0;
+		    while(boxes.size() > 0)
+			{
+				for(int i = 0; i < boxes.size(); i++)
+				{
+					if(prev_volume != boxes.at(i).get_volume().leftBound())
+					{
+						prev_volume = boxes.at(i).get_volume().leftBound();
+						cout << "EVALUATING BOXES OF SIZE : " << prev_volume << " ---> " << gen.get_epsilon() << endl;
+					}
+
+					vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
+					int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta());
+					if(result == 1)
+					{
+						sat_boxes.push_back(boxes.at(i));
+					}
+					if(result == 0)
+					{
+						vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+						if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+						{
+							for(int j = 0; j < tmp_vector.size(); j++)
+							{
+								undec_boxes.push_back(tmp_vector.at(j));
+							}
+						}
+						else
+						{
+							for(int j = 0; j < tmp_vector.size(); j++)
+							{
+								mixed_boxes.push_back(tmp_vector.at(j));
+							}
+						}
+					}
+					if(result == -1)
+					{
+						unsat_boxes.push_back(boxes.at(i));
+					}
+				}
+
+				boxes.clear();
+
+				for(int i = 0; i < mixed_boxes.size(); i++)
+				{
+					boxes.push_back(mixed_boxes.at(i));
+				}
+
+				mixed_boxes.clear();
+			}
+
+			sat_boxes = BoxFactory::merge_boxes(sat_boxes);
+			undec_boxes = BoxFactory::merge_boxes(undec_boxes);
+			unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
+			cout << "=====================SAT BOXES:===================" << endl;
+			cout << setprecision(16);
+			for(int i = 0; i < sat_boxes.size(); i++)
+			{
+				cout << i << ") " << sat_boxes.at(i) << endl;
+			}
+
+			cout << "====================UNDEC BOXES:==================" << endl;
+			for(int i = 0; i < undec_boxes.size(); i++)
+			{
+				cout << i << ") " << undec_boxes.at(i) << endl;
+			}
+
+			cout << "====================UNSAT BOXES:==================" << endl;
+			for(int i = 0; i < unsat_boxes.size(); i++)
+			{
+				cout << i << ") " << unsat_boxes.at(i) << endl;
+			}
+			if(sat_boxes.size() == 0)
+			{
+				cout << "THE PROBLEM IS UNSAT!!!" << endl;
+				break;
+			}
+
+			for(int i = 0; i < sat_boxes.size(); i++)
+			{
+				boxes.push_back(sat_boxes.at(i));
+			}
+			sat_boxes.clear();
+			undec_boxes.clear();
+			unsat_boxes.clear();
+		}
+		cout << "===============================================" << endl;
+		cout << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+
+	}
+	catch(char const* e)
+	{
+		cerr << "Error parsing the file " << xml_file_path << ". Reason: " << e << endl;
+		return EXIT_FAILURE;
+	}
+
+/*
+    try
     {
-    	cout << i << ") " << param.at(i) << endl;
-    }
 
-    cout << "Param domain: " << param_domain << endl;
+	    SMT2Generator gen(xml_file_path);
 
-    cout << "Time var: " << time_var << endl;
+	    vector<string> var = gen.get_vars();
+	    Box var_domain = gen.get_var_domain();
 
-    cout << "ODEs:" << endl;
-    for(int i = 0; i < odes.size(); i++)
-    {
-    	cout << i << ") " << odes.at(i) << endl;
-    }
+	    vector<string> param = gen.get_params();
+	    Box param_domain = gen.get_param_domain();
 
-    cout << "Time series:" << endl;
-    cout << "Time --- Box" << endl;
-    for(std::map<double, Box>::iterator map_it = time_series.begin(); map_it != time_series.end(); map_it++)
-    {
-    	cout << map_it->first << " --- " << map_it->second << endl;
-    }
+	    string time_var = gen.get_time_var();
+	    vector<string> odes = gen.get_odes();
 
-    cout << "Delta = " << gen.get_delta() << endl;
-    cout << "Epsilon = " << gen.get_epsilon() << endl;
+	    //std::map<double, Box> time_series = gen.get_time_series();
+	    vector<double> time_value = gen.get_time_values();
+	    vector<Box> time_box = gen.get_time_boxes();
+
+	    cout << "Vars:" << endl;    
+	    for(int i = 0; i < var.size(); i++)
+	    {
+	    	cout << i << ") " << var.at(i) << endl;
+	    }
+
+	    cout << "Var domain: " << var_domain << endl;
+
+	    cout << "Params:" << endl;    
+	    for(int i = 0; i < param.size(); i++)
+	    {
+	    	cout << i << ") " << param.at(i) << endl;
+	    }
+
+	    cout << "Param domain: " << param_domain << endl;
+
+	    cout << "Time var: " << time_var << endl;
+
+	    cout << "ODEs:" << endl;
+	    for(int i = 0; i < odes.size(); i++)
+	    {
+	    	cout << i << ") " << odes.at(i) << endl;
+	    }
+
+	    cout << "Time series:" << endl;
+	    cout << "Time --- Box" << endl;
+	    for(int i = 0; i < time_value.size(); i++)
+	    {
+	    	cout << time_value.at(i) << " --- " << time_box.at(i) << endl;
+	    }
+
+	    cout << "Delta = " << gen.get_delta() << endl;
+	    cout << "Epsilon = " << gen.get_epsilon() << endl;
+
+	    vector<string> filename = gen.generate_smt2(1, gen.get_param_domain());
+	    cout << filename.at(0) << endl;
+	    cout << filename.at(1) << endl;
+
+	}
+	catch(char const* e)
+	{
+		cerr << "Error parsing the file " << xml_file_path << ". Reason: " << e << endl;
+		return EXIT_FAILURE;
+	}
+*/
+
+
+
 
 	//solve_three_points();
 	//solve_four_points();

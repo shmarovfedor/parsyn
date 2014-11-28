@@ -28,17 +28,16 @@ class SMT2Generator
 		Box param_domain;
 		string time_var;
 		vector<string> odes;
-		std::map<double, Box> time_series;
+		vector<double> time_value;
+		vector<Box> time_box;
 		double delta;
 		double epsilon;
-
-
 		
 	public:
 
 		SMT2Generator(string);
 
-		
+		vector<string> generate_smt2(int, Box);
 
 		//GETTERS AND SETTERS
 		string get_xml_path();
@@ -55,7 +54,9 @@ class SMT2Generator
 
 		vector<string> get_odes();
 
-		std::map<double, Box> get_time_series();
+		vector<double> get_time_values();
+
+		vector<Box> get_time_boxes();
 
 		double get_delta();
 

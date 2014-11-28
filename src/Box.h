@@ -34,7 +34,7 @@ class Box
 		// box value and width of the shortest and
 		// the longest intervals
 		void calculate_params();
-  
+
 	public:
 
 		// Constructor of the class

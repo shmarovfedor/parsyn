@@ -677,7 +677,14 @@ int main(int argc, char* argv[])
     cout << doc.child("mesh").child("node").attribute("attr1").value() << endl;
 	*/
 
-    string xml_file_path = argv[1];
+	int num_threads = 1;
+
+    #ifdef _OPENMP
+    	num_threads = omp_get_max_threads() - 8;
+    	omp_set_num_threads(num_threads);
+ 	#endif
+
+	string xml_file_path = argv[1];
 
     try
     {
@@ -695,48 +702,64 @@ int main(int argc, char* argv[])
 	    boxes.push_back(gen.get_param_domain());
 	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 	    {
-			cout << "=====================TIME POINT " << (j + 1) << " :===================" << endl;	    	
-			double prev_volume = 0;
+			cout << "=====================TIME POINT " << (j + 1) << " :===================" << endl;
+			DInterval max_progress = 0;
+			for(int i = 0; i < boxes.size(); i++)
+			{
+				max_progress += boxes.at(i).get_volume();
+			}
+			DInterval current_progress = 0;
+			//double prev_volume = 0;
 		    while(boxes.size() > 0)
 			{
-				for(int i = 0; i < boxes.size(); i++)
+				#pragma omp parallel
 				{
-					if(prev_volume != boxes.at(i).get_volume().leftBound())
+					#pragma omp for
+					for(int i = 0; i < boxes.size(); i++)
 					{
-						prev_volume = boxes.at(i).get_volume().leftBound();
-						cout << "EVALUATING BOXES OF SIZE : " << prev_volume << " ---> " << gen.get_epsilon() << endl;
-					}
+						#pragma omp critical
+						{
+							cout << setprecision(2) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << "%\r";
+						}
 
-					vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
-					int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta());
-					if(result == 1)
-					{
-						sat_boxes.push_back(boxes.at(i));
-					}
-					if(result == 0)
-					{
-						vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
-						if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
+						int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta());
+						
+						#pragma omp critical
 						{
-							for(int j = 0; j < tmp_vector.size(); j++)
+							if(result == 1)
 							{
-								undec_boxes.push_back(tmp_vector.at(j));
+								sat_boxes.push_back(boxes.at(i));
+								current_progress += boxes.at(i).get_volume();
 							}
-						}
-						else
-						{
-							for(int j = 0; j < tmp_vector.size(); j++)
+							if(result == 0)
 							{
-								mixed_boxes.push_back(tmp_vector.at(j));
+								vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+								if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+								{
+									for(int j = 0; j < tmp_vector.size(); j++)
+									{
+										undec_boxes.push_back(tmp_vector.at(j));
+										current_progress += boxes.at(i).get_volume();
+									}
+								}
+								else
+								{
+									for(int j = 0; j < tmp_vector.size(); j++)
+									{
+										mixed_boxes.push_back(tmp_vector.at(j));
+									}
+								}
 							}
+							if(result == -1)
+							{
+								unsat_boxes.push_back(boxes.at(i));
+								current_progress += boxes.at(i).get_volume();
+							}
+
 						}
-					}
-					if(result == -1)
-					{
-						unsat_boxes.push_back(boxes.at(i));
 					}
 				}
-
 				boxes.clear();
 
 				for(int i = 0; i < mixed_boxes.size(); i++)
@@ -783,7 +806,7 @@ int main(int argc, char* argv[])
 			unsat_boxes.clear();
 		}
 		cout << "===============================================" << endl;
-		cout << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+		cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
 
 	}
 	catch(char const* e)
@@ -791,7 +814,20 @@ int main(int argc, char* argv[])
 		cerr << "Error parsing the file " << xml_file_path << ". Reason: " << e << endl;
 		return EXIT_FAILURE;
 	}
+	
 
+/*
+	for(int i = 0; i < 100; i++)
+	{
+		cout << "<point time=\"" << i << "\">" << endl;
+		cout << "	<interval>" << endl;
+		cout << "		<left>" << i * i - 0.01 * i << "</left>" << endl;
+		cout << "		<right>" << i * i + 0.01 * i << "</right>" << endl;
+		cout << "	</interval>" << endl;
+		cout << "</point>" << endl;
+	}
+*/
+	
 /*
     try
     {
@@ -894,15 +930,39 @@ int main(int argc, char* argv[])
 	{
 		cout << i << ") " << input.at(i) << endl;
 	}
+	*/
+	/*
+	vector<DInterval> dimensions;
+	cout << "Merging boxes:" << endl; 
+	dimensions.clear();
+	dimensions.push_back(DInterval(0, 4));
+	dimensions.push_back(DInterval(0, 4));
+	dimensions.push_back(DInterval(0, 4));
+	dimensions.push_back(DInterval(0, 4));
+	Box left(dimensions);
 
-	vector<Box> output = BoxFactory::merge_boxes(input);
+	dimensions.clear();
+	dimensions.push_back(DInterval(-4, 1));
+	dimensions.push_back(DInterval(0, 4));
+	dimensions.push_back(DInterval(0, 4));
+	dimensions.push_back(DInterval(0, 4));
+	Box right(dimensions);	
 
-	cout << "Merging:" << endl;
+	cout << "Input:" << endl;
+	cout << left << endl;
+	cout << right << endl;
 
-	for(int i = 0; i < output.size(); i++)
-	{
-		cout << i << ") " << output.at(i) << endl;
-	}
+	
+	cout << "Merging two boxes:" << endl;
+	Box merged_1 = BoxFactory::merge_two_boxes(left, right);
+	cout << merged_1 << endl;
+
+	cout << "Input:" << endl;
+	cout << left << endl;
+	cout << right << endl;
+
+	Box merged_2 = BoxFactory::merge_two_boxes(right, left);
+	cout << merged_2 << endl;
 	*/
 
 	/*

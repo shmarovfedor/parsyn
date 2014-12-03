@@ -1,0 +1,629 @@
+<?xml version="1.0"?>
+<data>
+	<declare>
+		<var type="var">
+			<name>v</name>
+			<domain>
+				<left>-1</left>
+				<right>10000</right>
+			</domain>
+		</var>
+		<var type="param">
+			<name>k</name>
+			<domain>
+				<left>0</left>
+				<right>4</right>
+			</domain>
+		</var>
+		<var type="time">
+			<name>t</name>
+		</var>
+	</declare>
+	<odes>
+		<ode>(= d/dt[v] (* k t))</ode>
+	</odes>
+	<series>
+		<point time="0">
+				<interval>
+						<left>-0.0001</left>
+						<right>0.0001</right>
+				</interval>
+		</point>
+		<point time="1">
+		        <interval>
+		                <left>0.99</left>
+		                <right>1.01</right>
+		        </interval>
+		</point>
+		<point time="2">
+		        <interval>
+		                <left>3.98</left>
+		                <right>4.02</right>
+		        </interval>
+		</point>
+		<point time="3">
+		        <interval>
+		                <left>8.97</left>
+		                <right>9.03</right>
+		        </interval>
+		</point>
+		<point time="4">
+		        <interval>
+		                <left>15.96</left>
+		                <right>16.04</right>
+		        </interval>
+		</point>
+		<point time="5">
+		        <interval>
+		                <left>24.95</left>
+		                <right>25.05</right>
+		        </interval>
+		</point>
+		<point time="6">
+		        <interval>
+		                <left>35.94</left>
+		                <right>36.06</right>
+		        </interval>
+		</point>
+		<point time="7">
+		        <interval>
+		                <left>48.93</left>
+		                <right>49.07</right>
+		        </interval>
+		</point>
+		<point time="8">
+		        <interval>
+		                <left>63.92</left>
+		                <right>64.08</right>
+		        </interval>
+		</point>
+		<point time="9">
+		        <interval>
+		                <left>80.91</left>
+		                <right>81.09</right>
+		        </interval>
+		</point>
+		<point time="10">
+		        <interval>
+		                <left>99.9</left>
+		                <right>100.1</right>
+		        </interval>
+		</point>
+		<point time="11">
+		        <interval>
+		                <left>120.89</left>
+		                <right>121.11</right>
+		        </interval>
+		</point>
+		<point time="12">
+		        <interval>
+		                <left>143.88</left>
+		                <right>144.12</right>
+		        </interval>
+		</point>
+		<point time="13">
+		        <interval>
+		                <left>168.87</left>
+		                <right>169.13</right>
+		        </interval>
+		</point>
+		<point time="14">
+		        <interval>
+		                <left>195.86</left>
+		                <right>196.14</right>
+		        </interval>
+		</point>
+		<point time="15">
+		        <interval>
+		                <left>224.85</left>
+		                <right>225.15</right>
+		        </interval>
+		</point>
+		<point time="16">
+		        <interval>
+		                <left>255.84</left>
+		                <right>256.16</right>
+		        </interval>
+		</point>
+		<point time="17">
+		        <interval>
+		                <left>288.83</left>
+		                <right>289.17</right>
+		        </interval>
+		</point>
+		<point time="18">
+		        <interval>
+		                <left>323.82</left>
+		                <right>324.18</right>
+		        </interval>
+		</point>
+		<point time="19">
+		        <interval>
+		                <left>360.81</left>
+		                <right>361.19</right>
+		        </interval>
+		</point>
+		<point time="20">
+		        <interval>
+		                <left>399.8</left>
+		                <right>400.2</right>
+		        </interval>
+		</point>
+		<point time="21">
+		        <interval>
+		                <left>440.79</left>
+		                <right>441.21</right>
+		        </interval>
+		</point>
+		<point time="22">
+		        <interval>
+		                <left>483.78</left>
+		                <right>484.22</right>
+		        </interval>
+		</point>
+		<point time="23">
+		        <interval>
+		                <left>528.77</left>
+		                <right>529.23</right>
+		        </interval>
+		</point>
+		<point time="24">
+		        <interval>
+		                <left>575.76</left>
+		                <right>576.24</right>
+		        </interval>
+		</point>
+		<point time="25">
+		        <interval>
+		                <left>624.75</left>
+		                <right>625.25</right>
+		        </interval>
+		</point>
+		<point time="26">
+		        <interval>
+		                <left>675.74</left>
+		                <right>676.26</right>
+		        </interval>
+		</point>
+		<point time="27">
+		        <interval>
+		                <left>728.73</left>
+		                <right>729.27</right>
+		        </interval>
+		</point>
+		<point time="28">
+		        <interval>
+		                <left>783.72</left>
+		                <right>784.28</right>
+		        </interval>
+		</point>
+		<point time="29">
+		        <interval>
+		                <left>840.71</left>
+		                <right>841.29</right>
+		        </interval>
+		</point>
+		<point time="30">
+		        <interval>
+		                <left>899.7</left>
+		                <right>900.3</right>
+		        </interval>
+		</point>
+		<point time="31">
+		        <interval>
+		                <left>960.69</left>
+		                <right>961.31</right>
+		        </interval>
+		</point>
+		<point time="32">
+		        <interval>
+		                <left>1023.68</left>
+		                <right>1024.32</right>
+		        </interval>
+		</point>
+		<point time="33">
+		        <interval>
+		                <left>1088.67</left>
+		                <right>1089.33</right>
+		        </interval>
+		</point>
+		<point time="34">
+		        <interval>
+		                <left>1155.66</left>
+		                <right>1156.34</right>
+		        </interval>
+		</point>
+		<point time="35">
+		        <interval>
+		                <left>1224.65</left>
+		                <right>1225.35</right>
+		        </interval>
+		</point>
+		<point time="36">
+		        <interval>
+		                <left>1295.64</left>
+		                <right>1296.36</right>
+		        </interval>
+		</point>
+		<point time="37">
+		        <interval>
+		                <left>1368.63</left>
+		                <right>1369.37</right>
+		        </interval>
+		</point>
+		<point time="38">
+		        <interval>
+		                <left>1443.62</left>
+		                <right>1444.38</right>
+		        </interval>
+		</point>
+		<point time="39">
+		        <interval>
+		                <left>1520.61</left>
+		                <right>1521.39</right>
+		        </interval>
+		</point>
+		<point time="40">
+		        <interval>
+		                <left>1599.6</left>
+		                <right>1600.4</right>
+		        </interval>
+		</point>
+		<point time="41">
+		        <interval>
+		                <left>1680.59</left>
+		                <right>1681.41</right>
+		        </interval>
+		</point>
+		<point time="42">
+		        <interval>
+		                <left>1763.58</left>
+		                <right>1764.42</right>
+		        </interval>
+		</point>
+		<point time="43">
+		        <interval>
+		                <left>1848.57</left>
+		                <right>1849.43</right>
+		        </interval>
+		</point>
+		<point time="44">
+		        <interval>
+		                <left>1935.56</left>
+		                <right>1936.44</right>
+		        </interval>
+		</point>
+		<point time="45">
+		        <interval>
+		                <left>2024.55</left>
+		                <right>2025.45</right>
+		        </interval>
+		</point>
+		<point time="46">
+		        <interval>
+		                <left>2115.54</left>
+		                <right>2116.46</right>
+		        </interval>
+		</point>
+		<point time="47">
+		        <interval>
+		                <left>2208.53</left>
+		                <right>2209.47</right>
+		        </interval>
+		</point>
+		<point time="48">
+		        <interval>
+		                <left>2303.52</left>
+		                <right>2304.48</right>
+		        </interval>
+		</point>
+		<point time="49">
+		        <interval>
+		                <left>2400.51</left>
+		                <right>2401.49</right>
+		        </interval>
+		</point>
+		<point time="50">
+		        <interval>
+		                <left>2499.5</left>
+		                <right>2500.5</right>
+		        </interval>
+		</point>
+		<point time="51">
+		        <interval>
+		                <left>2600.49</left>
+		                <right>2601.51</right>
+		        </interval>
+		</point>
+		<point time="52">
+		        <interval>
+		                <left>2703.48</left>
+		                <right>2704.52</right>
+		        </interval>
+		</point>
+		<point time="53">
+		        <interval>
+		                <left>2808.47</left>
+		                <right>2809.53</right>
+		        </interval>
+		</point>
+		<point time="54">
+		        <interval>
+		                <left>2915.46</left>
+		                <right>2916.54</right>
+		        </interval>
+		</point>
+		<point time="55">
+		        <interval>
+		                <left>3024.45</left>
+		                <right>3025.55</right>
+		        </interval>
+		</point>
+		<point time="56">
+		        <interval>
+		                <left>3135.44</left>
+		                <right>3136.56</right>
+		        </interval>
+		</point>
+		<point time="57">
+		        <interval>
+		                <left>3248.43</left>
+		                <right>3249.57</right>
+		        </interval>
+		</point>
+		<point time="58">
+		        <interval>
+		                <left>3363.42</left>
+		                <right>3364.58</right>
+		        </interval>
+		</point>
+		<point time="59">
+		        <interval>
+		                <left>3480.41</left>
+		                <right>3481.59</right>
+		        </interval>
+		</point>
+		<point time="60">
+		        <interval>
+		                <left>3599.4</left>
+		                <right>3600.6</right>
+		        </interval>
+		</point>
+		<point time="61">
+		        <interval>
+		                <left>3720.39</left>
+		                <right>3721.61</right>
+		        </interval>
+		</point>
+		<point time="62">
+		        <interval>
+		                <left>3843.38</left>
+		                <right>3844.62</right>
+		        </interval>
+		</point>
+		<point time="63">
+		        <interval>
+		                <left>3968.37</left>
+		                <right>3969.63</right>
+		        </interval>
+		</point>
+		<point time="64">
+		        <interval>
+		                <left>4095.36</left>
+		                <right>4096.64</right>
+		        </interval>
+		</point>
+		<point time="65">
+		        <interval>
+		                <left>4224.35</left>
+		                <right>4225.65</right>
+		        </interval>
+		</point>
+		<point time="66">
+		        <interval>
+		                <left>4355.34</left>
+		                <right>4356.66</right>
+		        </interval>
+		</point>
+		<point time="67">
+		        <interval>
+		                <left>4488.33</left>
+		                <right>4489.67</right>
+		        </interval>
+		</point>
+		<point time="68">
+		        <interval>
+		                <left>4623.32</left>
+		                <right>4624.68</right>
+		        </interval>
+		</point>
+		<point time="69">
+		        <interval>
+		                <left>4760.31</left>
+		                <right>4761.69</right>
+		        </interval>
+		</point>
+		<point time="70">
+		        <interval>
+		                <left>4899.3</left>
+		                <right>4900.7</right>
+		        </interval>
+		</point>
+		<point time="71">
+		        <interval>
+		                <left>5040.29</left>
+		                <right>5041.71</right>
+		        </interval>
+		</point>
+		<point time="72">
+		        <interval>
+		                <left>5183.28</left>
+		                <right>5184.72</right>
+		        </interval>
+		</point>
+		<point time="73">
+		        <interval>
+		                <left>5328.27</left>
+		                <right>5329.73</right>
+		        </interval>
+		</point>
+		<point time="74">
+		        <interval>
+		                <left>5475.26</left>
+		                <right>5476.74</right>
+		        </interval>
+		</point>
+		<point time="75">
+		        <interval>
+		                <left>5624.25</left>
+		                <right>5625.75</right>
+		        </interval>
+		</point>
+		<point time="76">
+		        <interval>
+		                <left>5775.24</left>
+		                <right>5776.76</right>
+		        </interval>
+		</point>
+		<point time="77">
+		        <interval>
+		                <left>5928.23</left>
+		                <right>5929.77</right>
+		        </interval>
+		</point>
+		<point time="78">
+		        <interval>
+		                <left>6083.22</left>
+		                <right>6084.78</right>
+		        </interval>
+		</point>
+		<point time="79">
+		        <interval>
+		                <left>6240.21</left>
+		                <right>6241.79</right>
+		        </interval>
+		</point>
+		<point time="80">
+		        <interval>
+		                <left>6399.2</left>
+		                <right>6400.8</right>
+		        </interval>
+		</point>
+		<point time="81">
+		        <interval>
+		                <left>6560.19</left>
+		                <right>6561.81</right>
+		        </interval>
+		</point>
+		<point time="82">
+		        <interval>
+		                <left>6723.18</left>
+		                <right>6724.82</right>
+		        </interval>
+		</point>
+		<point time="83">
+		        <interval>
+		                <left>6888.17</left>
+		                <right>6889.83</right>
+		        </interval>
+		</point>
+		<point time="84">
+		        <interval>
+		                <left>7055.16</left>
+		                <right>7056.84</right>
+		        </interval>
+		</point>
+		<point time="85">
+		        <interval>
+		                <left>7224.15</left>
+		                <right>7225.85</right>
+		        </interval>
+		</point>
+		<point time="86">
+		        <interval>
+		                <left>7395.14</left>
+		                <right>7396.86</right>
+		        </interval>
+		</point>
+		<point time="87">
+		        <interval>
+		                <left>7568.13</left>
+		                <right>7569.87</right>
+		        </interval>
+		</point>
+		<point time="88">
+		        <interval>
+		                <left>7743.12</left>
+		                <right>7744.88</right>
+		        </interval>
+		</point>
+		<point time="89">
+		        <interval>
+		                <left>7920.11</left>
+		                <right>7921.89</right>
+		        </interval>
+		</point>
+		<point time="90">
+		        <interval>
+		                <left>8099.1</left>
+		                <right>8100.9</right>
+		        </interval>
+		</point>
+		<point time="91">
+		        <interval>
+		                <left>8280.09</left>
+		                <right>8281.91</right>
+		        </interval>
+		</point>
+		<point time="92">
+		        <interval>
+		                <left>8463.08</left>
+		                <right>8464.92</right>
+		        </interval>
+		</point>
+		<point time="93">
+		        <interval>
+		                <left>8648.07</left>
+		                <right>8649.93</right>
+		        </interval>
+		</point>
+		<point time="94">
+		        <interval>
+		                <left>8835.06</left>
+		                <right>8836.94</right>
+		        </interval>
+		</point>
+		<point time="95">
+		        <interval>
+		                <left>9024.05</left>
+		                <right>9025.95</right>
+		        </interval>
+		</point>
+		<point time="96">
+		        <interval>
+		                <left>9215.04</left>
+		                <right>9216.96</right>
+		        </interval>
+		</point>
+		<point time="97">
+		        <interval>
+		                <left>9408.03</left>
+		                <right>9409.97</right>
+		        </interval>
+		</point>
+		<point time="98">
+		        <interval>
+		                <left>9603.02</left>
+		                <right>9604.98</right>
+		        </interval>
+		</point>
+		<point time="99">
+		        <interval>
+		                <left>9800.01</left>
+		                <right>9801.99</right>
+		        </interval>
+		</point>
+	</series>
+	<delta>0.000001</delta>
+	<epsilon>0.000001</epsilon>
+</data>

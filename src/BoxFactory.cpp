@@ -114,7 +114,27 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 			return Box();
 		}
 	}
+
+	//checking for the inclusion
+	/*
+	Box inter = two_boxes_intersection(left, right);
+	if(inter.get_dimension_size() == 0)
+	{
+		return Box();
+	}
 	
+	if(inter.get_volume() == left.get_volume())
+	{
+		return right;
+	}
+
+	if(inter.get_volume() == right.get_volume())
+	{
+		return left;
+	}
+	*/
+	
+	//in this case boxes overlap
 	if(left.get_dimension(not_eq_index).rightBound() == right.get_dimension(not_eq_index).leftBound())
 	{
 		vector<DInterval> dimensions = left.get_dimensions();

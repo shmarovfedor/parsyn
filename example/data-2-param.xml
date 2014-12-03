@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<data>
+	<declare>
+		<var type="var">
+			<name>v</name>
+			<domain>
+				<left>-1</left>
+				<right>1000</right>
+			</domain>
+		</var>
+		<var type="param">
+			<name>k</name>
+			<domain>
+				<left>1</left>
+				<right>2</right>
+			</domain>
+		</var>
+		<var type="param">
+			<name>l</name>
+			<domain>
+				<left>1</left>
+				<right>2</right>
+			</domain>
+		</var>
+		<var type="time">
+			<name>t</name>
+		</var>
+	</declare>
+	<odes>
+		<ode>(= d/dt[v] (* (* k l) t))</ode>
+	</odes>
+	<series>
+		<point time="0">
+			<interval>
+				<left>-0.0001</left>
+				<right>0.0001</right>
+			</interval>
+		</point>
+		<point time="1">
+			<interval>
+				<left>0</left>
+				<right>2</right>
+			</interval>
+		</point>
+		<point time="2">
+			<interval>
+				<left>3</left>
+				<right>5</right>
+			</interval>
+		</point>
+		<point time="3">
+			<interval>
+				<left>8</left>
+				<right>10</right>
+			</interval>
+		</point>
+		<point time="4">
+			<interval>
+				<left>15</left>
+				<right>17</right>
+			</interval>
+		</point>
+		<point time="5">
+			<interval>
+				<left>24</left>
+				<right>26</right>
+			</interval>
+		</point>
+		<point time="6">
+			<interval>
+				<left>35</left>
+				<right>37</right>
+			</interval>
+		</point>
+		<point time="7">
+			<interval>
+				<left>48</left>
+				<right>50</right>
+			</interval>
+		</point>
+		<point time="8">
+			<interval>
+				<left>63</left>
+				<right>65</right>
+			</interval>
+		</point>
+		<point time="9">
+			<interval>
+				<left>80</left>
+				<right>82</right>
+			</interval>
+		</point>
+		<point time="10">
+			<interval>
+				<left>99</left>
+				<right>101</right>
+			</interval>
+		</point>
+		<point time="11">
+			<interval>
+				<left>120</left>
+				<right>122</right>
+			</interval>
+		</point>
+		<point time="12">
+			<interval>
+				<left>143</left>
+				<right>145</right>
+			</interval>
+		</point>
+		<point time="13">
+			<interval>
+				<left>168</left>
+				<right>170</right>
+			</interval>
+		</point>
+		<point time="14">
+			<interval>
+				<left>195</left>
+				<right>197</right>
+			</interval>
+		</point>
+		<point time="15">
+			<interval>
+				<left>224</left>
+				<right>226</right>
+			</interval>
+		</point>
+	</series>
+	<delta>0.000001</delta>
+	<epsilon>0.00001</epsilon>
+</data>

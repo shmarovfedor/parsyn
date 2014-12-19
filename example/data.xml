@@ -2,7 +2,7 @@
 <data>
 	<declare>
 		<var type="var">
-			<name>v</name>
+			<name>v_v</name>
 			<domain>
 				<left>-1</left>
 				<right>10000</right>
@@ -20,7 +20,7 @@
 		</var>
 	</declare>
 	<odes>
-		<ode>(= d/dt[v] (* k t))</ode>
+		<ode>(= d/dt[v_v] (* k t))</ode>
 	</odes>
 	<series>
 		<point time="0">

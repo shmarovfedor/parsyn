@@ -2,41 +2,49 @@
 <data>
 	<declare>
 		<var type="var">
-			<name>F</name>
+			<name>F_F</name>
 			<domain>
-				<left>-1</left>
+				<left>0.001</left>
 				<right>100</right>
 			</domain>
 		</var>
 		<var type="var">
 			<name>M</name>
 			<domain>
-				<left>-1</left>
+				<left>0.001</left>
 				<right>100</right>
 			</domain>
 		</var>
 		<var type="var">
 			<name>K</name>
 			<domain>
-				<left>-1</left>
+				<left>0</left>
 				<right>100</right>
 			</domain>
 		</var>
 		<var type="param">
-			<name>k</name>
+			<name>k_k</name>
 			<domain>
 				<left>8.22</left>
 				<right>13.7</right>
 			</domain>
 		</var>
+		<!--var type="param">
+			<name>b</name>
+			<domain>
+				<left>0.05</left>
+				<right>0.08</right>
+			</domain>
+		</var-->
 		<var type="time">
 			<name>tau</name>
 		</var>
 	</declare>
 	<odes>
-		<ode>(= d/dt[F] (* F (- (/ -0.013 (+ 1 K)) (* (/ 1 7777.8) (+ (/ (+ 772.3 (* k 30.4)) (+ F M)) k)))))</ode>
-		<ode>(= d/dt[M] (* (/ (- 0 M) 1400) (+ (/ (+ 772.3 (* k 30.4)) (+ F M)) k)))</ode>
-		<ode>(= d/dt[K] (- (/ (* (* 0.9 0.013) F) (+ 1 K)) 0.075))</ode>
+		<ode>(= d/dt[F_F] (* F_F (- (/ -0.013 (+ 1 K)) (* (/ 1 7777.8) (+ (/ (+ 772.3 (* k_k 30.4)) (+ F_F M)) k_k)))))</ode>
+		<ode>(= d/dt[M] (* (/ (- 0 M) 1400) (+ (/ (+ 772.3 (* k_k 30.4)) (+ F_F M)) k_k)))</ode>
+		<ode>(= d/dt[K] (- (/ (* (* 0.9 0.013) F_F) (+ 1 K)) 0.075))</ode>
+		<!--ode>(= d/dt[K] (- (/ (* (* 0.9 0.013) F) (+ 1 K)) b))</ode-->
 	</odes>
 	<series>
 		<point time="0">
@@ -405,5 +413,5 @@
 			</point>
 	</series>
 	<delta>0.0001</delta>
-	<epsilon>0.0001</epsilon>
+	<epsilon>0.00001</epsilon>
 </data>

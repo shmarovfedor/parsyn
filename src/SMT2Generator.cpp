@@ -145,20 +145,20 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	for(int i = 0; i < this->var.size(); i++)
 	{
 		smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
-		smt2_string << "(declare-fun " << this->var.at(i) << "_0 () Real)" << endl;
-		smt2_string << "(declare-fun " << this->var.at(i) << "_" << index << " () Real)" << endl;
+		smt2_string << "(declare-fun " << this->var.at(i) << "_0_0 () Real)" << endl;
+		smt2_string << "(declare-fun " << this->var.at(i) << "_0_t () Real)" << endl;
 	}
 
 	for(int i = 0; i < this->param.size(); i++)
 	{
 		smt2_string << "(declare-fun " << this->param.at(i) << " () Real)" << endl;
-		smt2_string << "(declare-fun " << this->param.at(i) << "_0 () Real)" << endl;
-		smt2_string << "(declare-fun " << this->param.at(i) << "_" << index << " () Real)" << endl;
+		smt2_string << "(declare-fun " << this->param.at(i) << "_0_0 () Real)" << endl;
+		smt2_string << "(declare-fun " << this->param.at(i) << "_0_t () Real)" << endl;
 	}
 
 	smt2_string << "(declare-fun " << this->time_var << " () Real)" << endl;
-	smt2_string << "(declare-fun " << this->time_var << "_0 () Real)" << endl;
-	smt2_string << "(declare-fun " << this->time_var << "_" << index << " () Real)" << endl;
+	smt2_string << "(declare-fun " << this->time_var << "_0_0 () Real)" << endl;
+	smt2_string << "(declare-fun " << this->time_var << "_0_t () Real)" << endl;
 	smt2_string << "(declare-fun time_0 () Real)" << endl;
 	smt2_string << "(define-ode flow_1 (";
 	for(int i = 0; i < this->odes.size(); i++)
@@ -169,71 +169,71 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << "(assert (>= " << this->var.at(i) << "_0 " << var_domain.get_dimension(i).leftBound() << "))" << endl;
-		smt2_string << "(assert (<= " << this->var.at(i) << "_0 " << var_domain.get_dimension(i).rightBound() << "))" << endl;
-		smt2_string << "(assert (>= " << this->var.at(i) << "_" << index << " " << var_domain.get_dimension(i).leftBound() << "))" << endl;
-		smt2_string << "(assert (<= " << this->var.at(i) << "_" << index << " " << var_domain.get_dimension(i).rightBound() << "))" << endl;
+		smt2_string << "(assert (>= " << this->var.at(i) << "_0_0 " << var_domain.get_dimension(i).leftBound() << "))" << endl;
+		smt2_string << "(assert (<= " << this->var.at(i) << "_0_0 " << var_domain.get_dimension(i).rightBound() << "))" << endl;
+		smt2_string << "(assert (>= " << this->var.at(i) << "_0_t " << var_domain.get_dimension(i).leftBound() << "))" << endl;
+		smt2_string << "(assert (<= " << this->var.at(i) << "_0_t " << var_domain.get_dimension(i).rightBound() << "))" << endl;
 	}
 
 	for(int i = 0; i < this->param.size(); i++)
 	{
-		smt2_string << "(assert (>= " << this->param.at(i) << "_0 " << box.get_dimension(i).leftBound() << "))" << endl;
-		smt2_string << "(assert (<= " << this->param.at(i) << "_0 " << box.get_dimension(i).rightBound() << "))" << endl;
-		smt2_string << "(assert (>= " << this->param.at(i) << "_" << index << " " << box.get_dimension(i).leftBound() << "))" << endl;
-		smt2_string << "(assert (<= " << this->param.at(i) << "_" << index << " " << box.get_dimension(i).rightBound() << "))" << endl;
+		smt2_string << "(assert (>= " << this->param.at(i) << "_0_0 " << box.get_dimension(i).leftBound() << "))" << endl;
+		smt2_string << "(assert (<= " << this->param.at(i) << "_0_0 " << box.get_dimension(i).rightBound() << "))" << endl;
+		smt2_string << "(assert (>= " << this->param.at(i) << "_0_t " << box.get_dimension(i).leftBound() << "))" << endl;
+		smt2_string << "(assert (<= " << this->param.at(i) << "_0_t " << box.get_dimension(i).rightBound() << "))" << endl;
 	}
 
 	smt2_string << "(assert (>= time_0 " << time_value.at(0) << "))" << endl;
 	smt2_string << "(assert (<= time_0 " << time_value.at(index) << "))" << endl;
-	smt2_string << "(assert (>= " << this->time_var << "_0 " << time_value.at(0) << "))" << endl;
-	smt2_string << "(assert (<= " << this->time_var << "_0 " << time_value.at(index) << "))" << endl;
-	smt2_string << "(assert (>= " << this->time_var << "_" << index << " " << time_value.at(0) << "))" << endl;
-	smt2_string << "(assert (<= " << this->time_var << "_" << index << " " << time_value.at(index) << "))" << endl;
+	smt2_string << "(assert (>= " << this->time_var << "_0_0 " << time_value.at(0) << "))" << endl;
+	smt2_string << "(assert (<= " << this->time_var << "_0_0 " << time_value.at(index) << "))" << endl;
+	smt2_string << "(assert (>= " << this->time_var << "_0_t " << time_value.at(0) << "))" << endl;
+	smt2_string << "(assert (<= " << this->time_var << "_0_t " << time_value.at(index) << "))" << endl;
 
 	smt2_string << "(assert " << endl;
 	smt2_string << "(and " << endl;
 	smt2_string << "(= [";
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << this->var.at(i) << "_" << index << " ";
+		smt2_string << this->var.at(i) << "_0_t ";
 	}
 	for(int i = 0; i < this->param.size(); i++)
 	{
-		smt2_string << this->param.at(i) << "_" << index << " ";
+		smt2_string << this->param.at(i) << "_0_t ";
 	}
-	smt2_string << this->time_var << "_" << index << "] (integral 0. time_0 [";
+	smt2_string << this->time_var << "_0_t] (integral 0. time_0 [";
 
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << this->var.at(i) << "_0 ";
+		smt2_string << this->var.at(i) << "_0_0 ";
 	}
 	for(int i = 0; i < this->param.size(); i++)
 	{
-		smt2_string << this->param.at(i) << "_0 ";
+		smt2_string << this->param.at(i) << "_0_0 ";
 	}
-	smt2_string << this->time_var << "_0] flow_1))" << endl;
+	smt2_string << this->time_var << "_0_0] flow_1))" << endl;
 
 	for(int i = 0; i < this->param.size(); i++)
 	{
-		smt2_string << "(= " << this->param.at(i) << "_0 " << this->param.at(i) << "_" << index << ")" << endl;
+		smt2_string << "(= " << this->param.at(i) << "_0_0 " << this->param.at(i) << "_0_t)" << endl;
 	}
 
 	//initial condition for both problems
-	smt2_string << "(= " << this->time_var << "_0 " << this->time_value.at(0) << ")" << endl;
+	smt2_string << "(= " << this->time_var << "_0_0 " << this->time_value.at(0) << ")" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << "(>= " << this->var.at(i) << "_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
-		smt2_string << "(<= " << this->var.at(i) << "_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
+		smt2_string << "(>= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
 	}
 
 	smt2_c_string << smt2_string.str();
 
 	//conjunction for the *.smt2 file
-	smt2_string << "(= " << this->time_var << "_" << index << " " << this->time_value.at(index) << ")" << endl;
+	smt2_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << "(>= " << this->var.at(i) << "_" << index << " " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
-		smt2_string << "(<= " << this->var.at(i) << "_" << index << " " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
+		smt2_string << "(>= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
 	}
 	smt2_string << ")" << endl;
 	smt2_string << ")" << endl;
@@ -241,12 +241,12 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(exit)" << endl;
 
 	//disjunction for the *_C.smt2 file
-	smt2_c_string << "(= " << this->time_var << "_" << index << " " << this->time_value.at(index) << ")" << endl;
+	smt2_c_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
 	smt2_c_string << "(or" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_c_string << "(< " << this->var.at(i) << "_" << index << " " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
-		smt2_c_string << "(> " << this->var.at(i) << "_" << index << " " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
+		smt2_c_string << "(< " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
+		smt2_c_string << "(> " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
 	}
 	smt2_c_string << ")" << endl;
 	smt2_c_string << ")" << endl;

@@ -104,7 +104,7 @@ void SMT2Generator::parse_xml()
 			if(point_it->child("right").empty()) throw string("right bound in one of dimensions for t=" + time_value_str + " is not specified").c_str();
 			box_dim.push_back(DInterval(point_it->child("left").text().as_double(), point_it->child("right").text().as_double()));
 		}
-		if(box_dim.size() != this->var.size()) throw string("check number of dimensions at t=" + time_value_str).c_str();
+		//if(box_dim.size() != this->var.size()) throw string("check number of dimensions at t=" + time_value_str).c_str();
 		this->time_value.push_back(it->attribute("time").as_double());
 		this->time_box.push_back(Box(box_dim));
 	}
@@ -218,19 +218,22 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 		smt2_string << "(= " << this->param.at(i) << "_0_0 " << this->param.at(i) << "_0_t)" << endl;
 	}
 
+	//cout << "Before initial condition" << endl;
 	//initial condition for both problems
 	smt2_string << "(= " << this->time_var << "_0_0 " << this->time_value.at(0) << ")" << endl;
-	for(int i = 0; i < this->var.size(); i++)
+	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
 	{
 		smt2_string << "(>= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
 		smt2_string << "(<= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
 	}
 
+	//cout << "After initial condition" << endl;
+
 	smt2_c_string << smt2_string.str();
 
 	//conjunction for the *.smt2 file
 	smt2_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
-	for(int i = 0; i < this->var.size(); i++)
+	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
 	{
 		smt2_string << "(>= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
 		smt2_string << "(<= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
@@ -243,7 +246,7 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	//disjunction for the *_C.smt2 file
 	smt2_c_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
 	smt2_c_string << "(or" << endl;
-	for(int i = 0; i < this->var.size(); i++)
+	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
 	{
 		smt2_c_string << "(< " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
 		smt2_c_string << "(> " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;

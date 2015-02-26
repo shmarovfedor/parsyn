@@ -24,6 +24,7 @@ using namespace std;
 using namespace capd;
 using namespace pugi;
 
+string dreal_bin = "dReal";
 
 ostream& operator<<(ostream& strm, Box& box)
 {
@@ -39,10 +40,23 @@ ostream& operator<<(ostream& strm, Box& box)
 int main(int argc, char* argv[])
 {
 
-	if(argc != 2)
+	if(argc < 2)
 	{
 		cout << "There must be exactly one input file" << endl;
 		return EXIT_FAILURE;
+	}
+	else
+	{
+		for(int i = 1; i < argc - 1; i++)
+		{
+			if(strcmp(argv[i], "-l") == 0)
+			{
+
+				ostringstream os;
+				os << argv[i + 1] << "dReal";
+				dreal_bin = os.str();
+			}
+		}
 	}
 
 	int num_threads = 1;
@@ -59,7 +73,7 @@ int main(int argc, char* argv[])
     	}
  	#endif
 
-	string xml_file_path = argv[1];
+	string xml_file_path = argv[argc - 1];
 
     try
     {
@@ -71,8 +85,29 @@ int main(int argc, char* argv[])
 
 	    vector<Box> boxes;
 	    boxes.push_back(gen.get_param_domain());
+
 	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 	    {
+	    	//additional partitioning
+		    while(boxes.size() < num_threads)
+		    {
+		    	Box tmp_box = boxes.front();
+		    	boxes.erase(boxes.begin());
+		    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+		    	if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+				{
+					break;
+				}
+				else
+				{
+					for(int i = 0; i < tmp_vector.size(); i++)
+					{
+						boxes.push_back(tmp_vector.at(i));
+					}
+				}
+
+		    }
+		    
 			cout << "=====================TIME POINT " << (j + 1) << " :===================" << endl;
 			DInterval max_progress = 0;
 			for(int i = 0; i < boxes.size(); i++)
@@ -94,7 +129,7 @@ int main(int argc, char* argv[])
 						}
 
 						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
-						int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta());
+						int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta(), dreal_bin);
 						
 						#pragma omp critical
 						{

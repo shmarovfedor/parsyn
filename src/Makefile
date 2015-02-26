@@ -8,7 +8,7 @@ CAPDBINDIR =/home/b2049657/capd-4/bin/
 CAPDFLAGS = `${CAPDBINDIR}capd-config --cflags`
 CAPDLIBS = `${CAPDBINDIR}capd-config --libs`
 CXXFLAGS += ${CAPDFLAGS} -fopenmp -O2 -Wall -std=c++11
-LDFLAGS = -fopenmp
+LDFLAGS = -fopenmp -static 
 # directory where object and dependancy files will be created
 OBJDIR = .obj/
 #============ the following should not be changed =========

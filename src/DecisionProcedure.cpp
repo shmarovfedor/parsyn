@@ -22,13 +22,13 @@ using namespace capd;
 //
 // @param DRH filename, precision used by dReach for verifying
 // the model
-bool DecisionProcedure::call_dreal(string smt2_filename_base, double delta)
+bool DecisionProcedure::call_dreal(string smt2_filename_base, double delta, string dreal_bin)
 {
 	stringstream s;
 	
-	s << "dReal --precision=" << delta << " " << smt2_filename_base << ".smt2 > " << smt2_filename_base << ".output";
-	//s << "dReach -k " << opt["depth"] << " " << drh_filename_base << ".drh -precision=" << precision << endl;
-
+	s << dreal_bin <<" --precision=" << delta << " " << smt2_filename_base << ".smt2 > " << smt2_filename_base << ".output";
+	//s << "dReal --precision=" << delta << " " << smt2_filename_base << ".smt2 > " << smt2_filename_base << ".output";
+	
 	system(s.str().c_str());
 
 	s.str("");
@@ -69,13 +69,13 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, double delta)
 // both values where the indicator function takes both values
 //
 // @param box from the domain of random variables. 
-int DecisionProcedure::evaluate(vector<string> smt2_filename_base, double delta)
+int DecisionProcedure::evaluate(vector<string> smt2_filename_base, double delta, string dreal_bin)
 {
 	try
 	{
-		if(DecisionProcedure::call_dreal(smt2_filename_base.at(0), delta))
+		if(DecisionProcedure::call_dreal(smt2_filename_base.at(0), delta, dreal_bin))
 		{
-			if(DecisionProcedure::call_dreal(smt2_filename_base.at(1), delta))
+			if(DecisionProcedure::call_dreal(smt2_filename_base.at(1), delta, dreal_bin))
 			{
 				DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
 				DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));

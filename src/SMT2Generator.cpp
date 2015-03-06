@@ -128,7 +128,10 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 
 	stringstream s;
 
-	s << get_current_dir_name() << setprecision(16) << "/phi_" << index << "_";
+	char cur_dir[FILENAME_MAX];
+	getcwd(cur_dir, sizeof(cur_dir));
+
+	s << cur_dir << setprecision(16) << "/phi_" << index << "_";
 	for(int i = 0; i < box.get_dimension_size() - 1; i++)
 	{
 		s << box.get_dimension(i).leftBound() << "_" << box.get_dimension(i).rightBound() << "x";

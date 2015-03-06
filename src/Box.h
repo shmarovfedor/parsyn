@@ -65,5 +65,7 @@ class Box
 
 		int get_dimension_size();
 
+		friend ostream& operator<<(ostream&, Box&);
+
 }; 
 #endif  

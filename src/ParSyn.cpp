@@ -8,7 +8,9 @@
 #include<fstream>
 #include<math.h>
 #include<time.h>
-#include<omp.h>
+#ifdef _OPENMP
+	#include<omp.h>
+#endif
 #include<exception>
 #include<typeinfo>
 #include<unistd.h> 
@@ -25,55 +27,166 @@ using namespace capd;
 using namespace pugi;
 
 string dreal_bin = "dReal";
+int max_num_threads = 1;
+int num_threads = max_num_threads;
+string filename = "";
+string parsyn_version("1.0");
+string dreal_options = "";
+bool verbose = false;
 
-ostream& operator<<(ostream& strm, Box& box)
+void print_help()
 {
-	for(int i = 0; i < box.get_dimension_size() - 1; i++)
+	cout << endl;
+	cout << "Help message:" << endl;
+	cout << endl;
+	cout << "	Run ./ProbReach <options> <model-file.xml>" << endl;
+	cout << endl;
+	cout << "options:" << endl;
+	cout << "	-l <string> - full path to dReal binary (default dReal)" << endl;
+	cout << "	-t <int> - number of CPU cores (default " << max_num_threads << ") (max " << max_num_threads << ")" << endl;
+	cout << "	-h/--help - help message" << endl;
+	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
+	cout << endl;
+}
+
+void print_version()
+{
+	cout << "ParSyn " << parsyn_version << endl;
+}
+
+void parse_cmd(int argc, char* argv[])
+{
+	//no arguments are input
+	if(argc < 2)
 	{
-		strm << box.get_dimension(i) << "x";
+		print_help();
+		exit(EXIT_FAILURE);
 	}
-	strm << box.get_dimension(box.get_dimension_size() - 1);
-	
-	return strm;
+
+	//only one -h/--help or --version is provided
+	if(argc == 2)
+	{
+		if((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0))
+		{
+			print_help();
+			exit(EXIT_SUCCESS);
+		}
+		else if((strcmp(argv[1], "--version") == 0))
+		{
+			print_version();
+			exit(EXIT_SUCCESS);
+		}
+	}
+	// parsing --dreal options
+	int opt_end = argc;
+	stringstream s;
+	for(int i = 1; i < argc; i++)
+	{
+		//reached --dreal flag
+		if(strcmp(argv[i], "--dreal") == 0)
+		{
+			//indicating the end of ProbReach options
+			opt_end = i;
+			while(true)
+			{
+				//reached the end of command line
+				if(i == argc - 1) break;
+				//next arg after --dreal flag
+				i++;
+				s << argv[i] << " ";
+			}
+			//composing dReal options
+			dreal_options = s.str();
+		}
+
+	}
+	//parsing ProbReach options
+	cmatch matches;
+	for(int i = 1; i < opt_end; i++)
+	{
+		//extracting a file name
+		if(regex_match(argv[i], matches, regex("(.*/)*(.*).xml")))
+		{
+			filename = matches[0].str();
+		}
+		//help
+		else if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0))
+		{
+			print_help();
+		}
+		//dReal binary
+		else if(strcmp(argv[i], "-l") == 0)
+		{
+			i++;
+			ostringstream os;
+			os << argv[i] << "dReal";
+			dreal_bin = os.str();
+		}
+		//verbose
+		else if(strcmp(argv[i], "--verbose") == 0)
+		{
+			verbose = true;
+		}
+		//version
+		else if(strcmp(argv[i], "--version") == 0)
+		{
+			print_version();
+		}
+			//number of cores
+		else if(strcmp(argv[i], "-t") == 0)
+		{
+			i++;
+			istringstream is(argv[i]);
+			is >> num_threads;
+			if(num_threads <= max_num_threads)
+			{
+				if(num_threads > 0)
+				{
+					#ifdef _OPENMP
+						omp_set_num_threads(num_threads);
+					#endif
+				}
+				else
+				{
+					cerr << "Number of cores should be positive" << endl;
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				cerr << "Max number of cores available is " << max_num_threads << ". You specified " << num_threads << endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			cerr << "Unrecognized option: " << argv[i] << endl;
+			print_help();
+			exit(EXIT_FAILURE);
+		}
+	}
+	//case if filename is not specified
+	if(strcmp(filename.c_str(), "") == 0)
+	{
+		cerr << "input XML file is not specified" << endl;
+		print_help();
+		exit(EXIT_FAILURE);
+	}
 }
 
 int main(int argc, char* argv[])
 {
 
-	if(argc < 2)
-	{
-		cout << "There must be exactly one input file" << endl;
-		return EXIT_FAILURE;
-	}
-	else
-	{
-		for(int i = 1; i < argc - 1; i++)
-		{
-			if(strcmp(argv[i], "-l") == 0)
-			{
+	// setting max number of threads by default
+	#ifdef _OPENMP
+		max_num_threads = omp_get_max_threads();
+		num_threads = max_num_threads;
+		omp_set_num_threads(num_threads);
+	#endif
 
-				ostringstream os;
-				os << argv[i + 1] << "dReal";
-				dreal_bin = os.str();
-			}
-		}
-	}
+	parse_cmd(argc, argv);
 
-	int num_threads = 1;
-
-    #ifdef _OPENMP
-    	if(omp_get_max_threads() > 8)
-    	{ 
-    		num_threads = omp_get_max_threads() - 8;
-    		omp_set_num_threads(num_threads);
-    	}
-    	else
-    	{
-    		omp_set_num_threads(num_threads);
-    	}
- 	#endif
-
-	string xml_file_path = argv[argc - 1];
+	string xml_file_path = filename;
 
     try
     {

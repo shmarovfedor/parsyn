@@ -7,7 +7,9 @@
 #include<unistd.h> 
 #include<sys/types.h>
 #include<signal.h>
-#include<omp.h>
+#ifdef _OPENMP
+	#include<omp.h>
+#endif
 #include<regex>
 
 #include "DecisionProcedure.h"

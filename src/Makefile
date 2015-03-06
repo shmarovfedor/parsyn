@@ -1,19 +1,42 @@
+# obtaining OS kernel name
+OS := $(shell uname -s)
+
 # a list of all the programs in your project
 PROGS = ParSyn
+
 # a list of all your units to be linked with your programs (space separated)
 OTHERS = DecisionProcedure Box BoxFactory SMT2Generator pugixml
-# directory where capd scripts are (e.g. capd-config)
-CAPDBINDIR =/home/b2049657/capd-4/bin/
-# setting compiler and linker flags
+
+# obtaining capd flags
 CAPDFLAGS = `${CAPDBINDIR}capd-config --cflags`
 CAPDLIBS = `${CAPDBINDIR}capd-config --libs`
-CXXFLAGS += ${CAPDFLAGS} -fopenmp -O2 -Wall -std=c++11
-LDFLAGS = -fopenmp -static 
+
+# composing c++ flags
+CXXFLAGS += ${CAPDFLAGS} -O2 -Wall -std=c++11
+
+# in case if compiling with OpenMP
+ifeq (${WITHOMP},yes)
+	CXXFLAGS += -fopenmp
+	LDFLAGS += -fopenmp
+endif
+
+# in case if compiled on Linux
+ifeq (${OS},Linux)
+	LDFLAGS += -static
+endif
+# in case if compiled on Mac OS X
+ifeq (${OS},Darwin)
+	LDFLAGS += -static-libgcc -static-libstdc++
+endif
+# in cases if none of the above static option is not used
+
 # directory where object and dependancy files will be created
 OBJDIR = .obj/
+
 #============ the following should not be changed =========
 OTHERS_OBJ = ${OTHERS:%=${OBJDIR}%.o}
 OBJ_FILES = ${OTHERS_OBJ} ${PROGS:%=${OBJDIR}%.o}
+
 .PHONY: all
 all: ${PROGS}
 # rule to link executables
@@ -25,15 +48,14 @@ ${PROGS}: % : ${OBJDIR}%.o ${OTHERS_OBJ}
 ${OBJ_FILES}: ${OBJDIR}%.o : %.cpp
 	@mkdir -p ${OBJDIR}
 	${CXX} ${CXXFLAGS} -MT $@ -MD -MP -MF ${@:%=%.d} -c -o $@ $<
+
 # rule to clean all object files, dependencies and executables
 .PHONY: clean
 clean:
 	rm -f ${OBJDIR}*.o ${OBJDIR}*.o.d ../bin/${PROGS}
 
+.PHONY: install
 install:
 	mkdir -p ../bin
 	cp ${PROGS} ../bin
 	rm ${PROGS}
-
-test:
-	./../bin/${PROGS} ../example/bouncing-ball-settings.txt

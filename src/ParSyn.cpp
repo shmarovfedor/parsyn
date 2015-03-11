@@ -305,7 +305,6 @@ int main(int argc, char* argv[])
 				max_progress += boxes.at(i).get_volume();
 			}
 			DInterval current_progress = 0;
-			//double prev_volume = 0;
 		    while(boxes.size() > 0)
 			{
 				#pragma omp parallel
@@ -315,7 +314,7 @@ int main(int argc, char* argv[])
 					{
 						#pragma omp critical
 						{
-							cout << setprecision(2) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << "%\r";
+							cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
 						}
 
 						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
@@ -337,7 +336,7 @@ int main(int argc, char* argv[])
 									for(int j = 0; j < tmp_vector.size(); j++)
 									{
 										undec_boxes.push_back(tmp_vector.at(j));
-										current_progress += boxes.at(i).get_volume();
+										current_progress += tmp_vector.at(j).get_volume();
 									}
 								}
 								else
@@ -357,6 +356,7 @@ int main(int argc, char* argv[])
 						}
 					}
 				}
+				cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
 				boxes.clear();
 
 				for(int i = 0; i < mixed_boxes.size(); i++)

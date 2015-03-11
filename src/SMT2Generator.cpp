@@ -7,7 +7,9 @@
 #include<unistd.h> 
 #include<sys/types.h>
 #include<signal.h>
-#include<omp.h>
+#ifdef _OPENMP
+	#include<omp.h>
+#endif
 #include<regex>
 #include "pugixml.hpp"
 #include "SMT2Generator.h"
@@ -122,6 +124,196 @@ void SMT2Generator::parse_xml()
 	if(this->epsilon <= 0) throw "<epsilon> should be positive";
 }
 
+vector<string> SMT2Generator::generate_smt2(Box box)
+{
+	stringstream s;
+
+	char cur_dir[FILENAME_MAX];
+	getcwd(cur_dir, sizeof(cur_dir));
+
+	s << cur_dir << "/phi";
+	string smt2_filename = s.str();
+	s << "_C";
+	string smt2_c_filename = s.str();
+
+	stringstream smt2_string, smt2_c_string;
+
+	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
+	for(int i = 0; i < this->var.size(); i++)
+	{
+		smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
+		for(int j = 0; j < time_value.size(); j++)
+		{
+			smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_0 () Real)" << endl;
+			smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_t () Real)" << endl;
+		}
+	}
+
+	for(int i = 0; i < this->param.size(); i++)
+	{
+		smt2_string << "(declare-fun " << this->param.at(i) << " () Real)" << endl;
+		for(int j = 0; j < time_value.size(); j++)
+		{
+			smt2_string << "(declare-fun " << this->param.at(i) << "_" << j << "_0 () Real)" << endl;
+			smt2_string << "(declare-fun " << this->param.at(i) << "_" << j << "_t () Real)" << endl;
+		}
+	}
+
+	smt2_string << "(declare-fun " << this->time_var << " () Real)" << endl;
+	for(int j = 0; j < time_value.size(); j++)
+	{
+		smt2_string << "(declare-fun " << this->time_var << "_" << j << "_0 () Real)" << endl;
+		smt2_string << "(declare-fun " << this->time_var << "_" << j << "_t () Real)" << endl;
+		smt2_string << "(declare-fun time_" << j << " () Real)" << endl;
+	}
+
+	smt2_string << "(define-ode flow_1 (";
+	for(int i = 0; i < this->odes.size(); i++)
+	{
+		smt2_string << this->odes.at(i);
+	}
+	smt2_string << "))" << endl;
+
+	for(int j = 0; j < time_value.size(); j++)
+	{
+		for (int i = 0; i < this->var.size(); i++)
+		{
+			smt2_string << "(assert (>= " << this->var.at(i) << "_" << j << "_0 " << var_domain.get_dimension(i).leftBound() << "))" << endl;
+			smt2_string << "(assert (<= " << this->var.at(i) << "_" << j << "_0 " << var_domain.get_dimension(i).rightBound() << "))" << endl;
+			smt2_string << "(assert (>= " << this->var.at(i) << "_" << j << "_t " << var_domain.get_dimension(i).leftBound() << "))" << endl;
+			smt2_string << "(assert (<= " << this->var.at(i) << "_" << j << "_t " << var_domain.get_dimension(i).rightBound() << "))" << endl;
+		}
+	}
+
+	for(int j = 0; j < time_value.size(); j++)
+	{
+		for (int i = 0; i < this->param.size(); i++)
+		{
+			smt2_string << "(assert (>= " << this->param.at(i) << "_" << j << "_0 " << box.get_dimension(i).leftBound() << "))" << endl;
+			smt2_string << "(assert (<= " << this->param.at(i) << "_" << j << "_0 " << box.get_dimension(i).rightBound() << "))" << endl;
+			smt2_string << "(assert (>= " << this->param.at(i) << "_" << j << "_t " << box.get_dimension(i).leftBound() << "))" << endl;
+			smt2_string << "(assert (<= " << this->param.at(i) << "_" << j << "_t " << box.get_dimension(i).rightBound() << "))" << endl;
+		}
+
+		smt2_string << "(assert (>= time_" << j << " " << time_value.at(0) << "))" << endl;
+		smt2_string << "(assert (<= time_" << j << " " << time_value.at(time_value.size() - 1) << "))" << endl;
+		smt2_string << "(assert (>= " << this->time_var << "_" << j << "_0 " << time_value.at(0) << "))" << endl;
+		smt2_string << "(assert (<= " << this->time_var << "_" << j << "_0 " << time_value.at(time_value.size() - 1) << "))" << endl;
+		smt2_string << "(assert (>= " << this->time_var << "_" << j << "_t " << time_value.at(0) << "))" << endl;
+		smt2_string << "(assert (<= " << this->time_var << "_" << j << "_t " << time_value.at(time_value.size() - 1) << "))" << endl;
+	}
+
+	smt2_string << "(assert " << endl;
+	smt2_string << "(and " << endl;
+
+	// solvers for ODE system
+	for(int j = 0; j < time_value.size(); j++)
+	{
+		smt2_string << "(= [";
+		for (int i = 0; i < this->var.size(); i++)
+		{
+			smt2_string << this->var.at(i) << "_" << j << "_t ";
+		}
+		for (int i = 0; i < this->param.size(); i++)
+		{
+			smt2_string << this->param.at(i) << "_" << j << "_t ";
+		}
+		smt2_string << this->time_var << "_" << j << "_t] (integral 0. time_" << j << " [";
+
+		for (int i = 0; i < this->var.size(); i++)
+		{
+			smt2_string << this->var.at(i) << "_" << j << "_0 ";
+		}
+		for (int i = 0; i < this->param.size(); i++)
+		{
+			smt2_string << this->param.at(i) << "_" << j << "_0 ";
+		}
+		smt2_string << this->time_var << "_" << j << "_0] flow_1))" << endl;
+	}
+
+	// chaining time points, parameters and variables j+1_0 and j_t
+	for(int j = 0; j < time_value.size() - 1; j++)
+	{
+		for (int i = 0; i < this->param.size(); i++)
+		{
+			smt2_string << "(= " << this->param.at(i) << "_" << j + 1 << "_0 " << this->param.at(i) << "_" << j << "_t)" << endl;
+		}
+		for (int i = 0; i < this->var.size(); i++)
+		{
+			smt2_string << "(= " << this->var.at(i) << "_" << j + 1 << "_0 " << this->var.at(i) << "_" << j << "_t)" << endl;
+		}
+		smt2_string << "(= " << this->time_var << "_" << j + 1 << "_0 " << this->time_var << "_" << j << "_t)" << endl;
+	}
+
+	// time points
+	for(int j = 0; j < time_value.size(); j++)
+	{
+		smt2_string << "(= " << this->time_var << "_" << j << "_0 " << this->time_value.at(j) << ")" << endl;
+	}
+
+	for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+	{
+		smt2_string << "(>= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
+	}
+
+	smt2_c_string << smt2_string.str();
+
+	// time series for phi.smt2
+	for(int j = 1; j < time_value.size(); j++)
+	{
+		for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+		{
+			smt2_string << "(>= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
+			smt2_string << "(<= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
+		}
+	}
+	smt2_string << ")" << endl;
+	smt2_string << ")" << endl;
+	smt2_string << "(check-sat)" << endl;
+	smt2_string << "(exit)" << endl;
+
+
+	// time series for phi_C.smt2
+	smt2_c_string << "(or" << endl;
+	for(int j = 1; j < time_value.size(); j++)
+	{
+		for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+		{
+			smt2_c_string << "(< " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
+			smt2_c_string << "(> " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
+		}
+	}
+	smt2_c_string << ")" << endl;
+
+	smt2_c_string << ")" << endl;
+	smt2_c_string << ")" << endl;
+	smt2_c_string << "(check-sat)" << endl;
+	smt2_c_string << "(exit)" << endl;
+
+	ofstream smt2_file, smt2_c_file;
+	smt2_file.open(string(smt2_filename + ".smt2").c_str());
+	smt2_c_file.open(string(smt2_c_filename + ".smt2").c_str());
+	if(smt2_file.is_open() && smt2_c_file.is_open())
+	{
+		smt2_file << smt2_string.str();
+		smt2_c_file << smt2_c_string.str();
+
+		smt2_file.close();
+		smt2_c_file.close();
+	}
+	else
+	{
+		throw string("Error creating smt2 files").c_str();
+	}
+
+	vector<string> res;
+	res.push_back(smt2_filename);
+	res.push_back(smt2_c_filename);
+
+	return res;
+}
+
 vector<string> SMT2Generator::generate_smt2(int index, Box box)
 {
 	if(index <= 0) throw string("index should be greater than 0").c_str();
@@ -131,13 +323,11 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	char cur_dir[FILENAME_MAX];
 	getcwd(cur_dir, sizeof(cur_dir));
 
-	s << cur_dir << setprecision(16) << "/phi_" << index << "_";
-	for(int i = 0; i < box.get_dimension_size() - 1; i++)
-	{
-		s << box.get_dimension(i).leftBound() << "_" << box.get_dimension(i).rightBound() << "x";
-	}
-	s << box.get_dimension(box.get_dimension_size() - 1).leftBound() << "_" << box.get_dimension(box.get_dimension_size() - 1).rightBound();
-	
+	#ifdef _OPENMP
+		thread_num = omp_get_thread_num();
+	#endif
+
+	s << cur_dir << "/phi_" << index << "_" << thread_num;
 	string smt2_filename = s.str();
 	s << "_C";
 	string smt2_c_filename = s.str();

@@ -28,7 +28,7 @@ class DecisionProcedure
 		//
 		// @param DRH filename, precision used by dReach for verifying
 		// the model
-		static bool call_dreal(string, double, string);
+		static bool call_dreal(string, string, string);
 
 		// The method removes auxiliary file
 		//
@@ -43,6 +43,7 @@ class DecisionProcedure
 		// both values where the indicator function takes both values
 		//
 		// @param box from the domain of random variables. 
-		static int evaluate(vector<string>, double, string);
+		static int evaluate(vector<string>, string, string);
+
 };
 #endif 

@@ -33,6 +33,8 @@ string filename = "";
 string parsyn_version("1.0");
 string dreal_options = "";
 bool verbose = false;
+bool est = false;
+double epsilon = 1e-3;
 
 void print_help()
 {
@@ -46,6 +48,7 @@ void print_help()
 	cout << "	-t <int> - number of CPU cores (default " << max_num_threads << ") (max " << max_num_threads << ")" << endl;
 	cout << "	-h/--help - help message" << endl;
 	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
+	cout << "	--est - apply parameter estimation" << endl;
 	cout << endl;
 }
 
@@ -122,6 +125,11 @@ void parse_cmd(int argc, char* argv[])
 			os << argv[i] << "dReal";
 			dreal_bin = os.str();
 		}
+		//estimation flag
+		else if(strcmp(argv[i], "--est") == 0)
+		{
+			est = true;
+		}
 		//verbose
 		else if(strcmp(argv[i], "--verbose") == 0)
 		{
@@ -132,7 +140,19 @@ void parse_cmd(int argc, char* argv[])
 		{
 			print_version();
 		}
-			//number of cores
+		//epsilon
+		else if(strcmp(argv[i], "-e") == 0)
+		{
+			i++;
+			istringstream is(argv[i]);
+			is >> epsilon;
+			if(epsilon <= 0)
+			{
+				cerr << "Value specified in -e should be positive" << endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+		//number of cores
 		else if(strcmp(argv[i], "-t") == 0)
 		{
 			i++;
@@ -174,6 +194,28 @@ void parse_cmd(int argc, char* argv[])
 	}
 }
 
+void print_result(vector<Box> sat_boxes, vector<Box> undec_boxes, vector<Box> unsat_boxes)
+{
+	cout << "=====================SAT BOXES:===================" << endl;
+	cout << setprecision(16);
+	for(int i = 0; i < sat_boxes.size(); i++)
+	{
+		cout << i << ") " << sat_boxes.at(i) << endl;
+	}
+	cout << "====================UNDEC BOXES:==================" << endl;
+	for(int i = 0; i < undec_boxes.size(); i++)
+	{
+		cout << i << ") " << undec_boxes.at(i) << endl;
+	}
+	cout << "====================UNSAT BOXES:==================" << endl;
+	for(int i = 0; i < unsat_boxes.size(); i++)
+	{
+		cout << i << ") " << unsat_boxes.at(i) << endl;
+	}
+	cout << "==================================================" << endl;
+}
+
+
 int main(int argc, char* argv[])
 {
 
@@ -199,6 +241,40 @@ int main(int argc, char* argv[])
 	    vector<Box> boxes;
 	    boxes.push_back(gen.get_param_domain());
 
+		if(est)
+		{
+			vector<string> file_base_name = gen.generate_smt2(boxes.at(0));
+			int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
+			if(result == -1)
+			{
+				unsat_boxes.push_back(boxes.at(0));
+				print_result(sat_boxes, undec_boxes, unsat_boxes);
+				cout << "THE PROBLEM IS UNSAT!!!" << endl;
+				cout << "==================================================" << endl;
+				cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+				exit(EXIT_SUCCESS);
+			}
+			if(result == 1)
+			{
+				sat_boxes.push_back(boxes.at(0));
+				print_result(sat_boxes, undec_boxes, unsat_boxes);
+				cout << "==================================================" << endl;
+				cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+				exit(EXIT_SUCCESS);
+			}
+			if(result == 0)
+			{
+				undec_boxes.push_back(boxes.at(0));
+				print_result(sat_boxes, undec_boxes, unsat_boxes);
+				undec_boxes.clear();
+				cout << endl;
+				cout << "Parameter estimation is undecidable. Starting parameter synthesis" << endl;
+				cout << endl;
+			}
+		}
+
+		cout << "==================================================" << endl;
+		cout << "==============PARAMETER SYNTHESIS:================" << endl;
 	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 	    {
 	    	//additional partitioning
@@ -207,7 +283,8 @@ int main(int argc, char* argv[])
 		    	Box tmp_box = boxes.front();
 		    	boxes.erase(boxes.begin());
 		    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-		    	if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+		    	//if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
+				if(tmp_vector.at(0).get_volume() <= epsilon)
 				{
 					break;
 				}
@@ -221,7 +298,7 @@ int main(int argc, char* argv[])
 
 		    }
 		    
-			cout << "=====================TIME POINT " << (j + 1) << " :===================" << endl;
+			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
 			DInterval max_progress = 0;
 			for(int i = 0; i < boxes.size(); i++)
 			{
@@ -242,7 +319,8 @@ int main(int argc, char* argv[])
 						}
 
 						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
-						int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta(), dreal_bin);
+						//int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta(), dreal_bin);
+						int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
 						
 						#pragma omp critical
 						{
@@ -292,24 +370,7 @@ int main(int argc, char* argv[])
 			sat_boxes = BoxFactory::merge_boxes(sat_boxes);
 			undec_boxes = BoxFactory::merge_boxes(undec_boxes);
 			unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
-			cout << "=====================SAT BOXES:===================" << endl;
-			cout << setprecision(16);
-			for(int i = 0; i < sat_boxes.size(); i++)
-			{
-				cout << i << ") " << sat_boxes.at(i) << endl;
-			}
-
-			cout << "====================UNDEC BOXES:==================" << endl;
-			for(int i = 0; i < undec_boxes.size(); i++)
-			{
-				cout << i << ") " << undec_boxes.at(i) << endl;
-			}
-
-			cout << "====================UNSAT BOXES:==================" << endl;
-			for(int i = 0; i < unsat_boxes.size(); i++)
-			{
-				cout << i << ") " << unsat_boxes.at(i) << endl;
-			}
+			print_result(sat_boxes, undec_boxes, unsat_boxes);
 			if(sat_boxes.size() == 0)
 			{
 				cout << "THE PROBLEM IS UNSAT!!!" << endl;
@@ -324,7 +385,7 @@ int main(int argc, char* argv[])
 			undec_boxes.clear();
 			unsat_boxes.clear();
 		}
-		cout << "===============================================" << endl;
+		cout << "==================================================" << endl;
 		cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
 
 	}

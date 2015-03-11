@@ -32,12 +32,15 @@ class SMT2Generator
 		vector<Box> time_box;
 		double delta;
 		double epsilon;
+		int thread_num = 0;
 		
 	public:
 
 		SMT2Generator(string);
 
 		vector<string> generate_smt2(int, Box);
+
+		vector<string> generate_smt2(Box);
 
 		//GETTERS AND SETTERS
 		string get_xml_path();

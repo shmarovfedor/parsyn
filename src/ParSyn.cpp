@@ -284,17 +284,17 @@ int main(int argc, char* argv[])
 		    	boxes.erase(boxes.begin());
 		    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 		    	//if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
-				if(tmp_vector.at(0).get_volume() <= epsilon)
-				{
-					break;
-				}
-				else
-				{
+				//if(tmp_vector.at(0).get_volume() <= epsilon)
+				//{
+				//	break;
+				//}
+				//else
+				//{
 					for(int i = 0; i < tmp_vector.size(); i++)
 					{
 						boxes.push_back(tmp_vector.at(i));
 					}
-				}
+				//}
 
 		    }
 		    
@@ -314,7 +314,10 @@ int main(int argc, char* argv[])
 					{
 						#pragma omp critical
 						{
-							cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+							if(max_progress.leftBound() > 0)
+							{
+								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+							}
 						}
 
 						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
@@ -330,7 +333,21 @@ int main(int argc, char* argv[])
 							}
 							if(result == 0)
 							{
-								vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+								if(boxes.at(i).get_volume().rightBound() <= epsilon)
+								{
+									undec_boxes.push_back(boxes.at(i));
+									current_progress += boxes.at(i).get_volume();
+								}
+								else
+								{
+									vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+									for(int j = 0; j < tmp_vector.size(); j++)
+									{
+										mixed_boxes.push_back(tmp_vector.at(j));
+									}
+								}
+
+								/*
 								if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
 								{
 									for(int j = 0; j < tmp_vector.size(); j++)
@@ -346,6 +363,7 @@ int main(int argc, char* argv[])
 										mixed_boxes.push_back(tmp_vector.at(j));
 									}
 								}
+								*/
 							}
 							if(result == -1)
 							{
@@ -356,7 +374,10 @@ int main(int argc, char* argv[])
 						}
 					}
 				}
-				cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+				if(max_progress.leftBound() > 0)
+				{
+					cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+				}
 				boxes.clear();
 
 				for(int i = 0; i < mixed_boxes.size(); i++)

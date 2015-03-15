@@ -11,8 +11,8 @@
 		<var type="param">
 			<name>k</name>
 			<domain>
-				<left>0</left>
-				<right>4</right>
+				<left>1.99</left>
+				<right>2.01</right>
 			</domain>
 		</var>
 		<var type="time">

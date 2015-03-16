@@ -277,6 +277,9 @@ int main(int argc, char* argv[])
 		cout << "==============PARAMETER SYNTHESIS:================" << endl;
 	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 	    {
+			sat_boxes.clear();
+			undec_boxes.clear();
+			unsat_boxes.clear();
 	    	//additional partitioning
 		    while(boxes.size() < num_threads)
 		    {
@@ -402,9 +405,6 @@ int main(int argc, char* argv[])
 			{
 				boxes.push_back(sat_boxes.at(i));
 			}
-			sat_boxes.clear();
-			undec_boxes.clear();
-			unsat_boxes.clear();
 		}
 		cout << "==================================================" << endl;
 		cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;

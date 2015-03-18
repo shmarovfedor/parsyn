@@ -26,7 +26,7 @@ using namespace std;
 using namespace capd;
 using namespace pugi;
 
-string dreal_bin = "dReal";
+string dreal_bin = "";
 int max_num_threads = 1;
 int num_threads = max_num_threads;
 string filename = "";
@@ -103,7 +103,7 @@ void parse_cmd(int argc, char* argv[])
 		}
 
 	}
-	//parsing ProbReach options
+	//parsing ParSyn options
 	cmatch matches;
 	for(int i = 1; i < opt_end; i++)
 	{
@@ -122,7 +122,7 @@ void parse_cmd(int argc, char* argv[])
 		{
 			i++;
 			ostringstream os;
-			os << argv[i] << "dReal";
+			os << argv[i];
 			dreal_bin = os.str();
 		}
 		//estimation flag
@@ -185,6 +185,12 @@ void parse_cmd(int argc, char* argv[])
 			exit(EXIT_FAILURE);
 		}
 	}
+	// case if dReal binary is not specified
+	if(strcmp(dreal_bin.c_str(), "") == 0)
+	{
+		dreal_bin = "dReal";
+	}
+
 	//case if filename is not specified
 	if(strcmp(filename.c_str(), "") == 0)
 	{

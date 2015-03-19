@@ -332,7 +332,7 @@ int main(int argc, char* argv[])
 						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
 						//int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta(), dreal_bin);
 						int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
-						
+
 						#pragma omp critical
 						{
 							if(result == 1)

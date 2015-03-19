@@ -124,6 +124,7 @@ void SMT2Generator::parse_xml()
 	if(this->epsilon <= 0) throw "<epsilon> should be positive";
 }
 
+// used to estimate a big formula
 vector<string> SMT2Generator::generate_smt2(Box box)
 {
 	stringstream s;
@@ -262,7 +263,7 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	// time series for phi.smt2
 	for(int j = 1; j < time_value.size(); j++)
 	{
-		for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+		for (int i = 0; i < time_box.at(j).get_dimension_size(); i++)
 		{
 			smt2_string << "(>= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
 			smt2_string << "(<= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
@@ -278,7 +279,7 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	smt2_c_string << "(or" << endl;
 	for(int j = 1; j < time_value.size(); j++)
 	{
-		for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+		for (int i = 0; i < time_box.at(j).get_dimension_size(); i++)
 		{
 			smt2_c_string << "(< " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
 			smt2_c_string << "(> " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
@@ -314,6 +315,7 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	return res;
 }
 
+// used for estimating series of formulas
 vector<string> SMT2Generator::generate_smt2(int index, Box box)
 {
 	if(index <= 0) throw string("index should be greater than 0").c_str();
@@ -333,7 +335,7 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	string smt2_c_filename = s.str();
 
 	stringstream smt2_string, smt2_c_string;
-	
+
 	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
@@ -426,7 +428,7 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 
 	//conjunction for the *.smt2 file
 	smt2_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
-	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+	for(int i = 0; i < time_box.at(index).get_dimension_size(); i++)
 	{
 		smt2_string << "(>= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
 		smt2_string << "(<= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
@@ -439,7 +441,7 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	//disjunction for the *_C.smt2 file
 	smt2_c_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
 	smt2_c_string << "(or" << endl;
-	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
+	for(int i = 0; i < time_box.at(index).get_dimension_size(); i++)
 	{
 		smt2_c_string << "(< " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
 		smt2_c_string << "(> " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
@@ -472,10 +474,6 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	
 	return res;
 }
-
-
-
-
 
 //GETTERS AND SETTERS
 string SMT2Generator::get_xml_path()

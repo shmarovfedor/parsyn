@@ -110,18 +110,7 @@ void SMT2Generator::parse_xml()
 		this->time_value.push_back(it->attribute("time").as_double());
 		this->time_box.push_back(Box(box_dim));
 	}
-	
-	if(data_node.child("delta").empty()) throw "<delta> is not specified";
-	
-	this->delta = data_node.child("delta").text().as_double();
-	
-	if(this->delta <= 0) throw "<delta> should be positive";
 
-	if(data_node.child("epsilon").empty()) throw "<epsilon> is not specified";
-	
-	this->epsilon = data_node.child("epsilon").text().as_double();
-
-	if(this->epsilon <= 0) throw "<epsilon> should be positive";
 }
 
 // used to estimate a big formula

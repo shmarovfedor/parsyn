@@ -34,14 +34,18 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 	system(s.str().c_str());
 
 	s.str("");
+
 	s << smt2_filename_base << ".output";
 	ifstream output;
 	output.open(s.str().c_str());
 
 	if (output.is_open())
 	{
-		string line;
-		getline(output, line);
+		string str, line = "";
+		while(getline(output, str))
+		{
+			line = str;
+		}
 		output.close();
 		if (line == "sat")
 		{

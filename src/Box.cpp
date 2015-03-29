@@ -15,9 +15,15 @@ using namespace capd;
 // Constructor of the class
 //
 // @param the dimensions of the box	
-Box::Box(vector<DInterval> dimensions)
+Box::Box(vector<DInterval> dimensions, vector<string> vars)
 {
 	this->dimensions = dimensions;
+	this->vars = vars;
+	if(dimensions.size() != vars.size())
+	{
+		cerr << "Error creating a box. Reason: dimensions and variables vectors sizes are not equal" << endl;
+		exit(EXIT_FAILURE);
+	}
 	if(dimensions.size() > 0)
 	{
 		calculate_params();
@@ -62,6 +68,16 @@ void Box::calculate_params()
 DInterval Box::get_dimension(int index)
 {
 	return dimensions.at(index);
+}
+
+string Box::get_var(int index)
+{
+	return vars.at(index);
+}
+
+vector<string> Box::get_vars()
+{
+	return vars;
 }
 
 // The method returns the box dimensions

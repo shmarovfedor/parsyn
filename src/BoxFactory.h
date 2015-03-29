@@ -21,7 +21,7 @@ class BoxFactory
 
 		// The method gets a vector of vectors of PartialSum as an input parameter
 		// and return a Cartesian product of the vectors
-		static vector<Box> calculate_cart_prod(vector< vector<DInterval> >);
+		static vector<Box> calculate_cart_prod(vector< vector<DInterval> >, vector<string>);
 
 		// The method gets a Box of n demensions as an input parameter and returns 
 		// a vector of 2^n boxes obtained by dividing each edge of the primary 

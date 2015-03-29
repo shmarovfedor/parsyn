@@ -20,6 +20,9 @@ class Box
 		// Box dimensions
 		vector<DInterval> dimensions;
 
+		// Dimensions names
+		vector<string> vars;
+
 		// Width of the shortest interval in the box 
 		// dimensions
 		DInterval min_dimension;
@@ -30,7 +33,7 @@ class Box
 
 		DInterval volume;
 
-		// Method for calculating parameters such as 
+		// Method for calculating parameters such as
 		// box value and width of the shortest and
 		// the longest intervals
 		void calculate_params();
@@ -40,12 +43,14 @@ class Box
 		// Constructor of the class
 		//
 		// @param the dimensions of the box	
-		Box(vector<DInterval>);
+		Box(vector<DInterval>, vector<string>);
 
 		Box();
 
 		// The method returns the box dimensions
 		vector<Interval> get_dimensions();
+
+		vector<string> get_vars();
 
 		// The methods return the box value
 		DInterval get_volume();
@@ -62,6 +67,8 @@ class Box
 		// 
 		// @param dimension index
 		DInterval get_dimension(int);
+
+		string get_var(int);
 
 		int get_dimension_size();
 

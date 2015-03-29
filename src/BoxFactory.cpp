@@ -2,7 +2,7 @@
 //
 // @author: Fedor Shmarov
 // @e-mail: f.shmarov@ncl.ac.uk
-#include<string>
+#include<string.h>
 #include<sstream>
 #include<capd/capdlib.h>
 #include<capd/intervals/lib.h>
@@ -14,7 +14,7 @@ using namespace capd;
 
 // The method gets a vector of vectors of PartialSum as an input parameter
 // and return a Cartesian product of the vectors
-vector<Box> BoxFactory::calculate_cart_prod(vector< vector<DInterval> > intervals)
+vector<Box> BoxFactory::calculate_cart_prod(vector< vector<DInterval> > intervals, vector<string> vars)
 {
 	int elem = 1;
 	vector<Box> cart_prod;
@@ -35,7 +35,7 @@ vector<Box> BoxFactory::calculate_cart_prod(vector< vector<DInterval> > interval
 			tmp_vector.push_back(intervals.at(j).at(tmp_index));
 			index -= tmp_index * mult;
 		}
-		cart_prod.push_back(Box(tmp_vector));
+		cart_prod.push_back(Box(tmp_vector, vars));
 	}
 	return cart_prod;
 }
@@ -56,7 +56,7 @@ vector<Box> BoxFactory::branch_box(Box box)
 		tmp.push_back(right_interval);
 		intervals.push_back(tmp);
 	}
-	return BoxFactory::calculate_cart_prod(intervals);
+	return BoxFactory::calculate_cart_prod(intervals, box.get_vars());
 }
 
 bool BoxFactory::compare_boxes_des(Box left, Box right)
@@ -95,7 +95,20 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 {
 	if((left.get_dimension_size() == 0) || (right.get_dimension_size() == 0) || (left.get_dimension_size() != right.get_dimension_size()))
 	{
-		return Box();
+		cerr << "Error merging boxes. Reason: length of dimensions vectors is not the same" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	vector<string> left_vars = left.get_vars();
+	vector<string> right_vars = right.get_vars();
+
+	for(int i = 0; i < left_vars.size(); i++)
+	{
+		if(strcmp(left_vars.at(i).c_str(), right_vars.at(i).c_str()) != 0)
+		{
+			cerr << "Error merging boxes. Reason: vector of variables is not the same for two boxes" << endl;
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	int not_eq_dim = 0;
@@ -139,7 +152,7 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 	{
 		vector<DInterval> dimensions = left.get_dimensions();
 		dimensions.at(not_eq_index) = DInterval(left.get_dimension(not_eq_index).leftBound(), right.get_dimension(not_eq_index).rightBound());
-		return Box(dimensions);
+		return Box(dimensions, left_vars);
 	}
 	else
 	{
@@ -147,7 +160,7 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 		{
 			vector<DInterval> dimensions = left.get_dimensions();
 			dimensions.at(not_eq_index) = DInterval(right.get_dimension(not_eq_index).leftBound(), left.get_dimension(not_eq_index).rightBound());
-			return Box(dimensions);
+			return Box(dimensions, left_vars);
 		}
 		else
 		{
@@ -160,7 +173,20 @@ Box BoxFactory::two_boxes_intersection(Box left, Box right)
 {
 	if((left.get_dimension_size() == 0) || (right.get_dimension_size() == 0) || (left.get_dimension_size() != right.get_dimension_size()))
 	{
-		return Box();
+		cerr << "Error merging boxes. Reason: length of dimensions vectors is not the same" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	vector<string> left_vars = left.get_vars();
+	vector<string> right_vars = right.get_vars();
+
+	for(int i = 0; i < left_vars.size(); i++)
+	{
+		if(strcmp(left_vars.at(i).c_str(), right_vars.at(i).c_str()) != 0)
+		{
+			cerr << "Error merging boxes. Reason: vector of variables is not the same for two boxes" << endl;
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	vector<DInterval> dimensions;
@@ -176,7 +202,7 @@ Box BoxFactory::two_boxes_intersection(Box left, Box right)
 			return Box();
 		}
 	}
-	return Box(dimensions);
+	return Box(dimensions, left_vars);
 }
 
 Box BoxFactory::boxes_intersection(vector<Box> input)

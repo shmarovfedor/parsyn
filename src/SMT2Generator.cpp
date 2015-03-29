@@ -45,7 +45,9 @@ void SMT2Generator::parse_xml()
 	if(declare_node.empty()) throw "<declare> node is not defined or empty";
 	
 	vector<DInterval> var_dim;
-	vector<DInterval> param_dim; 
+	vector<string> var_names;
+	vector<DInterval> param_dim;
+	vector<string> param_names;
 	for(xml_node_iterator it = declare_node.begin(); it != declare_node.end(); it++)
 	{
 		if(strcmp(it->attribute("type").value(),"var") == 0)
@@ -57,6 +59,7 @@ void SMT2Generator::parse_xml()
 			if(it->child("domain").child("left").empty()) throw string("left bound for the variable " + var_name + " is not specified").c_str();
 			if(it->child("domain").child("right").empty()) throw string("right bound for the variable " + var_name + " is not specified").c_str();
 			var_dim.push_back(DInterval(it->child("domain").child("left").text().as_double(), it->child("domain").child("right").text().as_double()));
+			var_names.push_back(var_name);
 		}
 		if(strcmp(it->attribute("type").value(),"param") == 0)
 		{
@@ -67,6 +70,7 @@ void SMT2Generator::parse_xml()
 			if(it->child("domain").child("left").empty()) throw string("left bound for the parameter " + param_name + " is not specified").c_str();
 			if(it->child("domain").child("right").empty()) throw string("right bound for the parameter " + param_name + " is not specified").c_str();
 			param_dim.push_back(DInterval(it->child("domain").child("left").text().as_double(), it->child("domain").child("right").text().as_double()));
+			param_names.push_back(param_name);
 			odes.push_back(string("(= d/dt[" + param_name + "] 0.0)"));
 		}
 		if(strcmp(it->attribute("type").value(),"time") == 0)
@@ -80,8 +84,8 @@ void SMT2Generator::parse_xml()
 	if(this->param.size() == 0)	throw "parameters are not declared";
 	if(this->time_var.empty()) throw "time variable is not defined";
 	
-	this->var_domain = Box(var_dim);
-	this->param_domain = Box(param_dim);
+	this->var_domain = Box(var_dim, var_names);
+	this->param_domain = Box(param_dim, param_names);
 
 	xml_node odes_node = data_node.child("odes");
 	for(xml_node_iterator it = odes_node.begin(); it != odes_node.end(); it++)
@@ -100,15 +104,19 @@ void SMT2Generator::parse_xml()
 		if(it->attribute("time").as_double() < 0) throw "time value cannot be negative";
 		string time_value_str = it->attribute("time").as_string();
 		vector<DInterval> box_dim;
+		vector<string> var_names;
 		for(xml_node_iterator point_it = it->begin(); point_it != it->end(); point_it++)
 		{
+			string var_name = point_it->attribute("var").as_string();
+			if(var_name.empty()) throw "one of the variables in time series is not defined";
 			if(point_it->child("left").empty()) throw string("left bound in one of dimensions for t=" + time_value_str + " is not specified").c_str();
 			if(point_it->child("right").empty()) throw string("right bound in one of dimensions for t=" + time_value_str + " is not specified").c_str();
 			box_dim.push_back(DInterval(point_it->child("left").text().as_double(), point_it->child("right").text().as_double()));
+			var_names.push_back(var_name);
 		}
 		//if(box_dim.size() != this->var.size()) throw string("check number of dimensions at t=" + time_value_str).c_str();
 		this->time_value.push_back(it->attribute("time").as_double());
-		this->time_box.push_back(Box(box_dim));
+		this->time_box.push_back(Box(box_dim, var_names));
 	}
 
 }
@@ -127,6 +135,8 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	string smt2_c_filename = s.str();
 
 	stringstream smt2_string, smt2_c_string;
+
+	//vector<string> var = box.get_vars();
 
 	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
 	for(int i = 0; i < this->var.size(); i++)
@@ -243,8 +253,8 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 
 	for (int i = 0; i < time_box.at(0).get_dimension_size(); i++)
 	{
-		smt2_string << "(>= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
-		smt2_string << "(<= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
+		smt2_string << "(>= " << time_box.at(0).get_var(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << time_box.at(0).get_var(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
 	}
 
 	smt2_c_string << smt2_string.str();
@@ -254,8 +264,8 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	{
 		for (int i = 0; i < time_box.at(j).get_dimension_size(); i++)
 		{
-			smt2_string << "(>= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
-			smt2_string << "(<= " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
+			smt2_string << "(>= " << time_box.at(j).get_var(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
+			smt2_string << "(<= " << time_box.at(j).get_var(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
 		}
 	}
 	smt2_string << ")" << endl;
@@ -270,8 +280,8 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	{
 		for (int i = 0; i < time_box.at(j).get_dimension_size(); i++)
 		{
-			smt2_c_string << "(< " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
-			smt2_c_string << "(> " << this->var.at(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
+			smt2_c_string << "(< " << time_box.at(j).get_var(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).leftBound() << ")" << endl;
+			smt2_c_string << "(> " << time_box.at(j).get_var(i) << "_" << j << "_0 " << time_box.at(j).get_dimension(i).rightBound() << ")" << endl;
 		}
 	}
 	smt2_c_string << ")" << endl;
@@ -407,8 +417,8 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(= " << this->time_var << "_0_0 " << this->time_value.at(0) << ")" << endl;
 	for(int i = 0; i < time_box.at(0).get_dimension_size(); i++)
 	{
-		smt2_string << "(>= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
-		smt2_string << "(<= " << this->var.at(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
+		smt2_string << "(>= " << time_box.at(0).get_var(i) << "_0_0 " << time_box.at(0).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << time_box.at(0).get_var(i) << "_0_0 " << time_box.at(0).get_dimension(i).rightBound() << ")" << endl;
 	}
 
 	//cout << "After initial condition" << endl;
@@ -419,8 +429,8 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(= " << this->time_var << "_0_t " << this->time_value.at(index) << ")" << endl;
 	for(int i = 0; i < time_box.at(index).get_dimension_size(); i++)
 	{
-		smt2_string << "(>= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
-		smt2_string << "(<= " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
+		smt2_string << "(>= " << time_box.at(index).get_var(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
+		smt2_string << "(<= " << time_box.at(index).get_var(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
 	}
 	smt2_string << ")" << endl;
 	smt2_string << ")" << endl;
@@ -432,8 +442,8 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_c_string << "(or" << endl;
 	for(int i = 0; i < time_box.at(index).get_dimension_size(); i++)
 	{
-		smt2_c_string << "(< " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
-		smt2_c_string << "(> " << this->var.at(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
+		smt2_c_string << "(< " << time_box.at(index).get_var(i) << "_0_t " << time_box.at(index).get_dimension(i).leftBound() << ")" << endl;
+		smt2_c_string << "(> " << time_box.at(index).get_var(i) << "_0_t " << time_box.at(index).get_dimension(i).rightBound() << ")" << endl;
 	}
 	smt2_c_string << ")" << endl;
 	smt2_c_string << ")" << endl;

@@ -33,6 +33,7 @@ string filename = "";
 string parsyn_version("1.0");
 string dreal_options = "";
 bool verbose = false;
+bool output = false;
 bool est = false;
 double epsilon = 1e-3;
 
@@ -49,6 +50,7 @@ void print_help()
 	cout << "	-h/--help - help message" << endl;
 	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
 	cout << "	--est - apply parameter estimation" << endl;
+	cout << "	--output - create <model-file.xml.output> file with output" << endl;
 	cout << endl;
 }
 
@@ -134,6 +136,11 @@ void parse_cmd(int argc, char* argv[])
 		else if(strcmp(argv[i], "--verbose") == 0)
 		{
 			verbose = true;
+		}
+		//verbose
+		else if(strcmp(argv[i], "--output") == 0)
+		{
+			output = true;
 		}
 		//version
 		else if(strcmp(argv[i], "--version") == 0)
@@ -242,6 +249,8 @@ int main(int argc, char* argv[])
 
 	    SMT2Generator gen(xml_file_path);
 
+		if(output) gen.init_output(filename + ".output");
+
 	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes;
 
 	    vector<Box> boxes;
@@ -292,28 +301,31 @@ int main(int argc, char* argv[])
 		    	Box tmp_box = boxes.front();
 		    	boxes.erase(boxes.begin());
 		    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-		    	//if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
-				//if(tmp_vector.at(0).get_volume() <= epsilon)
-				//{
-				//	break;
-				//}
-				//else
-				//{
-					for(int i = 0; i < tmp_vector.size(); i++)
-					{
-						boxes.push_back(tmp_vector.at(i));
-					}
-				//}
-
+				for(int i = 0; i < tmp_vector.size(); i++)
+				{
+					boxes.push_back(tmp_vector.at(i));
+				}
 		    }
-		    
-			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
-			DInterval max_progress = 0;
+
+			cout << "Initial set of boxes:" << endl;
 			for(int i = 0; i < boxes.size(); i++)
 			{
-				max_progress += boxes.at(i).get_volume();
+				cout << i << ") " << boxes.at(i) << endl;
 			}
-			DInterval current_progress = 0;
+		    
+			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
+			double max_progress = 0;
+			for(int i = 0; i < boxes.size(); i++)
+			{
+				double vol = 1;
+				for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+				{
+					if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+				}
+				max_progress += vol;
+			}
+			cout << "Max progress: " << max_progress << endl;
+			double current_progress = 0;
 		    while(boxes.size() > 0)
 			{
 				#pragma omp parallel
@@ -323,9 +335,9 @@ int main(int argc, char* argv[])
 					{
 						#pragma omp critical
 						{
-							if(max_progress.leftBound() > 0)
+							if(max_progress > 0)
 							{
-								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress / max_progress) * 100 << " %\r" << endl;
 							}
 						}
 
@@ -333,19 +345,31 @@ int main(int argc, char* argv[])
 						//int result = DecisionProcedure::evaluate(file_base_name, gen.get_delta(), dreal_bin);
 						int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
 
+						// PROBLEM WITH MERGING THE BOXES WHILE VALIDATION
 						#pragma omp critical
 						{
 							if(result == 1)
 							{
 								sat_boxes.push_back(boxes.at(i));
-								current_progress += boxes.at(i).get_volume();
+								double vol = 1;
+								for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+								{
+									if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+								}
+								current_progress += vol;
 							}
 							if(result == 0)
 							{
-								if(boxes.at(i).get_volume().rightBound() <= epsilon)
+								cout << setprecision(8) << "Current mixed box: " << boxes.at(i) << " size " << width(boxes.at(i).get_max_dimension()) << endl;
+								if(width(boxes.at(i).get_max_dimension()) <= epsilon)
 								{
 									undec_boxes.push_back(boxes.at(i));
-									current_progress += boxes.at(i).get_volume();
+									double vol = 1;
+									for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+									{
+										if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+									}
+									current_progress += vol;
 								}
 								else
 								{
@@ -377,15 +401,26 @@ int main(int argc, char* argv[])
 							if(result == -1)
 							{
 								unsat_boxes.push_back(boxes.at(i));
-								current_progress += boxes.at(i).get_volume();
+								double vol = 1;
+								for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+								{
+									if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+								}
+								current_progress += vol;
 							}
 
+							sat_boxes = BoxFactory::merge_boxes(sat_boxes);
+							undec_boxes = BoxFactory::merge_boxes(undec_boxes);
+							unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
+							double progress = 1;
+							if (max_progress > 0) progress = current_progress / max_progress;
+							if(output) gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
 						}
 					}
 				}
-				if(max_progress.leftBound() > 0)
+				if(max_progress > 0)
 				{
-					cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress.leftBound() / max_progress.leftBound()) * 100 << " %\r";
+					cout << setprecision(8) << fixed << "PROGRESS: " << ((current_progress / max_progress)) * 100 << " %\r" << endl;
 				}
 				boxes.clear();
 
@@ -397,9 +432,9 @@ int main(int argc, char* argv[])
 				mixed_boxes.clear();
 			}
 
-			sat_boxes = BoxFactory::merge_boxes(sat_boxes);
-			undec_boxes = BoxFactory::merge_boxes(undec_boxes);
-			unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
+			//sat_boxes = BoxFactory::merge_boxes(sat_boxes);
+			//undec_boxes = BoxFactory::merge_boxes(undec_boxes);
+			//unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
 			print_result(sat_boxes, undec_boxes, unsat_boxes);
 			if(sat_boxes.size() == 0)
 			{

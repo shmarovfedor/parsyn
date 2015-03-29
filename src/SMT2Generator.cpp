@@ -30,6 +30,83 @@ SMT2Generator::SMT2Generator(string xml_path)
 	parse_xml();
 }
 
+void SMT2Generator::init_output(string output_path)
+{
+	this->output_path = output_path;
+
+	xml_node root_node;
+	root_node.set_name("data");
+	root_node.append_attribute("progress");
+	root_node.attribute("progress").set_value(0);
+
+	output.append_child("data").append_attribute("progress").set_value(0);
+	output.save_file(output_path.c_str());
+}
+
+void SMT2Generator::modify_output(double local_progress, int index, vector<Box> sat_boxes, vector<Box> unsat_boxes, vector<Box> undec_boxes)
+{
+	double progress = (double) (index - 1) / (time_value.size() - 1) + local_progress /  (time_value.size() - 1);
+	output.child("data").attribute("progress").set_value(progress);
+
+	stringstream time_value_stream;
+	time_value_stream << time_value.at(index);
+	// finding node by the attribute name and value
+	xml_node point = output.child("data").find_child_by_attribute("point", "time", time_value_stream.str().c_str());
+	// if node already exists we remove it
+	if (!point.empty())
+	{
+		output.child("data").remove_child(point);
+	}
+	point = output.child("data").append_child("point");
+	point.append_attribute("time").set_value(time_value.at(index));
+	// output sat boxes
+	for(int i = 0; i < sat_boxes.size(); i++)
+	{
+		Box box = sat_boxes.at(i);
+		xml_node box_node = point.append_child("box");
+		box_node.append_attribute("type").set_value("sat");
+		for(int j = 0; j < box.get_dimension_size(); j++)
+		{
+			xml_node interval_node = box_node.append_child("interval");
+			interval_node.append_attribute("var").set_value(box.get_var(j).c_str());
+			interval_node.append_attribute("left").set_value(box.get_dimension(j).leftBound());
+			interval_node.append_attribute("right").set_value(box.get_dimension(j).rightBound());
+		}
+	}
+
+	// output unsat boxes
+	for(int i = 0; i < unsat_boxes.size(); i++)
+	{
+		Box box = unsat_boxes.at(i);
+		xml_node box_node = point.append_child("box");
+		box_node.append_attribute("type").set_value("unsat");
+		for(int j = 0; j < box.get_dimension_size(); j++)
+		{
+			xml_node interval_node = box_node.append_child("interval");
+			interval_node.append_attribute("var").set_value(box.get_var(j).c_str());
+			interval_node.append_attribute("left").set_value(box.get_dimension(j).leftBound());
+			interval_node.append_attribute("right").set_value(box.get_dimension(j).rightBound());
+		}
+	}
+
+	// output undec boxes
+	for(int i = 0; i < undec_boxes.size(); i++)
+	{
+		Box box = undec_boxes.at(i);
+		xml_node box_node = point.append_child("box");
+		box_node.append_attribute("type").set_value("undec");
+		for(int j = 0; j < box.get_dimension_size(); j++)
+		{
+			xml_node interval_node = box_node.append_child("interval");
+			interval_node.append_attribute("var").set_value(box.get_var(j).c_str());
+			interval_node.append_attribute("left").set_value(box.get_dimension(j).leftBound());
+			interval_node.append_attribute("right").set_value(box.get_dimension(j).rightBound());
+		}
+	}
+
+	output.save_file(output_path.c_str());
+}
+
 //parsing input xml file
 void SMT2Generator::parse_xml()
 {

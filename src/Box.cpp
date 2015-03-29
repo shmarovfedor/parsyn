@@ -47,7 +47,9 @@ void Box::calculate_params()
 {
 	min_dimension = dimensions.at(0);
 	max_dimension = min_dimension;
-	volume = width(dimensions.at(0));
+
+	volume = 1;
+
 	for(int i = 1; i < dimensions.size(); i++)
 	{
 		if(width(min_dimension) >= width(dimensions.at(i)))
@@ -57,7 +59,7 @@ void Box::calculate_params()
 		if(width(max_dimension) <= width(dimensions.at(i)))
 		{
 			max_dimension = dimensions.at(i);
-		} 
+		}
 		volume *= width(dimensions.at(i));
 	}
 }

@@ -49,7 +49,7 @@ vector<Box> BoxFactory::branch_box(Box box)
 	vector <vector<DInterval> > intervals;
 	for(int i = 0; i < dimensions.size(); i++)
 	{
-		vector<DInterval> tmp;
+		vector <DInterval> tmp;
 		DInterval left_interval(dimensions.at(i).leftBound(), dimensions.at(i).mid().rightBound());
 		DInterval right_interval(dimensions.at(i).mid().leftBound(), dimensions.at(i).rightBound());
 		tmp.push_back(left_interval);

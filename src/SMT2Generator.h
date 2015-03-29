@@ -10,8 +10,10 @@
 #include<capd/intervals/lib.h>
 #include<string>
 #include "Box.h"
+#include "pugixml.hpp"
 
 using namespace std;
+using namespace pugi;
 
 // DecisionProcedure class declaration
 class SMT2Generator
@@ -19,6 +21,8 @@ class SMT2Generator
 	private:
 
 		string xml_path;
+
+		string output_path;
 
 		void parse_xml();
 
@@ -33,6 +37,8 @@ class SMT2Generator
 		double delta;
 		double epsilon;
 		int thread_num = 0;
+
+		xml_document output;
 		
 	public:
 
@@ -64,6 +70,10 @@ class SMT2Generator
 		double get_delta();
 
 		double get_epsilon();
+
+		void init_output(string);
+
+		void modify_output(double, int, vector<Box>, vector<Box>, vector<Box>);
 
 };
 #endif 

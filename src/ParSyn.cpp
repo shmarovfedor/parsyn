@@ -36,6 +36,7 @@ bool verbose = false;
 bool output = false;
 bool est = false;
 double epsilon = 1e-3;
+stringstream parsyn_out;
 
 void print_help()
 {
@@ -312,7 +313,7 @@ int main(int argc, char* argv[])
 			{
 				cout << i << ") " << boxes.at(i) << endl;
 			}
-		    
+
 			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
 			double max_progress = 0;
 			for(int i = 0; i < boxes.size(); i++)
@@ -324,7 +325,7 @@ int main(int argc, char* argv[])
 				}
 				max_progress += vol;
 			}
-			cout << "Max progress: " << max_progress << endl;
+			//cout << "Max progress: " << max_progress << endl;
 			double current_progress = 0;
 		    while(boxes.size() > 0)
 			{
@@ -337,7 +338,7 @@ int main(int argc, char* argv[])
 						{
 							if(max_progress > 0)
 							{
-								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress / max_progress) * 100 << " %\r" << endl;
+								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress / max_progress) * 100 << " %\r";
 							}
 						}
 
@@ -360,7 +361,7 @@ int main(int argc, char* argv[])
 							}
 							if(result == 0)
 							{
-								cout << setprecision(8) << "Current mixed box: " << boxes.at(i) << " size " << width(boxes.at(i).get_max_dimension()) << endl;
+								//cout << setprecision(8) << "Current mixed box: " << boxes.at(i) << " size " << width(boxes.at(i).get_max_dimension()) << endl;
 								if(width(boxes.at(i).get_max_dimension()) <= epsilon)
 								{
 									undec_boxes.push_back(boxes.at(i));
@@ -379,24 +380,6 @@ int main(int argc, char* argv[])
 										mixed_boxes.push_back(tmp_vector.at(j));
 									}
 								}
-
-								/*
-								if(tmp_vector.at(0).get_volume() <= gen.get_epsilon())
-								{
-									for(int j = 0; j < tmp_vector.size(); j++)
-									{
-										undec_boxes.push_back(tmp_vector.at(j));
-										current_progress += tmp_vector.at(j).get_volume();
-									}
-								}
-								else
-								{
-									for(int j = 0; j < tmp_vector.size(); j++)
-									{
-										mixed_boxes.push_back(tmp_vector.at(j));
-									}
-								}
-								*/
 							}
 							if(result == -1)
 							{
@@ -420,7 +403,7 @@ int main(int argc, char* argv[])
 				}
 				if(max_progress > 0)
 				{
-					cout << setprecision(8) << fixed << "PROGRESS: " << ((current_progress / max_progress)) * 100 << " %\r" << endl;
+					cout << setprecision(8) << fixed << "PROGRESS: " << ((current_progress / max_progress)) * 100 << " %\r";
 				}
 				boxes.clear();
 
@@ -438,7 +421,7 @@ int main(int argc, char* argv[])
 			print_result(sat_boxes, undec_boxes, unsat_boxes);
 			if(sat_boxes.size() == 0)
 			{
-				cout << "THE PROBLEM IS UNSAT!!!" << endl;
+				cout << "unsat" << endl;
 				break;
 			}
 

@@ -297,7 +297,19 @@ int main(int argc, char* argv[])
 			undec_boxes.clear();
 			unsat_boxes.clear();
 	    	//additional partitioning
-		    while(boxes.size() < num_threads)
+
+			bool pre_branch = false;
+
+			for(int i = 0; i < boxes.size(); i++)
+			{
+				if(width(boxes.at(i).get_max_dimension()) > 0)
+				{
+					pre_branch = true;
+					break;
+				}
+			}
+
+		    while((boxes.size() < num_threads)&&(pre_branch))
 		    {
 		    	Box tmp_box = boxes.front();
 		    	boxes.erase(boxes.begin());

@@ -35,6 +35,7 @@ string dreal_options = "";
 bool verbose = false;
 bool output = false;
 bool est = false;
+bool partition_flag = false;
 double epsilon = 1e-3;
 stringstream parsyn_out;
 
@@ -52,6 +53,7 @@ void print_help()
 	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
 	cout << "	--est - apply parameter estimation" << endl;
 	cout << "	--output - create <model-file.xml.output> file with output" << endl;
+	cout << "	--partition - partition the entire parameter space before evaluating" << endl;
 	cout << endl;
 }
 
@@ -137,6 +139,11 @@ void parse_cmd(int argc, char* argv[])
 		else if(strcmp(argv[i], "--verbose") == 0)
 		{
 			verbose = true;
+		}
+		//partition
+		else if(strcmp(argv[i], "--partition") == 0)
+		{
+			partition_flag = true;
 		}
 		//verbose
 		else if(strcmp(argv[i], "--output") == 0)
@@ -309,6 +316,35 @@ int main(int argc, char* argv[])
 				}
 			}
 
+			// complete partitioning of parameter space
+			if(partition_flag)
+			{
+				vector<Box> tmp_list;
+				for(int i = 0; i < boxes.size(); i++)
+				{
+					tmp_list.push_back(boxes.at(i));
+				}
+				boxes.clear();
+
+				while((tmp_list.size() > 0)&&(pre_branch))
+			    {
+			    	Box tmp_box = tmp_list.front();
+			    	tmp_list.erase(tmp_list.begin());
+			    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+					for(int i = 0; i < tmp_vector.size(); i++)
+					{
+						if(width(tmp_vector.at(i).get_max_dimension()) < epsilon)
+						{	
+							boxes.push_back(tmp_vector.at(i));
+						}
+						else
+						{
+							tmp_list.push_back(tmp_vector.at(i));
+						}
+					}
+				}
+			}
+
 		    while((boxes.size() < num_threads)&&(pre_branch))
 		    {
 		    	Box tmp_box = boxes.front();
@@ -319,6 +355,8 @@ int main(int argc, char* argv[])
 					boxes.push_back(tmp_vector.at(i));
 				}
 		    }
+
+		    //cout << "Number of boxes final: " << boxes.size() << endl;
 
 			cout << "Initial set of boxes:" << endl;
 			for(int i = 0; i < boxes.size(); i++)

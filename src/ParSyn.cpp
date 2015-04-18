@@ -358,11 +358,13 @@ int main(int argc, char* argv[])
 
 		    //cout << "Number of boxes final: " << boxes.size() << endl;
 
+		    /*
 			cout << "Initial set of boxes:" << endl;
 			for(int i = 0; i < boxes.size(); i++)
 			{
 				cout << i << ") " << boxes.at(i) << endl;
 			}
+			*/
 
 			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
 			double max_progress = 0;
@@ -388,7 +390,7 @@ int main(int argc, char* argv[])
 						{
 							if(max_progress > 0)
 							{
-								cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress / max_progress) * 100 << " %\r";
+								//cout << setprecision(8) << fixed << "PROGRESS: " << (current_progress / max_progress) * 100 << " %\r";
 							}
 						}
 
@@ -453,7 +455,7 @@ int main(int argc, char* argv[])
 				}
 				if(max_progress > 0)
 				{
-					cout << setprecision(8) << fixed << "PROGRESS: " << ((current_progress / max_progress)) * 100 << " %\r";
+					//cout << setprecision(8) << fixed << "PROGRESS: " << ((current_progress / max_progress)) * 100 << " %\r";
 				}
 				boxes.clear();
 

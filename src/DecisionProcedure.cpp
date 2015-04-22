@@ -47,13 +47,13 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 			line = str;
 		}
 		output.close();
-		if (line == "sat")
+		if ((regex_match(line.c_str(), regex("delta-sat.*"))) || (strcmp(line.c_str(),"sat") == 0))
 		{
 			return true;
 		} 
 		else
 		{
-			if (line == "unsat")
+			if (strcmp(line.c_str(),"unsat") == 0)
 			{
 				return false;
 			}

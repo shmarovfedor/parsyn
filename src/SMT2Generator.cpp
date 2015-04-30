@@ -287,25 +287,27 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	for(int j = 0; j < time_value.size(); j++)
 	{
 		smt2_string << "(= [";
-		for (int i = 0; i < this->var.size(); i++)
-		{
-			smt2_string << this->var.at(i) << "_" << j << "_t ";
-		}
 		for (int i = 0; i < this->param.size(); i++)
 		{
 			smt2_string << this->param.at(i) << "_" << j << "_t ";
 		}
-		smt2_string << this->time_var << "_" << j << "_t] (integral 0. time_" << j << " [";
-
+		smt2_string << this->time_var << "_" << j << "_t ";
 		for (int i = 0; i < this->var.size(); i++)
 		{
-			smt2_string << this->var.at(i) << "_" << j << "_0 ";
+			smt2_string << this->var.at(i) << "_" << j << "_t ";
 		}
+		smt2_string <<	"] (integral 0. time_" << j << " [";
+
 		for (int i = 0; i < this->param.size(); i++)
 		{
 			smt2_string << this->param.at(i) << "_" << j << "_0 ";
 		}
-		smt2_string << this->time_var << "_" << j << "_0] flow_1))" << endl;
+		smt2_string << this->time_var << "_" << j << "_0 ";
+		for (int i = 0; i < this->var.size(); i++)
+		{
+			smt2_string << this->var.at(i) << "_" << j << "_0 ";
+		}
+		smt2_string << "] flow_1))" << endl;
 	}
 
 	// chaining time points, parameters and variables j+1_0 and j_t
@@ -464,25 +466,28 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(assert " << endl;
 	smt2_string << "(and " << endl;
 	smt2_string << "(= [";
-	for(int i = 0; i < this->var.size(); i++)
-	{
-		smt2_string << this->var.at(i) << "_0_t ";
-	}
 	for(int i = 0; i < this->param.size(); i++)
 	{
 		smt2_string << this->param.at(i) << "_0_t ";
 	}
-	smt2_string << this->time_var << "_0_t] (integral 0. time_0 [";
-
+	smt2_string << this->time_var << "_0_t ";
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << this->var.at(i) << "_0_0 ";
+		smt2_string << this->var.at(i) << "_0_t ";
 	}
+	smt2_string << "] (integral 0. time_0 [";
+
 	for(int i = 0; i < this->param.size(); i++)
 	{
 		smt2_string << this->param.at(i) << "_0_0 ";
 	}
-	smt2_string << this->time_var << "_0_0] flow_1))" << endl;
+	smt2_string << this->time_var << "_0_0 " ;
+	for(int i = 0; i < this->var.size(); i++)
+	{
+		smt2_string << this->var.at(i) << "_0_0 ";
+	}
+	smt2_string << "] flow_1))" << endl;
+
 
 	for(int i = 0; i < this->param.size(); i++)
 	{

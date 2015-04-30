@@ -52,7 +52,6 @@ void print_help()
 	cout << "	-h/--help - help message" << endl;
 	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
 	cout << "	--est - apply parameter estimation" << endl;
-	cout << "	--output - create <model-file.xml.output> file with output" << endl;
 	cout << "	--partition - partition the entire parameter space before evaluating" << endl;
 	cout << endl;
 }
@@ -144,11 +143,6 @@ void parse_cmd(int argc, char* argv[])
 		else if(strcmp(argv[i], "--partition") == 0)
 		{
 			partition_flag = true;
-		}
-		//verbose
-		else if(strcmp(argv[i], "--output") == 0)
-		{
-			output = true;
 		}
 		//version
 		else if(strcmp(argv[i], "--version") == 0)
@@ -257,7 +251,7 @@ int main(int argc, char* argv[])
 
 	    SMT2Generator gen(xml_file_path);
 
-		if(output) gen.init_output(filename + ".output");
+		gen.init_output(filename + ".output");
 
 	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes;
 
@@ -271,33 +265,33 @@ int main(int argc, char* argv[])
 			if(result == -1)
 			{
 				unsat_boxes.push_back(boxes.at(0));
-				print_result(sat_boxes, undec_boxes, unsat_boxes);
-				cout << "THE PROBLEM IS UNSAT!!!" << endl;
-				cout << "==================================================" << endl;
-				cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+				//print_result(sat_boxes, undec_boxes, unsat_boxes);
+				//cout << "THE PROBLEM IS UNSAT!!!" << endl;
+				//cout << "==================================================" << endl;
+				//cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
 				exit(EXIT_SUCCESS);
 			}
 			if(result == 1)
 			{
 				sat_boxes.push_back(boxes.at(0));
-				print_result(sat_boxes, undec_boxes, unsat_boxes);
-				cout << "==================================================" << endl;
-				cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+				//print_result(sat_boxes, undec_boxes, unsat_boxes);
+				//cout << "==================================================" << endl;
+				//cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
 				exit(EXIT_SUCCESS);
 			}
 			if(result == 0)
 			{
 				undec_boxes.push_back(boxes.at(0));
-				print_result(sat_boxes, undec_boxes, unsat_boxes);
+				//print_result(sat_boxes, undec_boxes, unsat_boxes);
 				undec_boxes.clear();
-				cout << endl;
-				cout << "Parameter estimation is undecidable. Starting parameter synthesis" << endl;
-				cout << endl;
+				//cout << endl;
+				//cout << "Parameter estimation is undecidable. Starting parameter synthesis" << endl;
+				//cout << endl;
 			}
 		}
 
-		cout << "==================================================" << endl;
-		cout << "==============PARAMETER SYNTHESIS:================" << endl;
+		//cout << "==================================================" << endl;
+		//cout << "==============PARAMETER SYNTHESIS:================" << endl;
 	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 	    {
 			sat_boxes.clear();
@@ -366,7 +360,7 @@ int main(int argc, char* argv[])
 			}
 			*/
 
-			cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
+			//cout << "=====================TIME POINT " << (j + 1) << " :===============" << endl;
 			double max_progress = 0;
 			for(int i = 0; i < boxes.size(); i++)
 			{
@@ -449,7 +443,7 @@ int main(int argc, char* argv[])
 							unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
 							double progress = 1;
 							if (max_progress > 0) progress = current_progress / max_progress;
-							if(output) gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
+							gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
 						}
 					}
 				}
@@ -470,10 +464,10 @@ int main(int argc, char* argv[])
 			//sat_boxes = BoxFactory::merge_boxes(sat_boxes);
 			//undec_boxes = BoxFactory::merge_boxes(undec_boxes);
 			//unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
-			print_result(sat_boxes, undec_boxes, unsat_boxes);
+			//print_result(sat_boxes, undec_boxes, unsat_boxes);
 			if(sat_boxes.size() == 0)
 			{
-				cout << "unsat" << endl;
+				//cout << "unsat" << endl;
 				break;
 			}
 
@@ -482,8 +476,8 @@ int main(int argc, char* argv[])
 				boxes.push_back(sat_boxes.at(i));
 			}
 		}
-		cout << "==================================================" << endl;
-		cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
+		//cout << "==================================================" << endl;
+		//cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
 
 	}
 	catch(char const* e)

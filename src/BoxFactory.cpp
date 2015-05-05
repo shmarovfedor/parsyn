@@ -95,8 +95,7 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 {
 	if((left.get_dimension_size() == 0) || (right.get_dimension_size() == 0) || (left.get_dimension_size() != right.get_dimension_size()))
 	{
-		cerr << "Error merging boxes. Reason: length of dimensions vectors is not the same" << endl;
-		exit(EXIT_FAILURE);
+		throw "Error merging boxes. Reason: length of dimensions vectors is not the same";
 	}
 
 	vector<string> left_vars = left.get_vars();
@@ -106,8 +105,7 @@ Box BoxFactory::merge_two_boxes(Box left, Box right)
 	{
 		if(strcmp(left_vars.at(i).c_str(), right_vars.at(i).c_str()) != 0)
 		{
-			cerr << "Error merging boxes. Reason: vector of variables is not the same for two boxes" << endl;
-			exit(EXIT_FAILURE);
+			throw "Error merging boxes. Reason: vector of variables is not the same for two boxes";
 		}
 	}
 
@@ -173,8 +171,7 @@ Box BoxFactory::two_boxes_intersection(Box left, Box right)
 {
 	if((left.get_dimension_size() == 0) || (right.get_dimension_size() == 0) || (left.get_dimension_size() != right.get_dimension_size()))
 	{
-		cerr << "Error merging boxes. Reason: length of dimensions vectors is not the same" << endl;
-		exit(EXIT_FAILURE);
+		throw "Error merging boxes. Reason: length of dimensions vectors is not the same";
 	}
 
 	vector<string> left_vars = left.get_vars();
@@ -184,8 +181,7 @@ Box BoxFactory::two_boxes_intersection(Box left, Box right)
 	{
 		if(strcmp(left_vars.at(i).c_str(), right_vars.at(i).c_str()) != 0)
 		{
-			cerr << "Error merging boxes. Reason: vector of variables is not the same for two boxes" << endl;
-			exit(EXIT_FAILURE);
+			throw "Error merging boxes. Reason: vector of variables is not the same for two boxes";
 		}
 	}
 

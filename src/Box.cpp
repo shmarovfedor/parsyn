@@ -21,8 +21,7 @@ Box::Box(vector<DInterval> dimensions, vector<string> vars)
 	this->vars = vars;
 	if(dimensions.size() != vars.size())
 	{
-		cerr << "Error creating a box. Reason: dimensions and variables vectors sizes are not equal" << endl;
-		exit(EXIT_FAILURE);
+		throw "Error creating a box. Reason: dimensions and variables vectors sizes are not equal";
 	}
 	if(dimensions.size() > 0)
 	{

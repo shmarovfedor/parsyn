@@ -59,13 +59,13 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 			}
 			else
 			{
-    			throw string("error reading dReal output!!!").c_str();
+    			throw string("error reading SMT output").c_str();
 			}
 		}
 	}
 	else
 	{
-    	throw string("error obtaining dReal output!!!").c_str();
+    	throw string("error obtaining SMT output").c_str();
 	}
 }
 

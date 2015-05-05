@@ -213,8 +213,6 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 
 	stringstream smt2_string, smt2_c_string;
 
-	//vector<string> var = box.get_vars();
-
 	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{

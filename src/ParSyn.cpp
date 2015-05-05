@@ -411,10 +411,10 @@ int main(int argc, char* argv[])
 							gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
 						}
 					}
-					sat_boxes = BoxFactory::merge_boxes(sat_boxes);
-					undec_boxes = BoxFactory::merge_boxes(undec_boxes);
-					unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
 				}
+				sat_boxes = BoxFactory::merge_boxes(sat_boxes);
+				undec_boxes = BoxFactory::merge_boxes(undec_boxes);
+				unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
 				boxes.clear();
 				for(int i = 0; i < mixed_boxes.size(); i++)
 				{

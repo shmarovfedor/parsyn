@@ -38,6 +38,9 @@ class Box
 		// the longest intervals
 		void calculate_params();
 
+		// at most 2^32 boxes. Default value -1
+		long int id = -1;
+
 	public:
 
 		// Constructor of the class

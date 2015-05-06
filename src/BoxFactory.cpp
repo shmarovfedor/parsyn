@@ -59,9 +59,37 @@ vector<Box> BoxFactory::branch_box(Box box)
 	return BoxFactory::calculate_cart_prod(intervals, box.get_vars());
 }
 
-bool BoxFactory::compare_boxes_des(Box left, Box right)
+int BoxFactory::compare_boxes(Box left, Box right)
 {
-	return (left.get_volume().leftBound() > right.get_volume().leftBound());
+	for(int i = 0; i < left.get_dimension_size(); i++) 
+	{
+		if(left.get_dimension(i).leftBound() < right.get_dimension(i).leftBound())
+		{
+			return -1;
+		} 
+		if(left.get_dimension(i).leftBound() > right.get_dimension(i).leftBound())
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+vector<Box> BoxFactory::sort_boxes(vector<Box> boxes)
+{
+	for(int i = 0; i < boxes.size() - 1; i++)
+	{
+		for(int j = 1; j < boxes.size(); j++)
+		{
+			if(compare_boxes(boxes.at(i), boxes.at(j)) == -1)
+			{
+				Box tmp_box = boxes.at(j);
+				boxes.at(j) = boxes.at(i);
+				boxes.at(i) = tmp_box;
+			}
+		}
+	}
+	return boxes;
 }
 
 vector<Box> BoxFactory::merge_boxes(vector<Box> input)

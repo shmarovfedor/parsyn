@@ -422,10 +422,9 @@ int main(int argc, char* argv[])
 				}
 				mixed_boxes.clear();
 			}
-
-			sat_boxes = BoxFactory::merge_boxes(sat_boxes);
-			undec_boxes = BoxFactory::merge_boxes(undec_boxes);
-			unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
+			sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
+			undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
+			unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
 			if(sat_boxes.size() == 0)
 			{
 				break;

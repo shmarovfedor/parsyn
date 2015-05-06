@@ -28,9 +28,11 @@ class BoxFactory
 		// box in halves
 		static vector<Box> branch_box(Box);
 
-		static bool compare_boxes_des(Box, Box);
+		static int compare_boxes(Box, Box);
 
 		static vector<Box> merge_boxes(vector<Box>);
+
+		static vector<Box> sort_boxes(vector<Box>);
 
 		static Box merge_two_boxes(Box, Box);
 
@@ -39,6 +41,6 @@ class BoxFactory
 		static Box boxes_intersection(vector<Box>);
 
 		static vector<Box> vectors_intersection(vector<Box>, vector<Box>);
-		
+
 }; 
 #endif  

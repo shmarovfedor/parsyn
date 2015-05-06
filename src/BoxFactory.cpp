@@ -63,11 +63,11 @@ int BoxFactory::compare_boxes(Box left, Box right)
 {
 	for(int i = 0; i < left.get_dimension_size(); i++) 
 	{
-		if(left.get_dimension(i).leftBound() < right.get_dimension(i).leftBound())
+		if(left.get_dimension(i).leftBound() > right.get_dimension(i).leftBound())
 		{
 			return -1;
 		} 
-		if(left.get_dimension(i).leftBound() > right.get_dimension(i).leftBound())
+		if(left.get_dimension(i).leftBound() < right.get_dimension(i).leftBound())
 		{
 			return 1;
 		}
@@ -77,9 +77,12 @@ int BoxFactory::compare_boxes(Box left, Box right)
 
 vector<Box> BoxFactory::sort_boxes(vector<Box> boxes)
 {
+	// in this case nothing to sort
+	if(boxes.size() <= 1) return boxes;
+	// bubble method	
 	for(int i = 0; i < boxes.size() - 1; i++)
 	{
-		for(int j = 1; j < boxes.size(); j++)
+		for(int j = i + 1; j < boxes.size(); j++)
 		{
 			if(compare_boxes(boxes.at(i), boxes.at(j)) == -1)
 			{

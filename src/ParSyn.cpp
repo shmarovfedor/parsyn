@@ -35,6 +35,7 @@ string dreal_options = "";
 bool verbose = false;
 bool output = false;
 bool est = false;
+bool greedy = false;
 bool partition_flag = false;
 double epsilon = 1e-3;
 stringstream parsyn_out;
@@ -139,6 +140,11 @@ void parse_cmd(int argc, char* argv[])
 		{
 			verbose = true;
 		}
+		//greedy
+		else if(strcmp(argv[i], "--greedy") == 0)
+		{
+			greedy = true;
+		}
 		//partition
 		else if(strcmp(argv[i], "--partition") == 0)
 		{
@@ -228,17 +234,49 @@ void print_result(vector<Box> sat_boxes, vector<Box> undec_boxes, vector<Box> un
 	cout << "==================================================" << endl;
 }
 
+vector<Box> prepartition(vector<Box> boxes, double epsilon)
+{
+	vector<Box> tmp_list;
+	for(int i = 0; i < boxes.size(); i++)
+	{
+		tmp_list.push_back(boxes.at(i));
+	}
+	boxes.clear();
+
+	while(tmp_list.size() > 0)
+    {
+    	Box tmp_box = tmp_list.front();
+		tmp_list.erase(tmp_list.begin());
+    	if (width(tmp_box.get_max_dimension()) > 0)
+    	{
+	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+			for(int i = 0; i < tmp_vector.size(); i++)
+			{
+				if(width(tmp_vector.at(i).get_max_dimension()) <= epsilon)
+				{	
+					boxes.push_back(tmp_vector.at(i));
+				}
+				else
+				{
+					tmp_list.push_back(tmp_vector.at(i));
+				}
+			}
+		}
+	}
+
+	return boxes;
+}
 
 int main(int argc, char* argv[])
 {
-
 	// setting max number of threads by default
 	#ifdef _OPENMP
 		max_num_threads = omp_get_max_threads();
 		num_threads = max_num_threads;
 		omp_set_num_threads(num_threads);
 	#endif
-
+	
+	// parsing command line		
 	parse_cmd(argc, argv);
 	string xml_file_path = filename;
 
@@ -249,97 +287,14 @@ int main(int argc, char* argv[])
 	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes, boxes;
 	    boxes.push_back(gen.get_param_domain());
 
-	    /*
-	    Evaluate one big formula instead of multiple small ones
-		if(est)
-		{
-			vector<string> file_base_name = gen.generate_smt2(boxes.at(0));
-			int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
-			if(result == -1)
-			{
-				unsat_boxes.push_back(boxes.at(0));
-				//print_result(sat_boxes, undec_boxes, unsat_boxes);
-				//cout << "THE PROBLEM IS UNSAT!!!" << endl;
-				//cout << "==================================================" << endl;
-				//cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
-				exit(EXIT_SUCCESS);
-			}
-			if(result == 1)
-			{
-				sat_boxes.push_back(boxes.at(0));
-				//print_result(sat_boxes, undec_boxes, unsat_boxes);
-				//cout << "==================================================" << endl;
-				//cout << fixed << "TIME: " << time(NULL) - start_time << " SECONDS" << endl;
-				exit(EXIT_SUCCESS);
-			}
-			if(result == 0)
-			{
-				undec_boxes.push_back(boxes.at(0));
-				//print_result(sat_boxes, undec_boxes, unsat_boxes);
-				undec_boxes.clear();
-				//cout << endl;
-				//cout << "Parameter estimation is undecidable. Starting parameter synthesis" << endl;
-				//cout << endl;
-			}
-		}
-		*/
-
-	    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
+	    if(greedy)
 	    {
-	    	// resetting the stack
-			sat_boxes.clear();
-			undec_boxes.clear();
-			unsat_boxes.clear();
-
-			// complete partitioning of entire parameter space
-			if(partition_flag)
-			{
-				vector<Box> tmp_list;
-				for(int i = 0; i < boxes.size(); i++)
-				{
-					tmp_list.push_back(boxes.at(i));
-				}
-				boxes.clear();
-
-				while(tmp_list.size() > 0)
-			    {
-			    	Box tmp_box = tmp_list.front();
-					tmp_list.erase(tmp_list.begin());
-			    	if (width(tmp_box.get_max_dimension()) > 0)
-			    	{
-				    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-						for(int i = 0; i < tmp_vector.size(); i++)
-						{
-							if(width(tmp_vector.at(i).get_max_dimension()) <= epsilon)
-							{	
-								boxes.push_back(tmp_vector.at(i));
-							}
-							else
-							{
-								tmp_list.push_back(tmp_vector.at(i));
-							}
-						}
-					}
-				}
-			}
-
-			// making all threads busy
-		    while(boxes.size() < num_threads)
-		    {
-		    	Box tmp_box = boxes.front();
-		    	boxes.erase(boxes.begin());
-		    	if (tmp_box.get_max_dimension() > 0)
-		    	{	
-			    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-					for(int i = 0; i < tmp_vector.size(); i++)
-					{
-						boxes.push_back(tmp_vector.at(i));
-					}
-				}
-		    }
+		    // greedy algorithm (currently without progress indication)
+		    boxes = prepartition(boxes, epsilon);
 
 		    // calculating max progress for the time point
-			double max_progress = 0;
+		    /*
+		    double max_progress = 0;
 			for(int i = 0; i < boxes.size(); i++)
 			{
 				double vol = 1;
@@ -349,36 +304,117 @@ int main(int argc, char* argv[])
 				}
 				max_progress += vol;
 			}
-
-			// processing all boxes for the time points
-			double current_progress = 0;
-		    while(boxes.size() > 0)
+			*/
+			int count = 0;
+			#pragma omp parallel
 			{
-				#pragma omp parallel
+				#pragma omp for
+				for(int i = 0; i < boxes.size(); i++)
 				{
-					#pragma omp for
-					for(int i = 0; i < boxes.size(); i++)
+					bool sat_box_flag = true;
+					//#pragma omp for
+					for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 					{
-						vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
-						int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
-						
-						#pragma omp critical
+						#pragma omp flush(sat_box_flag, count)
+						if(sat_box_flag)
 						{
-							if(result == 1)
+							vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
+							int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
+
+							#pragma omp critical
 							{
-								sat_boxes.push_back(boxes.at(i));
-								double vol = 1;
-								for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+								if(result == 1)
 								{
-									if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+
 								}
-								current_progress += vol;
-							}
-							if(result == 0)
-							{
-								if(width(boxes.at(i).get_max_dimension()) <= epsilon)
+								if(result == 0)
 								{
 									undec_boxes.push_back(boxes.at(i));
+									count++;
+									gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
+									sat_box_flag = false;
+								}
+								if(result == -1)
+								{
+									unsat_boxes.push_back(boxes.at(i));
+									count++;
+									gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
+									sat_box_flag = false;
+								}
+							}
+						}
+					}
+					if(sat_box_flag)
+					{
+						undec_boxes.clear();
+						unsat_boxes.clear();
+						sat_boxes.push_back(boxes.at(i));
+						gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
+						exit(EXIT_SUCCESS);
+					}
+				}
+			}	
+	    }
+	    else
+	    {
+			// regular algorithm
+		    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
+		    {
+		    	// resetting the stack
+				sat_boxes.clear();
+				undec_boxes.clear();
+				unsat_boxes.clear();
+
+				// complete partitioning of entire parameter space
+				if(partition_flag)
+				{
+					boxes = prepartition(boxes, epsilon);
+				}
+
+				// making all threads busy
+			    while(boxes.size() < num_threads)
+			    {
+			    	Box tmp_box = boxes.front();
+			    	boxes.erase(boxes.begin());
+			    	if (tmp_box.get_max_dimension() > 0)
+			    	{	
+				    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+						for(int i = 0; i < tmp_vector.size(); i++)
+						{
+							boxes.push_back(tmp_vector.at(i));
+						}
+					}
+			    }
+
+			    // calculating max progress for the time point
+				double max_progress = 0;
+				for(int i = 0; i < boxes.size(); i++)
+				{
+					double vol = 1;
+					for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+					{
+						if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+					}
+					max_progress += vol;
+				}
+
+				// processing all boxes for the time points
+				double current_progress = 0;
+			    while(boxes.size() > 0)
+				{
+					#pragma omp parallel
+					{
+						#pragma omp for
+						for(int i = 0; i < boxes.size(); i++)
+						{
+							vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
+							int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
+							
+							#pragma omp critical
+							{
+								if(result == 1)
+								{
+									sat_boxes.push_back(boxes.at(i));
 									double vol = 1;
 									for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
 									{
@@ -386,60 +422,68 @@ int main(int argc, char* argv[])
 									}
 									current_progress += vol;
 								}
-								else
+								if(result == 0)
 								{
-									vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
-									for(int j = 0; j < tmp_vector.size(); j++)
+									if(width(boxes.at(i).get_max_dimension()) <= epsilon)
 									{
-										mixed_boxes.push_back(tmp_vector.at(j));
+										undec_boxes.push_back(boxes.at(i));
+										double vol = 1;
+										for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+										{
+											if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+										}
+										current_progress += vol;
+									}
+									else
+									{
+										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+										for(int j = 0; j < tmp_vector.size(); j++)
+										{
+											mixed_boxes.push_back(tmp_vector.at(j));
+										}
 									}
 								}
-							}
-							if(result == -1)
-							{
-								unsat_boxes.push_back(boxes.at(i));
-								double vol = 1;
-								for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+								if(result == -1)
 								{
-									if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+									unsat_boxes.push_back(boxes.at(i));
+									double vol = 1;
+									for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+									{
+										if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+									}
+									current_progress += vol;
 								}
-								current_progress += vol;
-							}
 
-							double progress = 1;
-							if (max_progress > 0) progress = current_progress / max_progress;
-							gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
+								double progress = 1;
+								if (max_progress > 0) progress = current_progress / max_progress;
+								gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
+							}
 						}
 					}
+					boxes.clear();
+					for(int i = 0; i < mixed_boxes.size(); i++)
+					{
+						boxes.push_back(mixed_boxes.at(i));
+					}
+					mixed_boxes.clear();
 				}
-				//sat_boxes = BoxFactory::merge_boxes(sat_boxes);
-				//undec_boxes = BoxFactory::merge_boxes(undec_boxes);
-				//unsat_boxes = BoxFactory::merge_boxes(unsat_boxes);
-				boxes.clear();
-				for(int i = 0; i < mixed_boxes.size(); i++)
+				sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
+				undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
+				unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
+				double progress = 1;
+				if (max_progress > 0) progress = current_progress / max_progress;
+				gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
+				if(sat_boxes.size() == 0)
 				{
-					boxes.push_back(mixed_boxes.at(i));
+					break;
 				}
-				mixed_boxes.clear();
-			}
-			sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
-			undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
-			unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
-			double progress = 1;
-			if (max_progress > 0) progress = current_progress / max_progress;
-			gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
-			//print_result(sat_boxes, undec_boxes, unsat_boxes);
-			//break;
-			if(sat_boxes.size() == 0)
-			{
-				break;
-			}
 
-			for(int i = 0; i < sat_boxes.size(); i++)
-			{
-				boxes.push_back(sat_boxes.at(i));
+				for(int i = 0; i < sat_boxes.size(); i++)
+				{
+					boxes.push_back(sat_boxes.at(i));
+				}
 			}
-		}
+	    }
 	}
 	catch(char const* e)
 	{

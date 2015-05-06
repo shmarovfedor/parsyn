@@ -75,5 +75,7 @@ class SMT2Generator
 
 		void modify_output(double, int, vector<Box>, vector<Box>, vector<Box>);
 
+		void modify_output(double, vector<Box>, vector<Box>, vector<Box>);
+
 };
 #endif 

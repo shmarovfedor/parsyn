@@ -425,6 +425,9 @@ int main(int argc, char* argv[])
 			sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
 			undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
 			unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
+			double progress = 1;
+			if (max_progress > 0) progress = current_progress / max_progress;
+			gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
 			//print_result(sat_boxes, undec_boxes, unsat_boxes);
 			//break;
 			if(sat_boxes.size() == 0)

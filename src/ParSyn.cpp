@@ -71,10 +71,13 @@ void term_app()
     ofstream term_script;
     term_script.open("term_app.sh");
     term_script << term_code.str();
+    term_script.close();
 
     stringstream term_command;
-	term_command << "/bin/bash " << getpid();
+	term_command << "/bin/bash term_app.sh " << getpid();
     system(term_command.str().c_str());
+
+    remove("term_app.sh");
 }
 
 void print_help()

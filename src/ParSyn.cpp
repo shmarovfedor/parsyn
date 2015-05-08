@@ -388,15 +388,19 @@ int main(int argc, char* argv[])
 								}
 							}
 						}
-						if(sat_box_flag)
+						#pragma omp critical
 						{
-							//undec_boxes.clear();
-							//unsat_boxes.clear();
-							sat_boxes.push_back(boxes.at(i));
-							gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
-							exit_flag = true;
-							term_app();
-							exit(EXIT_SUCCESS);
+							if(sat_box_flag)
+							{
+								//undec_boxes.clear();
+								//unsat_boxes.clear();
+								sat_boxes.push_back(boxes.at(i));
+								sat_box_flag = false;
+								gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
+								exit_flag = true;
+								term_app();
+								exit(EXIT_SUCCESS);
+							}
 						}
 					}	
 				}

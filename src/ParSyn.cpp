@@ -68,6 +68,7 @@ void term_app()
 	term_code << "do\n";
 	term_code << "kill -9 $p\n";
 	term_code << "done\n";
+	term_code << "sleep 1\n";
 
     ofstream term_script;
     term_script.open("term_app.sh");

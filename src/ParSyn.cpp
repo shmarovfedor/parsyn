@@ -57,6 +57,7 @@ void term_app()
 	term_code << "}\n";
 	term_code << "\n";
 	term_code << "fclist=`pgrep -P $1`\n";
+	term_code << "kill -s SIGSTOP $1\n";
 	term_code << "plist=\"$plist $fclist\"\n";
 	term_code << "for fc in $fclist\n";
 	term_code << "do\n";

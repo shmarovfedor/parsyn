@@ -40,6 +40,43 @@ bool partition_flag = false;
 double epsilon = 1e-3;
 stringstream parsyn_out;
 
+void term_app() 
+{
+	stringstream term_code;
+    term_code << "#!/bin/bash\n";
+	term_code << "function get_children {\n";
+	term_code << "clist=`pgrep -P $1`\n";
+	term_code << "plist=\"$plist $1\"\n";
+	term_code << "if [ -n \"$clist\" ]\n";
+	term_code << "then\n";
+	term_code << "for c in $clist\n";
+	term_code << "do\n";
+	term_code << "get_children $c\n";
+	term_code << "done\n";
+	term_code << "fi\n";
+	term_code << "}\n";
+	term_code << "\n";
+	term_code << "fclist=`pgrep -P $1`\n";
+	term_code << "plist=\"$plist $fclist\"\n";
+	term_code << "for fc in $fclist\n";
+	term_code << "do\n";
+	term_code << "get_children $fc\n";
+	term_code << "done\n";
+	term_code << "\n";
+	term_code << "for p in $plist\n";
+	term_code << "do\n";
+	term_code << "kill -9 $p\n";
+	term_code << "done\n";
+
+    ofstream term_script;
+    term_script.open("term_app.sh");
+    term_script << term_code.str();
+
+    stringstream term_command;
+	term_command << "/bin/bash " << getpid();
+    system(term_command.str().c_str());
+}
+
 void print_help()
 {
 	cout << endl;
@@ -355,6 +392,8 @@ int main(int argc, char* argv[])
 							sat_boxes.push_back(boxes.at(i));
 							gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
 							exit_flag = true;
+							term_app();
+							exit(EXIT_SUCCESS);
 						}
 					}	
 				}

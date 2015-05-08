@@ -357,7 +357,7 @@ int main(int argc, char* argv[])
 	    }
 	    else
 	    {
-			// regular algorithm
+	    	// regular algorithm
 		    for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 		    {
 		    	// resetting the stack
@@ -376,16 +376,16 @@ int main(int argc, char* argv[])
 			    {
 			    	Box tmp_box = boxes.front();
 			    	boxes.erase(boxes.begin());
-			    	if (tmp_box.get_max_dimension() > 0)
-			    	{	
-				    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+			    	if (width(tmp_box.get_max_dimension()) > 0)
+			    	{
+			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 						for(int i = 0; i < tmp_vector.size(); i++)
 						{
 							boxes.push_back(tmp_vector.at(i));
 						}
 					}
 			    }
-
+			    
 			    // calculating max progress for the time point
 				double max_progress = 0;
 				for(int i = 0; i < boxes.size(); i++)

@@ -308,50 +308,55 @@ int main(int argc, char* argv[])
 			int count = 0;
 			#pragma omp parallel
 			{
+				bool exit_flag = false;
 				#pragma omp for
 				for(int i = 0; i < boxes.size(); i++)
 				{
-					bool sat_box_flag = true;
-					//#pragma omp for
-					for(int j = 0; j < gen.get_time_values().size() - 1; j++)
+					#pragma omp flush(count, exit_flag)
+					if(!exit_flag)
 					{
-						#pragma omp flush(sat_box_flag, count)
-						if(sat_box_flag)
+						bool sat_box_flag = true;
+						//#pragma omp for
+						for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 						{
-							vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
-							int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
-
-							#pragma omp critical
+							#pragma omp flush(sat_box_flag, count)
+							if(sat_box_flag)
 							{
-								if(result == 1)
-								{
+								vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
+								int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
 
-								}
-								if(result == 0)
+								#pragma omp critical
 								{
-									undec_boxes.push_back(boxes.at(i));
-									count++;
-									gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
-									sat_box_flag = false;
-								}
-								if(result == -1)
-								{
-									unsat_boxes.push_back(boxes.at(i));
-									count++;
-									gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
-									sat_box_flag = false;
+									if(result == 1)
+									{
+
+									}
+									if(result == 0)
+									{
+										undec_boxes.push_back(boxes.at(i));
+										count++;
+										gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
+										sat_box_flag = false;
+									}
+									if(result == -1)
+									{
+										unsat_boxes.push_back(boxes.at(i));
+										count++;
+										gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
+										sat_box_flag = false;
+									}
 								}
 							}
 						}
-					}
-					if(sat_box_flag)
-					{
-						undec_boxes.clear();
-						unsat_boxes.clear();
-						sat_boxes.push_back(boxes.at(i));
-						gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
-						exit(EXIT_SUCCESS);
-					}
+						if(sat_box_flag)
+						{
+							undec_boxes.clear();
+							unsat_boxes.clear();
+							sat_boxes.push_back(boxes.at(i));
+							gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
+							exit_flag = true;
+						}
+					}	
 				}
 			}	
 	    }

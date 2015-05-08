@@ -399,6 +399,7 @@ int main(int argc, char* argv[])
 								sat_boxes.push_back(boxes.at(i));
 								gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
 								exit_flag = true;
+								#pragma omp flush(exit_flag)
 								term_app();
 								exit(EXIT_SUCCESS);
 							}

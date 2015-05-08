@@ -57,6 +57,7 @@ void term_app()
 	term_code << "}\n";
 	term_code << "\n";
 	term_code << "fclist=`pgrep -P $1`\n";
+
 	term_code << "plist=\"$plist $fclist\"\n";
 	term_code << "for fc in $fclist\n";
 	term_code << "do\n";
@@ -359,8 +360,7 @@ int main(int argc, char* argv[])
 						//#pragma omp for
 						for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 						{
-							#pragma omp flush(sat_box_flag, count)
-							if(sat_box_flag && !exit_flag)
+							if(sat_box_flag)
 							{
 								vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
 								int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
@@ -385,6 +385,7 @@ int main(int argc, char* argv[])
 										gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
 										sat_box_flag = false;
 									}
+									#pragma omp flush(sat_box_flag, count)
 								}
 							}
 						}

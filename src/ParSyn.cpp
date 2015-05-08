@@ -277,7 +277,7 @@ void print_result(vector<Box> sat_boxes, vector<Box> undec_boxes, vector<Box> un
 vector<Box> prepartition(vector<Box> boxes, double epsilon)
 {
 	vector<Box> tmp_list;
-	for(int i = 0; i < boxes.size(); i++)
+	for(long int i = 0; i < boxes.size(); i++)
 	{
 		tmp_list.push_back(boxes.at(i));
 	}
@@ -290,7 +290,7 @@ vector<Box> prepartition(vector<Box> boxes, double epsilon)
     	if (width(tmp_box.get_max_dimension()) > 0)
     	{
 	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-			for(int i = 0; i < tmp_vector.size(); i++)
+			for(long int i = 0; i < tmp_vector.size(); i++)
 			{
 				if(width(tmp_vector.at(i).get_max_dimension()) <= epsilon)
 				{	
@@ -345,12 +345,12 @@ int main(int argc, char* argv[])
 				max_progress += vol;
 			}
 			*/
-			int count = 0;
+			long int count = 0;
 			bool exit_flag = false;
 			#pragma omp parallel
 			{
 				#pragma omp for
-				for(int i = 0; i < boxes.size(); i++)
+				for(long int i = 0; i < boxes.size(); i++)
 				{
 					#pragma omp flush(count, exit_flag)
 					if(!exit_flag)
@@ -440,7 +440,7 @@ int main(int argc, char* argv[])
 			    
 			    // calculating max progress for the time point
 				double max_progress = 0;
-				for(int i = 0; i < boxes.size(); i++)
+				for(long int i = 0; i < boxes.size(); i++)
 				{
 					double vol = 1;
 					for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
@@ -457,7 +457,7 @@ int main(int argc, char* argv[])
 					#pragma omp parallel
 					{
 						#pragma omp for
-						for(int i = 0; i < boxes.size(); i++)
+						for(long int i = 0; i < boxes.size(); i++)
 						{
 							vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
 							int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);
@@ -513,7 +513,7 @@ int main(int argc, char* argv[])
 						}
 					}
 					boxes.clear();
-					for(int i = 0; i < mixed_boxes.size(); i++)
+					for(long int i = 0; i < mixed_boxes.size(); i++)
 					{
 						boxes.push_back(mixed_boxes.at(i));
 					}
@@ -530,7 +530,7 @@ int main(int argc, char* argv[])
 					break;
 				}
 
-				for(int i = 0; i < sat_boxes.size(); i++)
+				for(long int i = 0; i < sat_boxes.size(); i++)
 				{
 					boxes.push_back(sat_boxes.at(i));
 				}

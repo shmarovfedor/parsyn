@@ -360,7 +360,7 @@ int main(int argc, char* argv[])
 						for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 						{
 							#pragma omp flush(sat_box_flag, count)
-							if(sat_box_flag)
+							if(sat_box_flag && !exit_flag)
 							{
 								vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
 								int result = DecisionProcedure::evaluate(file_base_name, dreal_options, dreal_bin);

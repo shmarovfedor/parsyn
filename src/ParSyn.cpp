@@ -57,7 +57,6 @@ void term_app()
 	term_code << "}\n";
 	term_code << "\n";
 	term_code << "fclist=`pgrep -P $1`\n";
-	term_code << "kill -s SIGSTOP $1\n";
 	term_code << "plist=\"$plist $fclist\"\n";
 	term_code << "for fc in $fclist\n";
 	term_code << "do\n";
@@ -68,7 +67,6 @@ void term_app()
 	term_code << "do\n";
 	term_code << "kill -9 $p\n";
 	term_code << "done\n";
-	term_code << "kill -s SIGCONT $1\n";
 
     ofstream term_script;
     term_script.open("term_app.sh");

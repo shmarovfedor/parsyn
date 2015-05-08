@@ -306,9 +306,9 @@ int main(int argc, char* argv[])
 			}
 			*/
 			int count = 0;
+			bool exit_flag = false;
 			#pragma omp parallel
 			{
-				bool exit_flag = false;
 				#pragma omp for
 				for(int i = 0; i < boxes.size(); i++)
 				{

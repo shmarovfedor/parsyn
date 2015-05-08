@@ -353,13 +353,13 @@ int main(int argc, char* argv[])
 				#pragma omp for
 				for(long int i = 0; i < boxes.size(); i++)
 				{
-					#pragma omp flush(count, exit_flag)
+					#pragma omp flush
 					if(!exit_flag)
 					{
 						bool sat_box_flag = true;
-						//#pragma omp for
 						for(int j = 0; j < gen.get_time_values().size() - 1; j++)
 						{
+							#pragma omp flush
 							if(sat_box_flag)
 							{
 								vector<string> file_base_name = gen.generate_smt2(j + 1, boxes.at(i));
@@ -385,22 +385,18 @@ int main(int argc, char* argv[])
 										gen.modify_output((double) count / boxes.size(), sat_boxes, unsat_boxes, undec_boxes);
 										sat_box_flag = false;
 									}
-									#pragma omp flush(sat_box_flag, count)
 								}
 							}
 						}
+						#pragma omp flush
 						#pragma omp critical
 						{
 							if(sat_box_flag)
 							{
-								//undec_boxes.clear();
-								//unsat_boxes.clear();
 								sat_box_flag = false;
-								#pragma omp flush(sat_box_flag)
 								sat_boxes.push_back(boxes.at(i));
 								gen.modify_output(1, sat_boxes, unsat_boxes, undec_boxes);
 								exit_flag = true;
-								#pragma omp flush(exit_flag)
 								term_app();
 								exit(EXIT_SUCCESS);
 							}

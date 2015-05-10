@@ -291,7 +291,8 @@ vector<Box> prepartition(vector<Box> boxes, double epsilon)
 		tmp_list.erase(tmp_list.begin());
     	if (width(tmp_box.get_max_dimension()) > 0)
     	{
-	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
+	    	//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 			for(long int i = 0; i < tmp_vector.size(); i++)
 			{
 				if(width(tmp_vector.at(i).get_max_dimension()) <= epsilon)
@@ -429,7 +430,8 @@ int main(int argc, char* argv[])
 			    	boxes.erase(boxes.begin());
 			    	if (width(tmp_box.get_max_dimension()) > 0)
 			    	{
-			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
+						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 						for(int i = 0; i < tmp_vector.size(); i++)
 						{
 							boxes.push_back(tmp_vector.at(i));
@@ -487,7 +489,8 @@ int main(int argc, char* argv[])
 									}
 									else
 									{
-										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
+										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon);
+										//vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
 										for(int j = 0; j < tmp_vector.size(); j++)
 										{
 											mixed_boxes.push_back(tmp_vector.at(j));

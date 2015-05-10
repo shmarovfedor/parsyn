@@ -28,6 +28,8 @@ class BoxFactory
 		// box in halves
 		static vector<Box> branch_box(Box);
 
+		static vector<Box> branch_box(Box, double);
+
 		static int compare_boxes(Box, Box);
 
 		static vector<Box> merge_boxes(vector<Box>);

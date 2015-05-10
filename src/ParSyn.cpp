@@ -35,7 +35,7 @@ string dreal_options = "";
 bool verbose = false;
 bool output = false;
 bool est = false;
-bool greedy = false;
+bool full_syn = false;
 bool partition_flag = false;
 double epsilon = 1e-3;
 stringstream parsyn_out;
@@ -96,6 +96,7 @@ void print_help()
 	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
 	//cout << "	--est - apply parameter estimation" << endl;
 	cout << "	--partition - partition the entire parameter space before evaluating" << endl;
+	cout << "	--full-synthesis - perform full parameter synthesis" << endl;
 	cout << endl;
 }
 
@@ -182,10 +183,10 @@ void parse_cmd(int argc, char* argv[])
 		{
 			verbose = true;
 		}
-		//greedy
-		else if(strcmp(argv[i], "--greedy") == 0)
+		//--full-synthesis
+		else if(strcmp(argv[i], "--full-synthesis") == 0)
 		{
-			greedy = true;
+			full_syn = true;
 		}
 		//partition
 		else if(strcmp(argv[i], "--partition") == 0)
@@ -330,7 +331,7 @@ int main(int argc, char* argv[])
 	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes, boxes;
 	    boxes.push_back(gen.get_param_domain());
 
-	    if(greedy)
+	    if(!full_syn)
 	    {
 		    // greedy algorithm (currently without progress indication)
 		    boxes = prepartition(boxes, epsilon);

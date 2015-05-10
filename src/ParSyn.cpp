@@ -519,7 +519,7 @@ int main(int argc, char* argv[])
 									vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon_vector);
 									if(tmp_vector.size() == 1)
 									{
-										undec_boxes.push_back(tmp_vector.at(i));
+										undec_boxes.push_back(boxes.at(i));
 										double vol = 1;
 										for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
 										{
@@ -534,28 +534,6 @@ int main(int argc, char* argv[])
 											mixed_boxes.push_back(tmp_vector.at(i));
 										}
 									}
-									/*									
-									if(width(boxes.at(i).get_max_dimension()) <= epsilon)
-									{
-										undec_boxes.push_back(boxes.at(i));
-										double vol = 1;
-										for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
-										{
-											if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
-										}
-										current_progress += vol;
-									}
-									else
-									{
-										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon_vector);
-										//vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon);
-										//vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
-										for(int j = 0; j < tmp_vector.size(); j++)
-										{
-											mixed_boxes.push_back(tmp_vector.at(j));
-										}
-									}
-									*/
 								}
 								if(result == -1)
 								{
@@ -589,6 +567,7 @@ int main(int argc, char* argv[])
 				gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);
 				if(sat_boxes.size() == 0)
 				{
+					cout << "no SAT boxes" << endl;
 					break;
 				}
 

@@ -38,6 +38,7 @@ bool est = false;
 bool full_syn = false;
 bool partition_flag = false;
 double epsilon = 1e-3;
+vector<double> epsilon_vector;
 stringstream parsyn_out;
 
 void term_app() 
@@ -292,19 +293,24 @@ vector<Box> prepartition(vector<Box> boxes, double epsilon)
 		tmp_list.erase(tmp_list.begin());
     	if (width(tmp_box.get_max_dimension()) > 0)
     	{
-	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
+	    	vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon_vector);
+	    	//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
 	    	//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-			for(long int i = 0; i < tmp_vector.size(); i++)
+			if(tmp_vector.size() == 1)
 			{
-				if(width(tmp_vector.at(i).get_max_dimension()) <= epsilon)
-				{	
-					boxes.push_back(tmp_vector.at(i));
-				}
-				else
+				boxes.push_back(tmp_box);
+			}
+			else
+			{
+				for(long int i = 0; i < tmp_vector.size(); i++)
 				{
 					tmp_list.push_back(tmp_vector.at(i));
 				}
 			}
+		}
+		else
+		{
+			boxes.push_back(tmp_box);
 		}
 	}
 
@@ -324,9 +330,35 @@ int main(int argc, char* argv[])
 	parse_cmd(argc, argv);
 	string xml_file_path = filename;
 
-    try
+/*
+	vector<DInterval> tmp_int;
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	vector<string> vars1;
+	vars1.push_back("a");
+	vars1.push_back("b");
+	vars1.push_back("c");
+	Box box1(tmp_int, vars1);
+	vector<string> vars2;
+	vars2.push_back("a");
+	vars2.push_back("b");
+	vars2.push_back("c");
+	tmp_int.clear();
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	tmp_int.push_back(DInterval(0.0, 1.0));
+	Box box2(tmp_int, vars2);
+	cout << "Box 1" << box1 << endl;
+	cout << "Box 2" << box2 << endl;
+	cout << "Box1 == Box2: " << (box1.equals(box2)) << endl;
+
+	exit(EXIT_SUCCESS);
+*/
+	try
     {
 	    SMT2Generator gen(xml_file_path);
+	    epsilon_vector = gen.get_epsilon();
 		gen.init_output(filename + ".output");
 	    vector<Box> undec_boxes, sat_boxes, unsat_boxes, mixed_boxes, boxes;
 	    boxes.push_back(gen.get_param_domain());
@@ -431,12 +463,18 @@ int main(int argc, char* argv[])
 			    	boxes.erase(boxes.begin());
 			    	if (width(tmp_box.get_max_dimension()) > 0)
 			    	{
-			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
+			    		// here we ignore epsilon_vector
+			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
 						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 						for(int i = 0; i < tmp_vector.size(); i++)
 						{
 							boxes.push_back(tmp_vector.at(i));
 						}
+					}
+					else
+					{
+						boxes.push_back(tmp_box);
 					}
 			    }
 			    
@@ -478,6 +516,25 @@ int main(int argc, char* argv[])
 								}
 								if(result == 0)
 								{
+									vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon_vector);
+									if(tmp_vector.size() == 1)
+									{
+										undec_boxes.push_back(tmp_vector.at(i));
+										double vol = 1;
+										for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
+										{
+											if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
+										}
+										current_progress += vol;
+									}
+									else
+									{
+										for(long int i = 0; i < tmp_vector.size(); i++)
+										{
+											mixed_boxes.push_back(tmp_vector.at(i));
+										}
+									}
+									/*									
 									if(width(boxes.at(i).get_max_dimension()) <= epsilon)
 									{
 										undec_boxes.push_back(boxes.at(i));
@@ -490,13 +547,15 @@ int main(int argc, char* argv[])
 									}
 									else
 									{
-										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon);
+										vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon_vector);
+										//vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i), epsilon);
 										//vector<Box> tmp_vector = BoxFactory::branch_box(boxes.at(i));
 										for(int j = 0; j < tmp_vector.size(); j++)
 										{
 											mixed_boxes.push_back(tmp_vector.at(j));
 										}
 									}
+									*/
 								}
 								if(result == -1)
 								{

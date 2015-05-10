@@ -75,6 +75,8 @@ class Box
 
 		int get_dimension_size();
 
+		bool equals(Box);
+
 		friend ostream& operator<<(ostream&, Box&);
 
 }; 

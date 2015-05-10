@@ -85,6 +85,32 @@ vector<Box> BoxFactory::branch_box(Box box, double epsilon)
 	return BoxFactory::calculate_cart_prod(intervals, box.get_vars());
 }
 
+// The method gets a Box of n demensions as an input parameter and returns 
+// a vector of boxes obtained by dividing each edge of the primary 
+// box until it is smaller than epsilon
+vector<Box> BoxFactory::branch_box(Box box, vector<double> epsilon)
+{
+	vector<DInterval> dimensions = box.get_dimensions();
+	vector <vector<DInterval> > intervals;
+	for(int i = 0; i < dimensions.size(); i++)
+	{
+		vector <DInterval> tmp;
+		if (width(dimensions.at(i)) > epsilon.at(i))
+		{	
+			DInterval left_interval(dimensions.at(i).leftBound(), dimensions.at(i).mid().rightBound());
+			DInterval right_interval(dimensions.at(i).mid().leftBound(), dimensions.at(i).rightBound());
+			tmp.push_back(left_interval);
+			tmp.push_back(right_interval);
+		}
+		else
+		{
+			tmp.push_back(dimensions.at(i));
+		}
+		intervals.push_back(tmp);
+	}
+	return BoxFactory::calculate_cart_prod(intervals, box.get_vars());
+}
+
 int BoxFactory::compare_boxes(Box left, Box right)
 {
 	for(int i = 0; i < left.get_dimension_size(); i++) 

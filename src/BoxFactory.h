@@ -30,6 +30,8 @@ class BoxFactory
 
 		static vector<Box> branch_box(Box, double);
 
+		static vector<Box> branch_box(Box, vector<double>);
+
 		static int compare_boxes(Box, Box);
 
 		static vector<Box> merge_boxes(vector<Box>);

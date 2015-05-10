@@ -212,6 +212,14 @@ void SMT2Generator::parse_xml()
 			param_dim.push_back(DInterval(it->child("domain").child("left").text().as_double(), it->child("domain").child("right").text().as_double()));
 			param_names.push_back(param_name);
 			odes.push_back(string("(= d/dt[" + param_name + "] 0.0)"));
+			if(!it->attribute("epsilon").empty())
+			{
+				epsilon.push_back(it->attribute("epsilon").as_double());
+			}
+			else
+			{
+				epsilon.push_back(1e-3);
+			}
 		}
 		if(strcmp(it->attribute("type").value(),"time") == 0)
 		{
@@ -663,12 +671,7 @@ vector<Box> SMT2Generator::get_time_boxes()
 	return time_box;
 }
 
-double SMT2Generator::get_delta()
-{
-	return delta;
-}
-
-double SMT2Generator::get_epsilon()
+vector<double> SMT2Generator::get_epsilon()
 {
 	return epsilon;
 }

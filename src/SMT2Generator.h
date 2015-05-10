@@ -34,8 +34,7 @@ class SMT2Generator
 		vector<string> odes;
 		vector<double> time_value;
 		vector<Box> time_box;
-		double delta;
-		double epsilon;
+		vector<double> epsilon;
 		int thread_num = 0;
 
 		xml_document output;
@@ -67,9 +66,7 @@ class SMT2Generator
 
 		vector<Box> get_time_boxes();
 
-		double get_delta();
-
-		double get_epsilon();
+		vector<double> get_epsilon();
 
 		void init_output(string);
 

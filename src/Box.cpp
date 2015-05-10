@@ -3,7 +3,7 @@
 //
 // @author: Fedor Shmarov
 // @e-mail: f.shmarov@ncl.ac.uk
-#include<string>
+#include<string.h>
 #include<sstream>
 #include<capd/capdlib.h>
 #include<capd/intervals/lib.h>
@@ -114,7 +114,6 @@ int Box::get_dimension_size()
 	return dimensions.size();
 }
 
-
 ostream& operator<<(ostream& strm, Box& box)
 {
 	for(int i = 0; i < box.get_dimension_size() - 1; i++)
@@ -124,4 +123,21 @@ ostream& operator<<(ostream& strm, Box& box)
 	strm << box.get_dimension(box.get_dimension_size() - 1);
 
 	return strm;
+}
+
+bool Box::equals(Box box)
+{
+	if(get_dimension_size() != box.get_dimension_size())
+	{
+		return false;
+	}
+	for(int i = 0; i < get_dimension_size(); i++)
+	{
+		if((get_dimension(i) != box.get_dimension(i) ||
+			strcmp(get_var(i).c_str(), box.get_var(i).c_str()) != 0))
+		{
+			return false;
+		}
+	}
+	return true;
 }

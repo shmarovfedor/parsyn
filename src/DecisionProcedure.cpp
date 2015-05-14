@@ -39,9 +39,8 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 		{
 			cerr << "dReal terminated abnormally: " << endl;
 			exit(EXIT_FAILURE);
-		}
-
-		if(WEXITSTATUS(res) == 0)
+		} 
+		else if(WEXITSTATUS(res) == 0)
 		{
 			s.str("");
 
@@ -81,6 +80,9 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 				cerr << "Error obtaining SMT output" << endl;
 				exit(EXIT_FAILURE);
 			}
+		} else {
+			cerr << "Problem executing dReal" << endl;
+			exit(EXIT_FAILURE);
 		}
 	}
 	return true;

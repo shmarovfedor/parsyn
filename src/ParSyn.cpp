@@ -67,7 +67,7 @@ void term_app()
 	term_code << "\n";
 	term_code << "for p in $plist\n";
 	term_code << "do\n";
-	term_code << "kill -9 $p\n";
+	term_code << "kill -9 $p > /dev/null 2> /dev/null\n";
 	term_code << "done\n";
 	term_code << "sleep 1\n";
 
@@ -83,22 +83,21 @@ void term_app()
     remove("term_app.sh");
 }
 
-void print_help()
+void print_help(ostream& stream)
 {
-	cout << endl;
-	cout << "Help message:" << endl;
-	cout << endl;
-	cout << "	Run ./ParSyn <options> <model-file.xml>" << endl;
-	cout << endl;
-	cout << "options:" << endl;
-	cout << "	-l <string> - full path to dReal binary (default dReal)" << endl;
-	cout << "	-t <int> - number of CPU cores (default " << max_num_threads << ") (max " << max_num_threads << ")" << endl;
-	cout << "	-h/--help - help message" << endl;
-	cout << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
-	//cout << "	--est - apply parameter estimation" << endl;
-	cout << "	--partition - partition the entire parameter space before evaluating" << endl;
-	cout << "	--full-synthesis - perform full parameter synthesis" << endl;
-	cout << endl;
+	stream << endl;
+	stream << "Help message:" << endl;
+	stream << endl;
+	stream << "	Run ./ParSyn <options> <model-file.xml>" << endl;
+	stream << endl;
+	stream << "options:" << endl;
+	stream << "	-l <string> - full path to dReal binary (default dReal)" << endl;
+	stream << "	-t <int> - number of CPU cores (default " << max_num_threads << ") (max " << max_num_threads << ")" << endl;
+	stream << "	-h/--help - help message" << endl;
+	stream << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
+	stream << "	--partition - partition the entire parameter space before evaluating" << endl;
+	stream << "	--full-synthesis - perform full parameter synthesis" << endl;
+	stream << endl;
 }
 
 void print_version()
@@ -111,8 +110,9 @@ void parse_cmd(int argc, char* argv[])
 	//no arguments are input
 	if(argc < 2)
 	{
-		throw "Not enough arguments. Use --help";		
-		//print_help();
+		cerr << "Not enough arguments" << endl;
+		print_help(cerr);
+		exit(EXIT_FAILURE);
 	}
 
 	//only one -h/--help or --version is provided
@@ -120,7 +120,7 @@ void parse_cmd(int argc, char* argv[])
 	{
 		if((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0))
 		{
-			print_help();
+			print_help(cout);
 			exit(EXIT_SUCCESS);
 		}
 		else if((strcmp(argv[1], "--version") == 0))
@@ -164,7 +164,7 @@ void parse_cmd(int argc, char* argv[])
 		//help
 		else if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0))
 		{
-			print_help();
+			print_help(cout);
 		}
 		//dReal binary
 		else if(strcmp(argv[i], "-l") == 0)
@@ -207,7 +207,8 @@ void parse_cmd(int argc, char* argv[])
 			is >> epsilon;
 			if(epsilon <= 0)
 			{
-				throw "Value specified in -e should be positive";
+				cerr << "Precision value -e should be positive" << endl;
+				exit(EXIT_FAILURE);
 			}
 		}
 		//number of cores
@@ -226,22 +227,21 @@ void parse_cmd(int argc, char* argv[])
 				}
 				else
 				{
-					throw "Number of cores should be positive";
+					cerr << "Number of cores should be positive" << endl;
+					exit(EXIT_FAILURE);
 				}
 			}
 			else
 			{
-				stringstream s;
-				s << "Max number of cores available is " << max_num_threads << ". You specified " << num_threads << endl;
-				throw s.str();
+				cerr << "Max number of cores available is " << max_num_threads << ". You specified " << num_threads << endl;
+				exit(EXIT_FAILURE);
 			}
 		}
 		else
 		{
-			stringstream s;
-			s << "Unrecognized option: " << argv[i] << ". Use --help" << endl;
-			//print_help();
-			throw s.str();
+			cerr << "Unrecognized option: " << argv[i] << ". Use --help" << endl;
+			print_help(cerr);
+			exit(EXIT_FAILURE);
 		}
 	}
 	// case if dReal binary is not specified
@@ -252,8 +252,8 @@ void parse_cmd(int argc, char* argv[])
 	//case if filename is not specified
 	if(strcmp(filename.c_str(), "") == 0)
 	{
-		throw "input XML file is not specified";
-		//print_help();
+		cerr << "input XML file is not specified" << endl;
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -330,31 +330,7 @@ int main(int argc, char* argv[])
 	parse_cmd(argc, argv);
 	string xml_file_path = filename;
 
-/*
-	vector<DInterval> tmp_int;
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	vector<string> vars1;
-	vars1.push_back("a");
-	vars1.push_back("b");
-	vars1.push_back("c");
-	Box box1(tmp_int, vars1);
-	vector<string> vars2;
-	vars2.push_back("a");
-	vars2.push_back("b");
-	vars2.push_back("c");
-	tmp_int.clear();
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	tmp_int.push_back(DInterval(0.0, 1.0));
-	Box box2(tmp_int, vars2);
-	cout << "Box 1" << box1 << endl;
-	cout << "Box 2" << box2 << endl;
-	cout << "Box1 == Box2: " << (box1.equals(box2)) << endl;
-
-	exit(EXIT_SUCCESS);
-*/
+	// algorithms
 	try
     {
 	    SMT2Generator gen(xml_file_path);
@@ -365,22 +341,8 @@ int main(int argc, char* argv[])
 
 	    if(!full_syn)
 	    {
-		    // greedy algorithm (currently without progress indication)
 		    boxes = prepartition(boxes, epsilon);
 
-		    // calculating max progress for the time point
-		    /*
-		    double max_progress = 0;
-			for(int i = 0; i < boxes.size(); i++)
-			{
-				double vol = 1;
-				for(int j = 0; j < boxes.at(i).get_dimension_size(); j++)
-				{
-					if (width(boxes.at(i).get_dimension(j)) > 0) vol *= width(boxes.at(i).get_dimension(j));
-				}
-				max_progress += vol;
-			}
-			*/
 			long int count = 0;
 			bool exit_flag = false;
 			#pragma omp parallel
@@ -580,9 +542,8 @@ int main(int argc, char* argv[])
 	}
 	catch(char const* e)
 	{
-		stringstream s;
-		s << "Error parsing the file " << xml_file_path << ". Reason: " << e << endl;
-		throw s.str();
+		cerr << "Error parsing the file " << xml_file_path << ". Reason: " << e << endl;
+		exit(EXIT_FAILURE);
 	}
 	
 	return EXIT_SUCCESS;

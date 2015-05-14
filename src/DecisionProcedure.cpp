@@ -28,45 +28,62 @@ bool DecisionProcedure::call_dreal(string smt2_filename_base, string opt, string
 {
 	stringstream s;
 	
-	s << dreal_bin << " " << opt << " " << smt2_filename_base << ".smt2 > " << smt2_filename_base << ".output";
+	s << dreal_bin << " " << opt << " " << smt2_filename_base << ".smt2 1> " << smt2_filename_base << ".output";
 	//s << "dReal --precision=" << delta << " " << smt2_filename_base << ".smt2 > " << smt2_filename_base << ".output";
 	
-	system(s.str().c_str());
+	int res = system(s.str().c_str());
 
-	s.str("");
-
-	s << smt2_filename_base << ".output";
-	ifstream output;
-	output.open(s.str().c_str());
-
-	if (output.is_open())
+	if(WIFEXITED(res))
 	{
-		string str, line = "";
-		while(getline(output, str))
+		if(WEXITSTATUS(res) == 1)
 		{
-			line = str;
+			cerr << "dReal terminated abnormally: " << endl;
+			exit(EXIT_FAILURE);
 		}
-		output.close();
-		if ((regex_match(line.c_str(), regex("delta-sat.*"))) || (strcmp(line.c_str(),"sat") == 0))
+
+		if(WEXITSTATUS(res) == 0)
 		{
-			return true;
-		} 
-		else
-		{
-			if (strcmp(line.c_str(),"unsat") == 0)
+			s.str("");
+
+			s << smt2_filename_base << ".output";
+			ifstream output;
+			output.open(s.str().c_str());
+
+			if (output.is_open())
 			{
-				return false;
+				string str, line = "";
+				while(getline(output, str))
+				{
+					line = str;
+				}
+				output.close();
+				if ((regex_match(line.c_str(), regex("delta-sat.*"))) || (strcmp(line.c_str(),"sat") == 0))
+				{
+					DecisionProcedure::remove_aux_file(smt2_filename_base);
+					return true;
+				} 
+				else
+				{
+					if (strcmp(line.c_str(),"unsat") == 0)
+					{
+						DecisionProcedure::remove_aux_file(smt2_filename_base);
+						return false;
+					}
+					else
+					{
+		    			cerr << "Error reading SMT output " << line << endl;
+		    			exit(EXIT_FAILURE);
+					}
+				}
 			}
 			else
 			{
-    			throw string("error reading SMT output").c_str();
+				cerr << "Error obtaining SMT output" << endl;
+				exit(EXIT_FAILURE);
 			}
 		}
 	}
-	else
-	{
-    	throw string("error obtaining SMT output").c_str();
-	}
+	return true;
 }
 
 // The methods gets an arbitrary Box as an input parameter
@@ -83,28 +100,28 @@ int DecisionProcedure::evaluate(vector<string> smt2_filename_base, string opt, s
 		{
 			if(DecisionProcedure::call_dreal(smt2_filename_base.at(1), opt, dreal_bin))
 			{
-				DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-				DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 				return 0;
 			}
 			else
 			{
-				DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-				DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 				return 1;
 			}
 		}
 		else
 		{
-			DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-			DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+			//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+			//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 			return -1;
 		}
 	}
 	catch(const char* e)
 	{
-		DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-		DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+		//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+		//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 		throw e;
 	}
 }

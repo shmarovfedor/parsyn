@@ -34,6 +34,7 @@ string parsyn_version("1.0");
 string dreal_options = "";
 bool verbose = false;
 bool output = false;
+bool exhaustive = false;
 bool est = false;
 bool full_syn = false;
 bool partition_flag = false;
@@ -97,6 +98,7 @@ void print_help(ostream& stream)
 	stream << "	--dreal - delimits dReal options (e.g. precision, ode step)" << endl;
 	stream << "	--partition - partition the entire parameter space before evaluating" << endl;
 	stream << "	--full-synthesis - perform full parameter synthesis" << endl;
+	stream << "	--exhaustive - perform exhaustive search for each time point (works only with --full-synthesis)" << endl;
 	stream << endl;
 }
 
@@ -174,10 +176,10 @@ void parse_cmd(int argc, char* argv[])
 			os << argv[i];
 			dreal_bin = os.str();
 		}
-		//estimation flag
-		else if(strcmp(argv[i], "--est") == 0)
+		//exhaustive flag
+		else if(strcmp(argv[i], "--exhaustive") == 0)
 		{
-			est = true;
+			exhaustive = true;
 		}
 		//verbose
 		else if(strcmp(argv[i], "--verbose") == 0)
@@ -533,9 +535,17 @@ int main(int argc, char* argv[])
 					break;
 				}
 
-				for(long int i = 0; i < sat_boxes.size(); i++)
+				boxes.clear();
+				if(exhaustive)
 				{
-					boxes.push_back(sat_boxes.at(i));
+					boxes.push_back(gen.get_param_domain());
+				}
+				else
+				{
+					for(long int i = 0; i < sat_boxes.size(); i++)
+					{
+						boxes.push_back(sat_boxes.at(i));
+					}
 				}
 			}
 	    }

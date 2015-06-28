@@ -1,0 +1,911 @@
+nra_solver::check(incomplete)
+icp_solver::create_rp_problem: variables
+	time_0 : Real = [0, 15]
+	v0_0_t : Real = [-100, 100]
+	Sx_0_t : Real = [-10, 1000]
+	Sy_0_t : Real = [0, 100]
+	t_0_t : Real = [0, 15]
+	mode_0 : Real = [1, 1]
+	Sy_0_0 : Real = [0, 100]
+	Sx_0_0 : Real = [-10, 1000]
+	t_0_0 : Real = [0, 15]
+	v0_0_0 : Real = [-100, 100]
+icp_solver::create_rp_problem: constraints
+icp_solver::create_rp_problem: constraint:  (<= 31.30670000000001 v0_0_0)
+icp_solver::create_rp_problem: constraint:  (<= v0_0_0 100)
+icp_solver::create_rp_problem: constraint:  (= 0 t_0_0)
+icp_solver::create_rp_problem: constraint:  (= 0 Sy_0_0)
+icp_solver::create_rp_problem: constraint:  (= 0 Sx_0_0)
+icp_solver::create_rp_problem: constraint:  (= 1 mode_0)
+icp_solver::create_rp_problem: constraint: Not (<= 100 Sx_0_t)
+icp_solver::create_rp_problem: constraint: Not (<= 100 Sx_0_0)
+icp_solver::create_rp_problem: constraint: Not (<= t_0_t 1.000000000000001e-06)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_t 0)
+icp_solver::create_rp_problem: constraint:  (<= mode_0 1)
+icp_solver::create_rp_problem: constraint:  (<= 1 mode_0)
+icp_solver::create_rp_problem: constraint:  (<= time_0 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 time_0)
+icp_solver::create_rp_problem: constraint:  (<= Sx_0_t 1000)
+icp_solver::create_rp_problem: constraint:  (<= -10 Sx_0_t)
+icp_solver::create_rp_problem: constraint:  (<= Sx_0_0 1000)
+icp_solver::create_rp_problem: constraint:  (<= -10 Sx_0_0)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_t 100)
+icp_solver::create_rp_problem: constraint:  (<= 0 Sy_0_t)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_0 100)
+icp_solver::create_rp_problem: constraint:  (<= 0 Sy_0_0)
+icp_solver::create_rp_problem: constraint:  (<= t_0_t 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 t_0_t)
+icp_solver::create_rp_problem: constraint:  (<= t_0_0 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 t_0_0)
+icp_solver::create_rp_problem: constraint:  (<= v0_0_t 100)
+icp_solver::create_rp_problem: constraint:  (<= -100 v0_0_t)
+icp_solver::create_rp_problem: constraint:  (<= -100 v0_0_0)
+nra_solver::check(incomplete) result = true
+============================
+nra_solver::check(complete)
+icp_solver::create_rp_problem: variables
+	time_0 : Real = [0, 15]
+	v0_0_t : Real = [-100, 100]
+	Sx_0_t : Real = [-10, 100]
+	Sy_0_t : Real = [0, 0]
+	t_0_t : Real = [1.0000000001e-06, 15]
+	mode_0 : Real = [1, 1]
+	Sy_0_0 : Real = [0, 0]
+	Sx_0_0 : Real = [0, 0]
+	t_0_0 : Real = [0, 0]
+	v0_0_0 : Real = [31.3067, 100]
+icp_solver::create_rp_problem: constraints
+icp_solver::create_rp_problem: constraint:  (<= 31.30670000000001 v0_0_0)
+icp_solver::create_rp_problem: constraint:  (<= v0_0_0 100)
+icp_solver::create_rp_problem: constraint:  (= 0 t_0_0)
+icp_solver::create_rp_problem: constraint:  (= 0 Sy_0_0)
+icp_solver::create_rp_problem: constraint:  (= 0 Sx_0_0)
+icp_solver::create_rp_problem: constraint:  (= 1 mode_0)
+icp_solver::create_rp_problem: constraint: Not (<= 100 Sx_0_t)
+icp_solver::create_rp_problem: constraint: Not (<= 100 Sx_0_0)
+icp_solver::create_rp_problem: constraint: Not (<= t_0_t 1.000000000000001e-06)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_t 0)
+icp_solver::create_rp_problem: constraint:  (<= mode_0 1)
+icp_solver::create_rp_problem: constraint:  (<= 1 mode_0)
+icp_solver::create_rp_problem: constraint:  (<= time_0 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 time_0)
+icp_solver::create_rp_problem: constraint:  (<= Sx_0_t 1000)
+icp_solver::create_rp_problem: constraint:  (<= -10 Sx_0_t)
+icp_solver::create_rp_problem: constraint:  (<= Sx_0_0 1000)
+icp_solver::create_rp_problem: constraint:  (<= -10 Sx_0_0)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_t 100)
+icp_solver::create_rp_problem: constraint:  (<= 0 Sy_0_t)
+icp_solver::create_rp_problem: constraint:  (<= Sy_0_0 100)
+icp_solver::create_rp_problem: constraint:  (<= 0 Sy_0_0)
+icp_solver::create_rp_problem: constraint:  (<= t_0_t 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 t_0_t)
+icp_solver::create_rp_problem: constraint:  (<= t_0_0 15)
+icp_solver::create_rp_problem: constraint:  (<= 0 t_0_0)
+icp_solver::create_rp_problem: constraint:  (<= v0_0_t 100)
+icp_solver::create_rp_problem: constraint:  (<= -100 v0_0_t)
+icp_solver::create_rp_problem: constraint:  (<= -100 v0_0_0)
+ode_solver::ode_solver: diff_par          : par:v0_0_0;
+ode_solver::ode_solver: diff_var          : var:Sx_0_0, Sy_0_0, t_0_0;
+ode_solver::ode_solver: diff_fun_forward  : fun:(v0_0_0*cos((0.7854))), ((v0_0_0*sin((0.7854)))+((-1)*((9.8)*t_0_0))), (1);
+ode_solver::ode_solver: diff_fun_backward : fun:-(v0_0_0*cos((0.7854))), -((v0_0_0*sin((0.7854)))+((-1)*((9.8)*t_0_0))), -(1);
+ode_solver::ode_solver: diff_sys_forward  : par:v0_0_0;var:Sx_0_0, Sy_0_0, t_0_0;fun:(v0_0_0*cos((0.7854))), ((v0_0_0*sin((0.7854)))+((-1)*((9.8)*t_0_0))), (1);
+ode_solver::ode_solver: diff_sys_backward : par:v0_0_0;var:Sx_0_0, Sy_0_0, t_0_0;fun:-(v0_0_0*cos((0.7854))), -((v0_0_0*sin((0.7854)))+((-1)*((9.8)*t_0_0))), -(1);
+ode_solver::ode_solver: func = par:v0_0_0;var:Sx_0_0, Sy_0_0, t_0_0;fun:(v0_0_0*cos((0.7854)));
+ode_solver::ode_solver: func = par:v0_0_0;var:Sx_0_0, Sy_0_0, t_0_0;fun:((v0_0_0*sin((0.7854)))+((-1)*((9.8)*t_0_0)));
+ode_solver::ode_solver: func = par:v0_0_0;var:Sx_0_0, Sy_0_0, t_0_0;fun:(1);
+ode_solver::extract_invariant: Invariant extracted from  Sx_0_t = [-10, 100]
+ode_solver::extract_invariant: Default Invariant set for Sy_0_t = [0, 100]
+ode_solver::extract_invariant: Default Invariant set for t_0_t = [0, 15]
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	0.500776	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [-10, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 15]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 15]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 15]
+ode_solver::inner_loop_forward stepMade = [15, 15]
+ode_solver::inner_loop_forward:[0, 0.9375]	{[-0, 66.2912],[0, 66.2914],[0, 0.9375]}
+ode_solver::inner_loop_forward:[0.9375, 1.875]	{[20.7536, 100],[12.1404, 100],[0.9375, 1.875]}
+ode_solver::inner_loop_forward:[1.875, 2.8125]	{[41.5072, 100],[15.6675, 100],[1.875, 2.8125]}
+ode_solver::inner_loop_forward:[2.8125, 3.75]	{[62.2608, 100],[10.5813, 100],[2.8125, 3.75]}
+ode_solver::inner_loop_forward:[3.75, 4.6875]	{[83.0143, 100],[0, 100],[3.75, 4.6875]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[0] = [-10, 100]
+ode_solver::check_invariant:   v[0] = [103.768, 397.747]
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-30.5171, 268.55]
+ode_solver::compute_forward: invariant violated
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 66.2912],[0, 66.2914],[0, 0.9375]} m_X_t = {[0, 100],[0, 0],[1.00001e-06, 15]}
+ode_solver::prune_forward: v = {[20.7536, 100],[12.1404, 100],[0.9375, 1.875]} m_X_t = {[0, 100],[0, 0],[1.00001e-06, 15]}
+ode_solver::prune_forward: v = {[41.5072, 100],[15.6675, 100],[1.875, 2.8125]} m_X_t = {[0, 100],[0, 0],[1.00001e-06, 15]}
+ode_solver::prune_forward: v = {[62.2608, 100],[10.5813, 100],[2.8125, 3.75]} m_X_t = {[0, 100],[0, 0],[1.00001e-06, 15]}
+ode_solver::prune_forward: v = {[83.0143, 100],[0, 100],[3.75, 4.6875]} m_X_t = {[0, 100],[0, 0],[1.00001e-06, 15]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.6875]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 4.6875]
+ode_solver::inner_loop_backward:[0, 0.292969]	{[-10, 100],[0, 6.97274],[0, 4.6875]}
+ode_solver::inner_loop_backward:[0.292969, 0.585938]	{[-10, 93.5146],[0, 13.2813],[0, 4.39454]}
+ode_solver::inner_loop_backward:[0.585938, 0.878907]	{[-10, 87.0291],[0, 18.9924],[0, 4.10157]}
+ode_solver::inner_loop_backward:[0.878907, 1.17188]	{[-10, 80.5436],[0, 23.8623],[0, 3.8086]}
+ode_solver::inner_loop_backward:[1.17188, 1.46485]	{[-10, 74.0581],[0, 27.891],[0, 3.51563]}
+ode_solver::inner_loop_backward:[1.46485, 1.75782]	{[-10, 67.5726],[0, 31.0786],[0, 3.22266]}
+ode_solver::inner_loop_backward:[1.75782, 2.05079]	{[-10, 61.0871],[0, 33.4251],[0, 2.92969]}
+ode_solver::inner_loop_backward:[2.05079, 2.34375]	{[-10, 54.6016],[0, 34.9304],[0, 2.63672]}
+ode_solver::inner_loop_backward:[2.34375, 2.63672]	{[-10, 48.1161],[0, 35.5946],[0, 2.34375]}
+ode_solver::inner_loop_backward:[2.63672, 2.92969]	{[-10, 41.6306],[0, 35.4176],[0, 2.05079]}
+ode_solver::inner_loop_backward:[2.92969, 3.22266]	{[-10, 35.1451],[0, 34.3995],[0, 1.75782]}
+ode_solver::inner_loop_backward:[3.22266, 3.51563]	{[-10, 28.6597],[0, 32.5403],[0, 1.46485]}
+ode_solver::inner_loop_backward:[3.51563, 3.8086]	{[-10, 22.1742],[0, 29.8399],[0, 1.17188]}
+ode_solver::inner_loop_backward:[3.8086, 4.10157]	{[-10, 15.6887],[0, 26.2984],[0, 0.878907]}
+ode_solver::inner_loop_backward:[4.10157, 4.39454]	{[-10, 9.20314],[0, 21.9157],[0, 0.585938]}
+ode_solver::inner_loop_backward:[4.39454, 4.6875]	{[-10, 2.71765],[0, 16.6919],[0, 0.292969]}
+Split Var: 2
+icp_solver::compute_next: branched on Sx_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-1.45083	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 50]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.6875]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 50]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.6875]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 4.6875]
+ode_solver::inner_loop_forward stepMade = [4.6875, 4.6875]
+ode_solver::inner_loop_forward:[0, 0.292969]	{[-0, 20.716],[0, 20.7161],[0, 0.292969]}
+ode_solver::inner_loop_forward:[0.292969, 0.585938]	{[6.4855, 41.432],[5.64438, 40.591],[0.292969, 0.585938]}
+ode_solver::inner_loop_forward:[0.585938, 0.878907]	{[12.971, 62.148],[10.4477, 59.6248],[0.585938, 0.878907]}
+ode_solver::inner_loop_forward:[0.878907, 1.17188]	{[19.4565, 82.864],[14.4097, 77.8174],[0.878907, 1.17188]}
+ode_solver::inner_loop_forward:[1.17188, 1.46485]	{[25.942, 100],[17.5307, 95.1689],[1.17188, 1.46485]}
+ode_solver::inner_loop_forward:[1.46485, 1.75782]	{[32.4275, 100],[19.8105, 100],[1.46485, 1.75782]}
+ode_solver::inner_loop_forward:[1.75782, 2.05079]	{[38.913, 100],[21.2492, 100],[1.75782, 2.05079]}
+ode_solver::inner_loop_forward:[2.05079, 2.34375]	{[45.3985, 100],[21.8467, 100],[2.05079, 2.34375]}
+ode_solver::inner_loop_forward:[2.34375, 2.63672]	{[51.884, 100],[21.6031, 100],[2.34375, 2.63672]}
+ode_solver::inner_loop_forward:[2.63672, 2.92969]	{[58.3695, 100],[20.5183, 100],[2.63672, 2.92969]}
+ode_solver::inner_loop_forward:[2.92969, 3.22266]	{[64.855, 100],[18.5924, 100],[2.92969, 3.22266]}
+ode_solver::inner_loop_forward:[3.22266, 3.51563]	{[71.3404, 100],[15.8254, 100],[3.22266, 3.51563]}
+ode_solver::inner_loop_forward:[3.51563, 3.8086]	{[77.8259, 100],[12.2172, 100],[3.51563, 3.8086]}
+ode_solver::inner_loop_forward:[3.8086, 4.10157]	{[84.3114, 100],[7.76788, 100],[3.8086, 4.10157]}
+ode_solver::inner_loop_forward:[4.10157, 4.39454]	{[90.7969, 100],[2.47742, 100],[4.10157, 4.39454]}
+ode_solver::inner_loop_forward:[4.39454, 4.6875]	{[97.2824, 100],[0, 100],[4.39454, 4.6875]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 20.716],[0, 20.7161],[0, 0.292969]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[6.4855, 41.432],[5.64438, 40.591],[0.292969, 0.585938]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[12.971, 62.148],[10.4477, 59.6248],[0.585938, 0.878907]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[19.4565, 82.864],[14.4097, 77.8174],[0.878907, 1.17188]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[25.942, 100],[17.5307, 95.1689],[1.17188, 1.46485]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[32.4275, 100],[19.8105, 100],[1.46485, 1.75782]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[38.913, 100],[21.2492, 100],[1.75782, 2.05079]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[45.3985, 100],[21.8467, 100],[2.05079, 2.34375]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[51.884, 100],[21.6031, 100],[2.34375, 2.63672]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[58.3695, 100],[20.5183, 100],[2.63672, 2.92969]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[64.855, 100],[18.5924, 100],[2.92969, 3.22266]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[71.3404, 100],[15.8254, 100],[3.22266, 3.51563]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[77.8259, 100],[12.2172, 100],[3.51563, 3.8086]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[84.3114, 100],[7.76788, 100],[3.8086, 4.10157]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[90.7969, 100],[2.47742, 100],[4.10157, 4.39454]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[97.2824, 100],[0, 100],[4.39454, 4.6875]} m_X_t = {[0, 50],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 20.716]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.292969]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 0.292969]
+ode_solver::inner_loop_backward:[0, 0.0183106]	{[-1.29474, 20.716],[0, 0.0262856],[0, 0.292969]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-2.59607, -0.32813]
+ode_solver::check_invariant: inv[2] = [0, 15]
+ode_solver::check_invariant:   v[2] = [-0.03662, 0.274659]
+ode_solver::compute_backward: invariant violated
+Split Var: 1
+icp_solver::compute_next: branched on v0_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-5.10454	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 20.716]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.292969]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.850046]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.0183106]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 0.0183106]
+ode_solver::inner_loop_forward stepMade = [0.0183106, 0.0183106]
+ode_solver::inner_loop_forward:[0, 0.00114441]	{[-0, 0.0531279],[0, 0.0531281],[0, 0.00114441]}
+ode_solver::inner_loop_forward:[0.00114441, 0.00228882]	{[0.025334, 0.106256],[0.0253213, 0.106244],[0.00114441, 0.00228882]}
+ode_solver::inner_loop_forward:[0.00228882, 0.00343323]	{[0.0506679, 0.159384],[0.0506296, 0.159346],[0.00228882, 0.00343323]}
+ode_solver::inner_loop_forward:[0.00343323, 0.00457764]	{[0.0760019, 0.212512],[0.0759252, 0.212436],[0.00343323, 0.00457764]}
+ode_solver::inner_loop_forward:[0.00457764, 0.00572205]	{[0.101336, 0.26564],[0.101208, 0.265512],[0.00457764, 0.00572205]}
+ode_solver::inner_loop_forward:[0.00572205, 0.00686646]	{[0.12667, 0.318768],[0.126478, 0.318576],[0.00572205, 0.00686646]}
+ode_solver::inner_loop_forward:[0.00686646, 0.00801087]	{[0.152004, 0.371896],[0.151735, 0.371627],[0.00686646, 0.00801087]}
+ode_solver::inner_loop_forward:[0.00801087, 0.00915528]	{[0.177338, 0.425023],[0.176979, 0.424666],[0.00801087, 0.00915528]}
+ode_solver::inner_loop_forward:[0.00915528, 0.0102997]	{[0.202672, 0.478151],[0.202211, 0.477691],[0.00915528, 0.0102997]}
+ode_solver::inner_loop_forward:[0.0102997, 0.0114441]	{[0.228006, 0.531279],[0.227429, 0.530704],[0.0102997, 0.0114441]}
+ode_solver::inner_loop_forward:[0.0114441, 0.0125886]	{[0.25334, 0.584407],[0.252635, 0.583703],[0.0114441, 0.0125886]}
+ode_solver::inner_loop_forward:[0.0125886, 0.013733]	{[0.278674, 0.637535],[0.277828, 0.63669],[0.0125886, 0.013733]}
+ode_solver::inner_loop_forward:[0.013733, 0.0148774]	{[0.304008, 0.690663],[0.303008, 0.689664],[0.013733, 0.0148774]}
+ode_solver::inner_loop_forward:[0.0148774, 0.0160218]	{[0.329342, 0.743791],[0.328175, 0.742625],[0.0148774, 0.0160218]}
+ode_solver::inner_loop_forward:[0.0160218, 0.0171662]	{[0.354676, 0.796919],[0.353329, 0.795574],[0.0160218, 0.0171662]}
+ode_solver::inner_loop_forward:[0.0171662, 0.0183106]	{[0.38001, 0.850046],[0.378471, 0.848509],[0.0171662, 0.0183106]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.0531279],[0, 0.0531281],[0, 0.00114441]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.025334, 0.106256],[0.0253213, 0.106244],[0.00114441, 0.00228882]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.0506679, 0.159384],[0.0506296, 0.159346],[0.00228882, 0.00343323]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.0760019, 0.212512],[0.0759252, 0.212436],[0.00343323, 0.00457764]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.101336, 0.26564],[0.101208, 0.265512],[0.00457764, 0.00572205]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.12667, 0.318768],[0.126478, 0.318576],[0.00572205, 0.00686646]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.152004, 0.371896],[0.151735, 0.371627],[0.00686646, 0.00801087]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.177338, 0.425023],[0.176979, 0.424666],[0.00801087, 0.00915528]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.202672, 0.478151],[0.202211, 0.477691],[0.00915528, 0.0102997]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.228006, 0.531279],[0.227429, 0.530704],[0.0102997, 0.0114441]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.25334, 0.584407],[0.252635, 0.583703],[0.0114441, 0.0125886]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.278674, 0.637535],[0.277828, 0.63669],[0.0125886, 0.013733]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.304008, 0.690663],[0.303008, 0.689664],[0.013733, 0.0148774]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.329342, 0.743791],[0.328175, 0.742625],[0.0148774, 0.0160218]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.354676, 0.796919],[0.353329, 0.795574],[0.0160218, 0.0171662]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.38001, 0.850046],[0.378471, 0.848509],[0.0171662, 0.0183106]} m_X_t = {[0, 0.850046],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0531279]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 0.00114441]
+ode_solver::inner_loop_backward:[0, 7.15256e-05]	{[-0.00332049, 0.0531279],[0, 4.00737e-07],[0, 0.00114441]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-0.0066411, -0.00158219]
+ode_solver::check_invariant: inv[2] = [0, 15]
+ode_solver::check_invariant:   v[2] = [-0.000142051, 0.00107289]
+ode_solver::compute_backward: invariant violated
+Split Var: 1
+icp_solver::compute_next: branched on v0_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-16.6165	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0531279]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.00245194]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 7.15256e-05]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 7.15256e-05]
+ode_solver::inner_loop_forward stepMade = [7.15256e-05, 7.15256e-05]
+ode_solver::inner_loop_forward:[0, 4.47035e-06]	{[-0, 0.000153246],[0, 0.000153247],[0, 4.47035e-06]}
+ode_solver::inner_loop_forward:[4.47035e-06, 8.9407e-06]	{[9.89608e-05, 0.000306492],[9.89609e-05, 0.000306493],[4.47035e-06, 8.9407e-06]}
+ode_solver::inner_loop_forward:[8.9407e-06, 1.34111e-05]	{[0.000197922, 0.000459738],[0.000197922, 0.000459739],[8.9407e-06, 1.34111e-05]}
+ode_solver::inner_loop_forward:[1.34111e-05, 1.78814e-05]	{[0.000296883, 0.000612983],[0.000296883, 0.000612985],[1.34111e-05, 1.78814e-05]}
+ode_solver::inner_loop_forward:[1.78814e-05, 2.23518e-05]	{[0.000395843, 0.000766229],[0.000395843, 0.00076623],[1.78814e-05, 2.23518e-05]}
+ode_solver::inner_loop_forward:[2.23518e-05, 2.68221e-05]	{[0.000494804, 0.000919475],[0.000494803, 0.000919475],[2.23518e-05, 2.68221e-05]}
+ode_solver::inner_loop_forward:[2.68221e-05, 3.12925e-05]	{[0.000593765, 0.00107273],[0.000593763, 0.00107272],[2.68221e-05, 3.12925e-05]}
+ode_solver::inner_loop_forward:[3.12925e-05, 3.57628e-05]	{[0.000692726, 0.00122597],[0.000692723, 0.00122597],[3.12925e-05, 3.57628e-05]}
+ode_solver::inner_loop_forward:[3.57628e-05, 4.02332e-05]	{[0.000791686, 0.00137922],[0.000791682, 0.00137921],[3.57628e-05, 4.02332e-05]}
+ode_solver::inner_loop_forward:[4.02332e-05, 4.47035e-05]	{[0.000890647, 0.00153246],[0.000890641, 0.00153246],[4.02332e-05, 4.47035e-05]}
+ode_solver::inner_loop_forward:[4.47035e-05, 4.91739e-05]	{[0.000989608, 0.00168571],[0.000989601, 0.0016857],[4.47035e-05, 4.91739e-05]}
+ode_solver::inner_loop_forward:[4.91739e-05, 5.36442e-05]	{[0.00108857, 0.00183895],[0.00108856, 0.00183895],[4.91739e-05, 5.36442e-05]}
+ode_solver::inner_loop_forward:[5.36442e-05, 5.81146e-05]	{[0.00118753, 0.0019922],[0.00118752, 0.00199219],[5.36442e-05, 5.81146e-05]}
+ode_solver::inner_loop_forward:[5.81146e-05, 6.25849e-05]	{[0.00128649, 0.00214545],[0.00128648, 0.00214544],[5.81146e-05, 6.25849e-05]}
+ode_solver::inner_loop_forward:[6.25849e-05, 6.70553e-05]	{[0.00138546, 0.00229869],[0.00138544, 0.00229868],[6.25849e-05, 6.70553e-05]}
+ode_solver::inner_loop_forward:[6.70553e-05, 7.15256e-05]	{[0.00148442, 0.00245194],[0.0014844, 0.00245192],[6.70553e-05, 7.15256e-05]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.000153246],[0, 0.000153247],[0, 4.47035e-06]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[9.89608e-05, 0.000306492],[9.89609e-05, 0.000306493],[4.47035e-06, 8.9407e-06]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000197922, 0.000459738],[0.000197922, 0.000459739],[8.9407e-06, 1.34111e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000296883, 0.000612983],[0.000296883, 0.000612985],[1.34111e-05, 1.78814e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000395843, 0.000766229],[0.000395843, 0.00076623],[1.78814e-05, 2.23518e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000494804, 0.000919475],[0.000494803, 0.000919475],[2.23518e-05, 2.68221e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000593765, 0.00107273],[0.000593763, 0.00107272],[2.68221e-05, 3.12925e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000692726, 0.00122597],[0.000692723, 0.00122597],[3.12925e-05, 3.57628e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000791686, 0.00137922],[0.000791682, 0.00137921],[3.57628e-05, 4.02332e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000890647, 0.00153246],[0.000890641, 0.00153246],[4.02332e-05, 4.47035e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000989608, 0.00168571],[0.000989601, 0.0016857],[4.47035e-05, 4.91739e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00108857, 0.00183895],[0.00108856, 0.00183895],[4.91739e-05, 5.36442e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00118753, 0.0019922],[0.00118752, 0.00199219],[5.36442e-05, 5.81146e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00128649, 0.00214545],[0.00128648, 0.00214544],[5.81146e-05, 6.25849e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00138546, 0.00229869],[0.00138544, 0.00229868],[6.25849e-05, 6.70553e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00148442, 0.00245194],[0.0014844, 0.00245192],[6.70553e-05, 7.15256e-05]} m_X_t = {[0, 0.00245194],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.000153246]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.47035e-06]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 4.47035e-06]
+ode_solver::inner_loop_backward:[0, 2.79397e-07]	{[-9.57785e-06, 0.000153246],[0, 4.75107e-12],[7.20604e-07, 4.47035e-06]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-1.91557e-05, -6.18505e-06]
+ode_solver::compute_backward: invariant violated
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-16.6165	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0531279]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0033205]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 7.15256e-05]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 7.15256e-05]
+ode_solver::inner_loop_forward stepMade = [7.15256e-05, 7.15256e-05]
+ode_solver::inner_loop_forward:[0, 4.47035e-06]	{[-0, 0.000207531],[0, 0.000207532],[0, 4.47035e-06]}
+ode_solver::inner_loop_forward:[4.47035e-06, 8.9407e-06]	{[0.000153246, 0.000415062],[0.000153247, 0.000415063],[4.47035e-06, 8.9407e-06]}
+ode_solver::inner_loop_forward:[8.9407e-06, 1.34111e-05]	{[0.000306492, 0.000622593],[0.000306493, 0.000622594],[8.9407e-06, 1.34111e-05]}
+ode_solver::inner_loop_forward:[1.34111e-05, 1.78814e-05]	{[0.000459738, 0.000830124],[0.000459738, 0.000830125],[1.34111e-05, 1.78814e-05]}
+ode_solver::inner_loop_forward:[1.78814e-05, 2.23518e-05]	{[0.000612983, 0.00103766],[0.000612984, 0.00103766],[1.78814e-05, 2.23518e-05]}
+ode_solver::inner_loop_forward:[2.23518e-05, 2.68221e-05]	{[0.000766229, 0.00124519],[0.000766229, 0.00124519],[2.23518e-05, 2.68221e-05]}
+ode_solver::inner_loop_forward:[2.68221e-05, 3.12925e-05]	{[0.000919475, 0.00145272],[0.000919474, 0.00145272],[2.68221e-05, 3.12925e-05]}
+ode_solver::inner_loop_forward:[3.12925e-05, 3.57628e-05]	{[0.00107273, 0.00166025],[0.00107272, 0.00166025],[3.12925e-05, 3.57628e-05]}
+ode_solver::inner_loop_forward:[3.57628e-05, 4.02332e-05]	{[0.00122597, 0.00186778],[0.00122597, 0.00186778],[3.57628e-05, 4.02332e-05]}
+ode_solver::inner_loop_forward:[4.02332e-05, 4.47035e-05]	{[0.00137922, 0.00207531],[0.00137921, 0.00207531],[4.02332e-05, 4.47035e-05]}
+ode_solver::inner_loop_forward:[4.47035e-05, 4.91739e-05]	{[0.00153246, 0.00228284],[0.00153246, 0.00228284],[4.47035e-05, 4.91739e-05]}
+ode_solver::inner_loop_forward:[4.91739e-05, 5.36442e-05]	{[0.00168571, 0.00249037],[0.0016857, 0.00249037],[4.91739e-05, 5.36442e-05]}
+ode_solver::inner_loop_forward:[5.36442e-05, 5.81146e-05]	{[0.00183895, 0.0026979],[0.00183895, 0.0026979],[5.36442e-05, 5.81146e-05]}
+ode_solver::inner_loop_forward:[5.81146e-05, 6.25849e-05]	{[0.0019922, 0.00290544],[0.00199219, 0.00290543],[5.81146e-05, 6.25849e-05]}
+ode_solver::inner_loop_forward:[6.25849e-05, 6.70553e-05]	{[0.00214545, 0.00311297],[0.00214543, 0.00311296],[6.25849e-05, 6.70553e-05]}
+ode_solver::inner_loop_forward:[6.70553e-05, 7.15256e-05]	{[0.00229869, 0.0033205],[0.00229868, 0.00332049],[6.70553e-05, 7.15256e-05]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.000207531],[0, 0.000207532],[0, 4.47035e-06]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000153246, 0.000415062],[0.000153247, 0.000415063],[4.47035e-06, 8.9407e-06]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000306492, 0.000622593],[0.000306493, 0.000622594],[8.9407e-06, 1.34111e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000459738, 0.000830124],[0.000459738, 0.000830125],[1.34111e-05, 1.78814e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000612983, 0.00103766],[0.000612984, 0.00103766],[1.78814e-05, 2.23518e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000766229, 0.00124519],[0.000766229, 0.00124519],[2.23518e-05, 2.68221e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000919475, 0.00145272],[0.000919474, 0.00145272],[2.68221e-05, 3.12925e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00107273, 0.00166025],[0.00107272, 0.00166025],[3.12925e-05, 3.57628e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00122597, 0.00186778],[0.00122597, 0.00186778],[3.57628e-05, 4.02332e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00137922, 0.00207531],[0.00137921, 0.00207531],[4.02332e-05, 4.47035e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00153246, 0.00228284],[0.00153246, 0.00228284],[4.47035e-05, 4.91739e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00168571, 0.00249037],[0.0016857, 0.00249037],[4.91739e-05, 5.36442e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00183895, 0.0026979],[0.00183895, 0.0026979],[5.36442e-05, 5.81146e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.0019922, 0.00290544],[0.00199219, 0.00290543],[5.81146e-05, 6.25849e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00214545, 0.00311297],[0.00214543, 0.00311296],[6.25849e-05, 6.70553e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00229869, 0.0033205],[0.00229868, 0.00332049],[6.70553e-05, 7.15256e-05]} m_X_t = {[0, 0.0033205],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.000207531]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.47035e-06]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 4.47035e-06]
+ode_solver::inner_loop_backward:[0, 2.79397e-07]	{[-1.29706e-05, 0.000207531],[0, 4.75107e-12],[7.20604e-07, 4.47035e-06]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-2.59414e-05, -9.57787e-06]
+ode_solver::compute_backward: invariant violated
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-5.10454	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 20.716]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.292969]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 1.29475]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.0183106]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 0.0183106]
+ode_solver::inner_loop_forward stepMade = [0.0183106, 0.0183106]
+ode_solver::inner_loop_forward:[0, 0.00114441]	{[-0, 0.0809219],[0, 0.0809221],[0, 0.00114441]}
+ode_solver::inner_loop_forward:[0.00114441, 0.00228882]	{[0.0531279, 0.161844],[0.0531153, 0.161832],[0.00114441, 0.00228882]}
+ode_solver::inner_loop_forward:[0.00228882, 0.00343323]	{[0.106256, 0.242766],[0.106218, 0.242728],[0.00228882, 0.00343323]}
+ode_solver::inner_loop_forward:[0.00343323, 0.00457764]	{[0.159384, 0.323688],[0.159308, 0.323612],[0.00343323, 0.00457764]}
+ode_solver::inner_loop_forward:[0.00457764, 0.00572205]	{[0.212512, 0.40461],[0.212384, 0.404483],[0.00457764, 0.00572205]}
+ode_solver::inner_loop_forward:[0.00572205, 0.00686646]	{[0.26564, 0.485531],[0.265448, 0.485341],[0.00572205, 0.00686646]}
+ode_solver::inner_loop_forward:[0.00686646, 0.00801087]	{[0.318768, 0.566453],[0.318499, 0.566186],[0.00686646, 0.00801087]}
+ode_solver::inner_loop_forward:[0.00801087, 0.00915528]	{[0.371896, 0.647375],[0.371538, 0.647018],[0.00801087, 0.00915528]}
+ode_solver::inner_loop_forward:[0.00915528, 0.0102997]	{[0.425023, 0.728297],[0.424563, 0.727837],[0.00915528, 0.0102997]}
+ode_solver::inner_loop_forward:[0.0102997, 0.0114441]	{[0.478151, 0.809219],[0.477576, 0.808644],[0.0102997, 0.0114441]}
+ode_solver::inner_loop_forward:[0.0114441, 0.0125886]	{[0.531279, 0.89014],[0.530575, 0.889438],[0.0114441, 0.0125886]}
+ode_solver::inner_loop_forward:[0.0125886, 0.013733]	{[0.584407, 0.971062],[0.583562, 0.970219],[0.0125886, 0.013733]}
+ode_solver::inner_loop_forward:[0.013733, 0.0148774]	{[0.637535, 1.05199],[0.636536, 1.05099],[0.013733, 0.0148774]}
+ode_solver::inner_loop_forward:[0.0148774, 0.0160218]	{[0.690663, 1.13291],[0.689497, 1.13175],[0.0148774, 0.0160218]}
+ode_solver::inner_loop_forward:[0.0160218, 0.0171662]	{[0.743791, 1.21383],[0.742446, 1.21249],[0.0160218, 0.0171662]}
+ode_solver::inner_loop_forward:[0.0171662, 0.0183106]	{[0.796919, 1.29475],[0.795381, 1.29322],[0.0171662, 0.0183106]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.0809219],[0, 0.0809221],[0, 0.00114441]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.0531279, 0.161844],[0.0531153, 0.161832],[0.00114441, 0.00228882]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.106256, 0.242766],[0.106218, 0.242728],[0.00228882, 0.00343323]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.159384, 0.323688],[0.159308, 0.323612],[0.00343323, 0.00457764]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.212512, 0.40461],[0.212384, 0.404483],[0.00457764, 0.00572205]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.26564, 0.485531],[0.265448, 0.485341],[0.00572205, 0.00686646]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.318768, 0.566453],[0.318499, 0.566186],[0.00686646, 0.00801087]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.371896, 0.647375],[0.371538, 0.647018],[0.00801087, 0.00915528]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.425023, 0.728297],[0.424563, 0.727837],[0.00915528, 0.0102997]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.478151, 0.809219],[0.477576, 0.808644],[0.0102997, 0.0114441]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.531279, 0.89014],[0.530575, 0.889438],[0.0114441, 0.0125886]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.584407, 0.971062],[0.583562, 0.970219],[0.0125886, 0.013733]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.637535, 1.05199],[0.636536, 1.05099],[0.013733, 0.0148774]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.690663, 1.13291],[0.689497, 1.13175],[0.0148774, 0.0160218]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.743791, 1.21383],[0.742446, 1.21249],[0.0160218, 0.0171662]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::prune_forward: v = {[0.796919, 1.29475],[0.795381, 1.29322],[0.0171662, 0.0183106]} m_X_t = {[0, 1.29475],[0, 0],[1.00001e-06, 0.0183106]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0809219]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 0.00114441]
+ode_solver::inner_loop_backward:[0, 7.15256e-05]	{[-0.00505761, 0.0809219],[0, 4.00737e-07],[0, 0.00114441]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-0.0101153, -0.00331932]
+ode_solver::check_invariant: inv[2] = [0, 15]
+ode_solver::check_invariant:   v[2] = [-0.000142051, 0.00107289]
+ode_solver::compute_backward: invariant violated
+Split Var: 1
+icp_solver::compute_next: branched on v0_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-16.1957	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0809219]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.00418906]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 7.15256e-05]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 7.15256e-05]
+ode_solver::inner_loop_forward stepMade = [7.15256e-05, 7.15256e-05]
+ode_solver::inner_loop_forward:[0, 4.47035e-06]	{[-0, 0.000261816],[0, 0.000261817],[0, 4.47035e-06]}
+ode_solver::inner_loop_forward:[4.47035e-06, 8.9407e-06]	{[0.000207531, 0.000523632],[0.000207532, 0.000523634],[4.47035e-06, 8.9407e-06]}
+ode_solver::inner_loop_forward:[8.9407e-06, 1.34111e-05]	{[0.000415062, 0.000785448],[0.000415063, 0.00078545],[8.9407e-06, 1.34111e-05]}
+ode_solver::inner_loop_forward:[1.34111e-05, 1.78814e-05]	{[0.000622593, 0.00104727],[0.000622594, 0.00104727],[1.34111e-05, 1.78814e-05]}
+ode_solver::inner_loop_forward:[1.78814e-05, 2.23518e-05]	{[0.000830124, 0.00130908],[0.000830125, 0.00130909],[1.78814e-05, 2.23518e-05]}
+ode_solver::inner_loop_forward:[2.23518e-05, 2.68221e-05]	{[0.00103766, 0.0015709],[0.00103766, 0.0015709],[2.23518e-05, 2.68221e-05]}
+ode_solver::inner_loop_forward:[2.68221e-05, 3.12925e-05]	{[0.00124519, 0.00183272],[0.00124519, 0.00183272],[2.68221e-05, 3.12925e-05]}
+ode_solver::inner_loop_forward:[3.12925e-05, 3.57628e-05]	{[0.00145272, 0.00209453],[0.00145272, 0.00209453],[3.12925e-05, 3.57628e-05]}
+ode_solver::inner_loop_forward:[3.57628e-05, 4.02332e-05]	{[0.00166025, 0.00235635],[0.00166025, 0.00235635],[3.57628e-05, 4.02332e-05]}
+ode_solver::inner_loop_forward:[4.02332e-05, 4.47035e-05]	{[0.00186778, 0.00261816],[0.00186778, 0.00261816],[4.02332e-05, 4.47035e-05]}
+ode_solver::inner_loop_forward:[4.47035e-05, 4.91739e-05]	{[0.00207531, 0.00287998],[0.00207531, 0.00287998],[4.47035e-05, 4.91739e-05]}
+ode_solver::inner_loop_forward:[4.91739e-05, 5.36442e-05]	{[0.00228284, 0.00314179],[0.00228284, 0.00314179],[4.91739e-05, 5.36442e-05]}
+ode_solver::inner_loop_forward:[5.36442e-05, 5.81146e-05]	{[0.00249037, 0.00340361],[0.00249037, 0.00340361],[5.36442e-05, 5.81146e-05]}
+ode_solver::inner_loop_forward:[5.81146e-05, 6.25849e-05]	{[0.0026979, 0.00366543],[0.0026979, 0.00366542],[5.81146e-05, 6.25849e-05]}
+ode_solver::inner_loop_forward:[6.25849e-05, 6.70553e-05]	{[0.00290544, 0.00392724],[0.00290543, 0.00392724],[6.25849e-05, 6.70553e-05]}
+ode_solver::inner_loop_forward:[6.70553e-05, 7.15256e-05]	{[0.00311297, 0.00418906],[0.00311295, 0.00418905],[6.70553e-05, 7.15256e-05]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.000261816],[0, 0.000261817],[0, 4.47035e-06]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000207531, 0.000523632],[0.000207532, 0.000523634],[4.47035e-06, 8.9407e-06]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000415062, 0.000785448],[0.000415063, 0.00078545],[8.9407e-06, 1.34111e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000622593, 0.00104727],[0.000622594, 0.00104727],[1.34111e-05, 1.78814e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000830124, 0.00130908],[0.000830125, 0.00130909],[1.78814e-05, 2.23518e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00103766, 0.0015709],[0.00103766, 0.0015709],[2.23518e-05, 2.68221e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00124519, 0.00183272],[0.00124519, 0.00183272],[2.68221e-05, 3.12925e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00145272, 0.00209453],[0.00145272, 0.00209453],[3.12925e-05, 3.57628e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00166025, 0.00235635],[0.00166025, 0.00235635],[3.57628e-05, 4.02332e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00186778, 0.00261816],[0.00186778, 0.00261816],[4.02332e-05, 4.47035e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00207531, 0.00287998],[0.00207531, 0.00287998],[4.47035e-05, 4.91739e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00228284, 0.00314179],[0.00228284, 0.00314179],[4.91739e-05, 5.36442e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00249037, 0.00340361],[0.00249037, 0.00340361],[5.36442e-05, 5.81146e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.0026979, 0.00366543],[0.0026979, 0.00366542],[5.81146e-05, 6.25849e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00290544, 0.00392724],[0.00290543, 0.00392724],[6.25849e-05, 6.70553e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00311297, 0.00418906],[0.00311295, 0.00418905],[6.70553e-05, 7.15256e-05]} m_X_t = {[0, 0.00418906],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.000261816]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.47035e-06]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 4.47035e-06]
+ode_solver::inner_loop_backward:[0, 2.79397e-07]	{[-1.63634e-05, 0.000261816],[0, 4.75107e-12],[7.20604e-07, 4.47035e-06]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-3.2727e-05, -1.29707e-05]
+ode_solver::compute_backward: invariant violated
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-16.1957	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.0809219]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 0.00114441]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.00505762]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 7.15256e-05]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 7.15256e-05]
+ode_solver::inner_loop_forward stepMade = [7.15256e-05, 7.15256e-05]
+ode_solver::inner_loop_forward:[0, 4.47035e-06]	{[-0, 0.000316101],[0, 0.000316102],[0, 4.47035e-06]}
+ode_solver::inner_loop_forward:[4.47035e-06, 8.9407e-06]	{[0.000261816, 0.000632202],[0.000261817, 0.000632204],[4.47035e-06, 8.9407e-06]}
+ode_solver::inner_loop_forward:[8.9407e-06, 1.34111e-05]	{[0.000523632, 0.000948303],[0.000523633, 0.000948306],[8.9407e-06, 1.34111e-05]}
+ode_solver::inner_loop_forward:[1.34111e-05, 1.78814e-05]	{[0.000785448, 0.00126441],[0.00078545, 0.00126441],[1.34111e-05, 1.78814e-05]}
+ode_solver::inner_loop_forward:[1.78814e-05, 2.23518e-05]	{[0.00104727, 0.00158051],[0.00104727, 0.00158051],[1.78814e-05, 2.23518e-05]}
+ode_solver::inner_loop_forward:[2.23518e-05, 2.68221e-05]	{[0.00130908, 0.00189661],[0.00130909, 0.00189661],[2.23518e-05, 2.68221e-05]}
+ode_solver::inner_loop_forward:[2.68221e-05, 3.12925e-05]	{[0.0015709, 0.00221271],[0.0015709, 0.00221271],[2.68221e-05, 3.12925e-05]}
+ode_solver::inner_loop_forward:[3.12925e-05, 3.57628e-05]	{[0.00183272, 0.00252881],[0.00183272, 0.00252882],[3.12925e-05, 3.57628e-05]}
+ode_solver::inner_loop_forward:[3.57628e-05, 4.02332e-05]	{[0.00209453, 0.00284491],[0.00209453, 0.00284492],[3.57628e-05, 4.02332e-05]}
+ode_solver::inner_loop_forward:[4.02332e-05, 4.47035e-05]	{[0.00235635, 0.00316101],[0.00235635, 0.00316102],[4.02332e-05, 4.47035e-05]}
+ode_solver::inner_loop_forward:[4.47035e-05, 4.91739e-05]	{[0.00261816, 0.00347711],[0.00261816, 0.00347712],[4.47035e-05, 4.91739e-05]}
+ode_solver::inner_loop_forward:[4.91739e-05, 5.36442e-05]	{[0.00287998, 0.00379321],[0.00287998, 0.00379322],[4.91739e-05, 5.36442e-05]}
+ode_solver::inner_loop_forward:[5.36442e-05, 5.81146e-05]	{[0.00314179, 0.00410932],[0.00314179, 0.00410932],[5.36442e-05, 5.81146e-05]}
+ode_solver::inner_loop_forward:[5.81146e-05, 6.25849e-05]	{[0.00340361, 0.00442542],[0.0034036, 0.00442541],[5.81146e-05, 6.25849e-05]}
+ode_solver::inner_loop_forward:[6.25849e-05, 6.70553e-05]	{[0.00366543, 0.00474152],[0.00366542, 0.00474151],[6.25849e-05, 6.70553e-05]}
+ode_solver::inner_loop_forward:[6.70553e-05, 7.15256e-05]	{[0.00392724, 0.00505762],[0.00392723, 0.00505761],[6.70553e-05, 7.15256e-05]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 0.000316101],[0, 0.000316102],[0, 4.47035e-06]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000261816, 0.000632202],[0.000261817, 0.000632204],[4.47035e-06, 8.9407e-06]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000523632, 0.000948303],[0.000523633, 0.000948306],[8.9407e-06, 1.34111e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.000785448, 0.00126441],[0.00078545, 0.00126441],[1.34111e-05, 1.78814e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00104727, 0.00158051],[0.00104727, 0.00158051],[1.78814e-05, 2.23518e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00130908, 0.00189661],[0.00130909, 0.00189661],[2.23518e-05, 2.68221e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.0015709, 0.00221271],[0.0015709, 0.00221271],[2.68221e-05, 3.12925e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00183272, 0.00252881],[0.00183272, 0.00252882],[3.12925e-05, 3.57628e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00209453, 0.00284491],[0.00209453, 0.00284492],[3.57628e-05, 4.02332e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00235635, 0.00316101],[0.00235635, 0.00316102],[4.02332e-05, 4.47035e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00261816, 0.00347711],[0.00261816, 0.00347712],[4.47035e-05, 4.91739e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00287998, 0.00379321],[0.00287998, 0.00379322],[4.91739e-05, 5.36442e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00314179, 0.00410932],[0.00314179, 0.00410932],[5.36442e-05, 5.81146e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00340361, 0.00442542],[0.0034036, 0.00442541],[5.81146e-05, 6.25849e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00366543, 0.00474152],[0.00366542, 0.00474151],[6.25849e-05, 6.70553e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::prune_forward: v = {[0.00392724, 0.00505762],[0.00392723, 0.00505761],[6.70553e-05, 7.15256e-05]} m_X_t = {[0, 0.00505762],[0, 0],[1.00001e-06, 7.15256e-05]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [0, 0.000316101]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.47035e-06]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [0, 4.47035e-06]
+ode_solver::inner_loop_backward:[0, 2.79397e-07]	{[-1.97562e-05, 0.000316101],[0, 4.75107e-12],[7.20604e-07, 4.47035e-06]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[1] = [0, 100]
+ode_solver::check_invariant:   v[1] = [-3.95127e-05, -1.63635e-05]
+ode_solver::compute_backward: invariant violated
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-1.45083	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [50, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.6875]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [50, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [1.00001e-06, 4.6875]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [0, 4.6875]
+ode_solver::inner_loop_forward stepMade = [4.6875, 4.6875]
+ode_solver::inner_loop_forward:[0, 0.292969]	{[-0, 20.716],[0, 20.7161],[0, 0.292969]}
+ode_solver::inner_loop_forward:[0.292969, 0.585938]	{[6.4855, 41.432],[5.64438, 40.591],[0.292969, 0.585938]}
+ode_solver::inner_loop_forward:[0.585938, 0.878907]	{[12.971, 62.148],[10.4477, 59.6248],[0.585938, 0.878907]}
+ode_solver::inner_loop_forward:[0.878907, 1.17188]	{[19.4565, 82.864],[14.4097, 77.8174],[0.878907, 1.17188]}
+ode_solver::inner_loop_forward:[1.17188, 1.46485]	{[25.942, 100],[17.5307, 95.1689],[1.17188, 1.46485]}
+ode_solver::inner_loop_forward:[1.46485, 1.75782]	{[32.4275, 100],[19.8105, 100],[1.46485, 1.75782]}
+ode_solver::inner_loop_forward:[1.75782, 2.05079]	{[38.913, 100],[21.2492, 100],[1.75782, 2.05079]}
+ode_solver::inner_loop_forward:[2.05079, 2.34375]	{[45.3985, 100],[21.8467, 100],[2.05079, 2.34375]}
+ode_solver::inner_loop_forward:[2.34375, 2.63672]	{[51.884, 100],[21.6031, 100],[2.34375, 2.63672]}
+ode_solver::inner_loop_forward:[2.63672, 2.92969]	{[58.3695, 100],[20.5183, 100],[2.63672, 2.92969]}
+ode_solver::inner_loop_forward:[2.92969, 3.22266]	{[64.855, 100],[18.5924, 100],[2.92969, 3.22266]}
+ode_solver::inner_loop_forward:[3.22266, 3.51563]	{[71.3404, 100],[15.8254, 100],[3.22266, 3.51563]}
+ode_solver::inner_loop_forward:[3.51563, 3.8086]	{[77.8259, 100],[12.2172, 100],[3.51563, 3.8086]}
+ode_solver::inner_loop_forward:[3.8086, 4.10157]	{[84.3114, 100],[7.76788, 100],[3.8086, 4.10157]}
+ode_solver::inner_loop_forward:[4.10157, 4.39454]	{[90.7969, 100],[2.47742, 100],[4.10157, 4.39454]}
+ode_solver::inner_loop_forward:[4.39454, 4.6875]	{[97.2824, 100],[0, 100],[4.39454, 4.6875]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[-0, 20.716],[0, 20.7161],[0, 0.292969]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[6.4855, 41.432],[5.64438, 40.591],[0.292969, 0.585938]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[12.971, 62.148],[10.4477, 59.6248],[0.585938, 0.878907]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[19.4565, 82.864],[14.4097, 77.8174],[0.878907, 1.17188]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[25.942, 100],[17.5307, 95.1689],[1.17188, 1.46485]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[32.4275, 100],[19.8105, 100],[1.46485, 1.75782]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[38.913, 100],[21.2492, 100],[1.75782, 2.05079]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[45.3985, 100],[21.8467, 100],[2.05079, 2.34375]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[51.884, 100],[21.6031, 100],[2.34375, 2.63672]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[58.3695, 100],[20.5183, 100],[2.63672, 2.92969]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[64.855, 100],[18.5924, 100],[2.92969, 3.22266]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[71.3404, 100],[15.8254, 100],[3.22266, 3.51563]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[77.8259, 100],[12.2172, 100],[3.51563, 3.8086]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[84.3114, 100],[7.76788, 100],[3.8086, 4.10157]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[90.7969, 100],[2.47742, 100],[4.10157, 4.39454]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::prune_forward: v = {[97.2824, 100],[0, 100],[4.39454, 4.6875]} m_X_t = {[50, 100],[0, 0],[1.00001e-06, 4.6875]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [97.2824, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.39454, 4.6875]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [4.39454, 4.6875]
+ode_solver::inner_loop_forward: pre_T =[0, 4.39454]
+ode_solver::inner_loop_forward: domain =[4.39454, 4.6875] 0.292969
+ode_solver::inner_loop_forward: split
+ode_solver::inner_loop_backward:[0, 4.39454]	{[-10, 100],[0, 100],[0, 4.6875]}
+ode_solver::inner_loop_backward:[4.39454, 4.41285]	{[-10, 2.71765],[0, 10.0043],[0, 0.292969]}
+ode_solver::inner_loop_backward:[4.41285, 4.43116]	{[-10, 2.31231],[0, 9.6482],[0, 0.274659]}
+ode_solver::inner_loop_backward:[4.43116, 4.44947]	{[-10, 1.90697],[0, 9.28885],[0, 0.256348]}
+ode_solver::inner_loop_backward:[4.44947, 4.46778]	{[-10, 1.50163],[0, 8.92622],[0, 0.238038]}
+ode_solver::inner_loop_backward:[4.46778, 4.48609]	{[-10, 1.09628],[0, 8.5603],[0, 0.219727]}
+ode_solver::inner_loop_backward:[4.48609, 4.5044]	{[-10, 0.690935],[0, 8.1911],[0, 0.201417]}
+ode_solver::inner_loop_backward:[4.5044, 4.52271]	{[-10, 0.285592],[0, 7.81861],[0, 0.183106]}
+ode_solver::inner_loop_backward:[4.52271, 4.54102]	{[-10, -0.119751],[0, 7.44284],[0, 0.164795]}
+ode_solver::inner_loop_backward:[4.54102, 4.55933]	{[-10, -0.525095],[0, 7.06378],[0, 0.146485]}
+ode_solver::inner_loop_backward:[4.55933, 4.57764]	{[-10, -0.930438],[0, 6.68144],[0, 0.128174]}
+ode_solver::inner_loop_backward:[4.57764, 4.59595]	{[-10, -1.33578],[0, 6.29701],[0, 0.109864]}
+ode_solver::inner_loop_backward:[4.59595, 4.61426]	{[-10, -1.74112],[0, 5.90974],[0, 0.0915528]}
+ode_solver::inner_loop_backward:[4.61426, 4.63257]	{[-10, -2.14646],[0, 5.51918],[0, 0.0732422]}
+ode_solver::inner_loop_backward:[4.63257, 4.65088]	{[-10, -2.55181],[0, 5.12533],[0, 0.0549317]}
+ode_solver::inner_loop_backward:[4.65088, 4.66919]	{[-10, -2.95715],[0, 4.7282],[0, 0.0366211]}
+ode_solver::inner_loop_backward:[4.66919, 4.6875]	{[-10, -3.36249],[0, 4.32779],[0, 0.0183106]}
+Split Var: 1
+icp_solver::compute_next: branched on v0_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-7.13567	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [97.2824, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.39454, 4.6875]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [97.2824, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.39454, 4.52271]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [4.39454, 4.52271]
+ode_solver::inner_loop_forward stepMade = [4.52271, 4.52271]
+ode_solver::inner_loop_forward: pre_T =[0, 4.39454]
+ode_solver::inner_loop_forward: domain =[4.39454, 4.52271] 0.128174 1e-12
+ode_solver::inner_loop_forward: split
+ode_solver::inner_loop_forward:[0, 4.39454]	{[-0, 100],[0, 100],[0, 4.39454]}
+ode_solver::inner_loop_forward:[4.39454, 4.40255]	{[97.2824, 100],[2.48188, 100],[4.39454, 4.40255]}
+ode_solver::inner_loop_forward:[4.40255, 4.41056]	{[97.4597, 100],[2.31359, 100],[4.40255, 4.41056]}
+ode_solver::inner_loop_forward:[4.41056, 4.41857]	{[97.6371, 100],[2.14467, 100],[4.41056, 4.41857]}
+ode_solver::inner_loop_forward:[4.41857, 4.42658]	{[97.8144, 100],[1.97512, 100],[4.41857, 4.42658]}
+ode_solver::inner_loop_forward:[4.42658, 4.43459]	{[97.9918, 100],[1.80495, 100],[4.42658, 4.43459]}
+ode_solver::inner_loop_forward:[4.43459, 4.4426]	{[98.1691, 100],[1.63414, 100],[4.43459, 4.4426]}
+ode_solver::inner_loop_forward:[4.4426, 4.45061]	{[98.3464, 100],[1.46271, 100],[4.4426, 4.45061]}
+ode_solver::inner_loop_forward:[4.45061, 4.45862]	{[98.5238, 100],[1.29064, 100],[4.45061, 4.45862]}
+ode_solver::inner_loop_forward:[4.45862, 4.46663]	{[98.7011, 100],[1.11795, 100],[4.45862, 4.46663]}
+ode_solver::inner_loop_forward:[4.46663, 4.47464]	{[98.8784, 100],[0.944626, 100],[4.46663, 4.47464]}
+ode_solver::inner_loop_forward:[4.47464, 4.48266]	{[99.0558, 100],[0.770676, 100],[4.47464, 4.48266]}
+ode_solver::inner_loop_forward:[4.48266, 4.49067]	{[99.2331, 100],[0.596097, 100],[4.48266, 4.49067]}
+ode_solver::inner_loop_forward:[4.49067, 4.49868]	{[99.4105, 100],[0.420889, 100],[4.49067, 4.49868]}
+ode_solver::inner_loop_forward:[4.49868, 4.50669]	{[99.5878, 100],[0.245053, 100],[4.49868, 4.50669]}
+ode_solver::inner_loop_forward:[4.50669, 4.5147]	{[99.7651, 100],[0.0685867, 100],[4.50669, 4.5147]}
+ode_solver::inner_loop_forward:[4.5147, 4.52271]	{[99.9425, 100],[0, 100],[4.5147, 4.52271]}
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[97.2824, 100],[2.48188, 100],[4.39454, 4.40255]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[97.4597, 100],[2.31359, 100],[4.40255, 4.41056]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[97.6371, 100],[2.14467, 100],[4.41056, 4.41857]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[97.8144, 100],[1.97512, 100],[4.41857, 4.42658]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[97.9918, 100],[1.80495, 100],[4.42658, 4.43459]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[98.1691, 100],[1.63414, 100],[4.43459, 4.4426]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[98.3464, 100],[1.46271, 100],[4.4426, 4.45061]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[98.5238, 100],[1.29064, 100],[4.45061, 4.45862]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[98.7011, 100],[1.11795, 100],[4.45862, 4.46663]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[98.8784, 100],[0.944626, 100],[4.46663, 4.47464]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.0558, 100],[0.770676, 100],[4.47464, 4.48266]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.2331, 100],[0.596097, 100],[4.48266, 4.49067]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.4105, 100],[0.420889, 100],[4.49067, 4.49868]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.5878, 100],[0.245053, 100],[4.49868, 4.50669]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.7651, 100],[0.0685867, 100],[4.50669, 4.5147]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::prune_forward: v = {[99.9425, 100],[0, 100],[4.5147, 4.52271]} m_X_t = {[97.2824, 100],[0, 0],[4.39454, 4.52271]}
+ode_solver::solve_backward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [99.9425, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.5147, 4.52271]
+ode_solver::compute_backward
+ode_solver::inner_loop_backward prevTime = [0, 0] m_T = [4.5147, 4.52271]
+ode_solver::inner_loop_forward: pre_T =[0, 4.5147]
+ode_solver::inner_loop_forward: domain =[4.5147, 4.52271] 0.00801087
+ode_solver::inner_loop_forward: split
+ode_solver::inner_loop_backward:[0, 4.5147]	{[-10, 100],[0, 100],[0, 4.52271]}
+ode_solver::inner_loop_backward:[4.5147, 4.5152]	{[-10, 0.0575858],[0, 0.285756],[0, 0.00801087]}
+ode_solver::inner_loop_backward:[4.5152, 4.5157]	{[-10, 0.0465021],[0, 0.27471],[0, 0.00751019]}
+ode_solver::inner_loop_backward:[4.5157, 4.5162]	{[-10, 0.0354185],[0, 0.26366],[0, 0.00700951]}
+ode_solver::inner_loop_backward:[4.5162, 4.5167]	{[-10, 0.0243349],[0, 0.252609],[0, 0.00650883]}
+ode_solver::inner_loop_backward:[4.5167, 4.5172]	{[-10, 0.0132513],[0, 0.241554],[0, 0.00600815]}
+ode_solver::inner_loop_backward:[4.5172, 4.5177]	{[-10, 0.0021677],[0, 0.230498],[0, 0.00550747]}
+ode_solver::inner_loop_backward:[4.5177, 4.5182]	{[-10, -0.0089159],[0, 0.219439],[0, 0.0050068]}
+ode_solver::inner_loop_backward:[4.5182, 4.5187]	{[-10, -0.0199995],[0, 0.208377],[0, 0.00450612]}
+ode_solver::inner_loop_backward:[4.5187, 4.51921]	{[-10, -0.0310831],[0, 0.197313],[0, 0.00400544]}
+ode_solver::inner_loop_backward:[4.51921, 4.51971]	{[-10, -0.0421667],[0, 0.186247],[0, 0.00350476]}
+ode_solver::inner_loop_backward:[4.51971, 4.52021]	{[-10, -0.0532503],[0, 0.175178],[0, 0.00300408]}
+ode_solver::inner_loop_backward:[4.52021, 4.52071]	{[-10, -0.0643339],[0, 0.164108],[0, 0.0025034]}
+ode_solver::inner_loop_backward:[4.52071, 4.52121]	{[-10, -0.0754175],[0, 0.153035],[0, 0.00200272]}
+ode_solver::inner_loop_backward:[4.52121, 4.52171]	{[-10, -0.0865011],[0, 0.14196],[0, 0.00150204]}
+ode_solver::inner_loop_backward:[4.52171, 4.52221]	{[-10, -0.0975847],[0, 0.130883],[0, 0.00100136]}
+ode_solver::inner_loop_backward:[4.52221, 4.52271]	{[-10, -0.108668],[0, 0.119803],[0, 0.00050068]}
+Split Var: 1
+icp_solver::compute_next: branched on v0_0_t
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-14.5891	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [99.9425, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.5147, 4.52271]
+ode_solver::solve_forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [99.9425, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.5147, 4.5177]
+ode_solver::compute_forward
+ode_solver::inner_loop_forward prevTime = [0, 0] m_T = [4.5147, 4.5177]
+ode_solver::inner_loop_forward stepMade = [4.5177, 4.5177]
+ode_solver::inner_loop_forward: pre_T =[0, 4.5147]
+ode_solver::inner_loop_forward: domain =[4.5147, 4.5177] 0.00300408 1e-12
+ode_solver::inner_loop_forward: split
+ode_solver::inner_loop_forward:[0, 4.5147]	{[-0, 100],[0, 100],[0, 4.5147]}
+ode_solver::inner_loop_forward:[4.5147, 4.51489]	{[99.9425, 100],[0.0645551, 54.8948],[4.5147, 4.51489]}
+ode_solver::inner_loop_forward:[4.51489, 4.51507]	{[99.9466, 100],[0.0604041, 54.8929],[4.51489, 4.51507]}
+ode_solver::inner_loop_forward:[4.51507, 4.51526]	{[99.9508, 100],[0.0562528, 54.891],[4.51507, 4.51526]}
+ode_solver::inner_loop_forward:[4.51526, 4.51545]	{[99.9549, 100],[0.0521011, 54.8892],[4.51526, 4.51545]}
+ode_solver::inner_loop_forward:[4.51545, 4.51564]	{[99.9591, 100],[0.0479491, 54.8873],[4.51545, 4.51564]}
+ode_solver::inner_loop_forward:[4.51564, 4.51583]	{[99.9632, 100],[0.0437967, 54.8854],[4.51564, 4.51583]}
+ode_solver::inner_loop_forward:[4.51583, 4.51601]	{[99.9674, 100],[0.039644, 54.8835],[4.51583, 4.51601]}
+ode_solver::inner_loop_forward:[4.51601, 4.5162]	{[99.9716, 100],[0.0354909, 54.8817],[4.51601, 4.5162]}
+ode_solver::inner_loop_forward:[4.5162, 4.51639]	{[99.9757, 100],[0.0313375, 54.8798],[4.5162, 4.51639]}
+ode_solver::inner_loop_forward:[4.51639, 4.51658]	{[99.9799, 100],[0.0271837, 54.8779],[4.51639, 4.51658]}
+ode_solver::inner_loop_forward:[4.51658, 4.51676]	{[99.984, 100],[0.0230296, 54.876],[4.51658, 4.51676]}
+ode_solver::inner_loop_forward:[4.51676, 4.51695]	{[99.9882, 100],[0.0188752, 54.8742],[4.51676, 4.51695]}
+ode_solver::inner_loop_forward:[4.51695, 4.51714]	{[99.9923, 100],[0.0147204, 54.8723],[4.51695, 4.51714]}
+ode_solver::inner_loop_forward:[4.51714, 4.51733]	{[99.9965, 100],[0.0105652, 54.8704],[4.51714, 4.51733]}
+ode_solver::check_invariant: invariant violated!
+ode_solver::check_invariant: inv[0] = [-10, 100]
+ode_solver::check_invariant:   v[0] = [100.001, 154.863]
+ode_solver::compute_forward: invariant violated
+ode_solver::prune_forward
+ode_solver::prune_forward: v = {[99.9425, 100],[0.0645551, 54.8948],[4.5147, 4.51489]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9466, 100],[0.0604041, 54.8929],[4.51489, 4.51507]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9508, 100],[0.0562528, 54.891],[4.51507, 4.51526]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9549, 100],[0.0521011, 54.8892],[4.51526, 4.51545]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9591, 100],[0.0479491, 54.8873],[4.51545, 4.51564]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9632, 100],[0.0437967, 54.8854],[4.51564, 4.51583]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9674, 100],[0.039644, 54.8835],[4.51583, 4.51601]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9716, 100],[0.0354909, 54.8817],[4.51601, 4.5162]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9757, 100],[0.0313375, 54.8798],[4.5162, 4.51639]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9799, 100],[0.0271837, 54.8779],[4.51639, 4.51658]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.984, 100],[0.0230296, 54.876],[4.51658, 4.51676]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9882, 100],[0.0188752, 54.8742],[4.51676, 4.51695]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9923, 100],[0.0147204, 54.8723],[4.51695, 4.51714]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+ode_solver::prune_forward: v = {[99.9965, 100],[0.0105652, 54.8704],[4.51714, 4.51733]} m_X_t = {[99.9425, 100],[0, 0],[4.5147, 4.5177]}
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-14.5891	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [99.9425, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.5147, 4.52271]
+ode_solver::simple_ODE_forward: no intersection for X_T => UNSAT
+***************** Not branched on Found UNSAT box ***********
+icp_solver::prop_with_ODE()
+icp_solver::prop_with_ODE: 1	-20.7232	-7.13567	Forward
+ode_solver::varlist_to_IVector: The interval on Sx_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sy_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_0: [0, 0]
+ode_solver::varlist_to_IVector: The interval on Sx_0_t: [97.2824, 100]
+ode_solver::varlist_to_IVector: The interval on Sy_0_t: [0, 0]
+ode_solver::varlist_to_IVector: The interval on t_0_t: [4.39454, 4.6875]
+ode_solver::simple_ODE_forward: no intersection for X_T => UNSAT
+***************** Not branched on Found UNSAT box ***********
+icp_solver::solve: UNSAT
+nra_solver::check(complete) result = false
+nra_solver::check: explanation provided: (size = 31 out of 31)
+	(<= 31.30670000000001 v0_0_0)
+	(<= v0_0_0 100)
+	(= 0 t_0_0)
+	(= 0 Sy_0_0)
+	(= 0 Sx_0_0)
+	(= 1 mode_0)
+	(integral 1 0 time_0 Sx_0_0 Sx_0_t Sy_0_0 Sy_0_t t_0_0 t_0_t v0_0_0 v0_0_t)
+	(forallt 1 0 time_0 (not (<= 100 Sx_0_t)))
+	!(<= 100 Sx_0_t)
+	!(<= 100 Sx_0_0)
+	!(<= t_0_t 1.000000000000001e-06)
+	(<= Sy_0_t 0)
+	(<= mode_0 1)
+	(<= 1 mode_0)
+	(<= time_0 15)
+	(<= 0 time_0)
+	(<= Sx_0_t 1000)
+	(<= -10 Sx_0_t)
+	(<= Sx_0_0 1000)
+	(<= -10 Sx_0_0)
+	(<= Sy_0_t 100)
+	(<= 0 Sy_0_t)
+	(<= Sy_0_0 100)
+	(<= 0 Sy_0_0)
+	(<= t_0_t 15)
+	(<= 0 t_0_t)
+	(<= t_0_0 15)
+	(<= 0 t_0_0)
+	(<= v0_0_t 100)
+	(<= -100 v0_0_t)
+	(<= -100 v0_0_0)
+============================
+unsat

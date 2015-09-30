@@ -27,11 +27,13 @@ class SMT2Generator
 		void parse_xml();
 
 		vector<string> var;
+		vector<string> assigned_var;
 		vector<string> param; 
 		Box var_domain;
 		Box param_domain;
 		string time_var;
 		vector<string> odes;
+		vector<string> assignments;
 		vector<double> time_value;
 		vector<Box> time_box;
 		vector<double> epsilon;

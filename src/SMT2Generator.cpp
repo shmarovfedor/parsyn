@@ -235,12 +235,21 @@ void SMT2Generator::parse_xml()
 	this->var_domain = Box(var_dim, var_names);
 	this->param_domain = Box(param_dim, param_names);
 
+	xml_node assignments_node = data_node.child("assignments");
+	for(xml_node_iterator it = assignments_node.begin(); it != assignments_node.end(); it++)
+	{
+		if(it->attribute("var").empty()) throw "assignment variable is not specified";
+		this->assigned_var.push_back(it->attribute("var").as_string());
+		this->assignments.push_back(it->child("eq1").text().as_string());
+		this->assignments.push_back(it->child("eq2").text().as_string());
+	}
+
 	xml_node odes_node = data_node.child("odes");
 	for(xml_node_iterator it = odes_node.begin(); it != odes_node.end(); it++)
 	{
 		this->odes.push_back(it->text().as_string());
 	}
-	if(this->odes.size() != this->param.size() + this->var.size() + 1) throw "ODE list is incomplete";
+	//if(this->odes.size() != this->param.size() + this->var.size() + 1) throw "ODE list is incomplete";
 
 	xml_node series_node = data_node.child("series");
 	
@@ -347,6 +356,11 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 		smt2_string << "(assert (<= " << this->time_var << "_" << j << "_0 " << time_value.at(time_value.size() - 1) << "))" << endl;
 		smt2_string << "(assert (>= " << this->time_var << "_" << j << "_t " << time_value.at(0) << "))" << endl;
 		smt2_string << "(assert (<= " << this->time_var << "_" << j << "_t " << time_value.at(time_value.size() - 1) << "))" << endl;
+	}
+
+	for(int j = 0; j < this->assignments.size(); j++)
+	{
+		smt2_string << "(assert " << this->assignments.at(j) << ")" << endl;
 	}
 
 	smt2_string << "(assert " << endl;
@@ -531,6 +545,11 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(assert (<= " << this->time_var << "_0_0 " << time_value.at(index) << "))" << endl;
 	smt2_string << "(assert (>= " << this->time_var << "_0_t " << time_value.at(0) << "))" << endl;
 	smt2_string << "(assert (<= " << this->time_var << "_0_t " << time_value.at(index) << "))" << endl;
+
+	for(int j = 0; j < this->assignments.size(); j++)
+	{
+		smt2_string << "(assert " << this->assignments.at(j) << ")" << endl;
+	}
 
 	smt2_string << "(assert " << endl;
 	smt2_string << "(and " << endl;

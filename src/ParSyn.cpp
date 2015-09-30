@@ -321,6 +321,8 @@ vector<Box> prepartition(vector<Box> boxes, double epsilon)
 
 int main(int argc, char* argv[])
 {
+	cout << "PARSYN" << endl;
+
 	// setting max number of threads by default
 	#ifdef _OPENMP
 		max_num_threads = omp_get_max_threads();

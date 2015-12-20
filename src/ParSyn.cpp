@@ -38,6 +38,7 @@ bool exhaustive = false;
 bool est = false;
 bool full_syn = false;
 bool partition_flag = false;
+bool merge_flag = false;
 double epsilon = 1e-3;
 vector<double> epsilon_vector;
 stringstream parsyn_out;
@@ -185,6 +186,11 @@ void parse_cmd(int argc, char* argv[])
 		else if(strcmp(argv[i], "--verbose") == 0)
 		{
 			verbose = true;
+		}
+		//verbose
+		else if(strcmp(argv[i], "--merge") == 0)
+		{
+			merge_flag = true;
 		}
 		//--full-synthesis
 		else if(strcmp(argv[i], "--full-synthesis") == 0)
@@ -428,9 +434,8 @@ int main(int argc, char* argv[])
 			    	if (width(tmp_box.get_max_dimension()) > 0)
 			    	{
 			    		// here we ignore epsilon_vector
-			    		//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-						vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
-						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
 						for(int i = 0; i < tmp_vector.size(); i++)
 						{
 							boxes.push_back(tmp_vector.at(i));
@@ -523,9 +528,12 @@ int main(int argc, char* argv[])
 					}
 					mixed_boxes.clear();
 				}
-				//sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
-				//undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
-				//unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
+				if(merge_flag)
+				{
+					sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
+					undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
+					unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
+				}
 				double progress = 1;
 				if (max_progress > 0) progress = current_progress / max_progress;
 				gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);

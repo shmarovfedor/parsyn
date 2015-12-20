@@ -321,8 +321,6 @@ vector<Box> prepartition(vector<Box> boxes, double epsilon)
 
 int main(int argc, char* argv[])
 {
-	cout << "PARSYN" << endl;
-
 	// setting max number of threads by default
 	#ifdef _OPENMP
 		max_num_threads = omp_get_max_threads();
@@ -430,8 +428,8 @@ int main(int argc, char* argv[])
 			    	if (width(tmp_box.get_max_dimension()) > 0)
 			    	{
 			    		// here we ignore epsilon_vector
-			    		vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
-						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
+			    		//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
+						vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box, epsilon);
 						//vector<Box> tmp_vector = BoxFactory::branch_box(tmp_box);
 						for(int i = 0; i < tmp_vector.size(); i++)
 						{
@@ -525,9 +523,9 @@ int main(int argc, char* argv[])
 					}
 					mixed_boxes.clear();
 				}
-				sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
-				undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
-				unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
+				//sat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(sat_boxes));
+				//undec_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(undec_boxes));
+				//unsat_boxes = BoxFactory::merge_boxes(BoxFactory::sort_boxes(unsat_boxes));
 				double progress = 1;
 				if (max_progress > 0) progress = current_progress / max_progress;
 				gen.modify_output(progress, j + 1, sat_boxes, unsat_boxes, undec_boxes);

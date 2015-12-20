@@ -102,28 +102,28 @@ int DecisionProcedure::evaluate(vector<string> smt2_filename_base, string opt, s
 		{
 			if(DecisionProcedure::call_dreal(smt2_filename_base.at(1), opt, dreal_bin))
 			{
-				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+				DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+				DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 				return 0;
 			}
 			else
 			{
-				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-				//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+				DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+				DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 				return 1;
 			}
 		}
 		else
 		{
-			//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-			//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+			DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+			DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 			return -1;
 		}
 	}
 	catch(const char* e)
 	{
-		//DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
-		//DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
+		DecisionProcedure::remove_aux_file(smt2_filename_base.at(0));
+		DecisionProcedure::remove_aux_file(smt2_filename_base.at(1));
 		throw e;
 	}
 }

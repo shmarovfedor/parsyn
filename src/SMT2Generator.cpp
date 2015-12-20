@@ -296,11 +296,14 @@ vector<string> SMT2Generator::generate_smt2(Box box)
 	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
-		for(int j = 0; j < time_value.size(); j++)
+		if(find(this->assigned_var.begin(), this->assigned_var.end(), this->var.at(i)) == this->assigned_var.end())
 		{
-			smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_0 () Real)" << endl;
-			smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_t () Real)" << endl;
+			smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
+			for(int j = 0; j < time_value.size(); j++)
+			{
+				smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_0 () Real)" << endl;
+				smt2_string << "(declare-fun " << this->var.at(i) << "_" << j << "_t () Real)" << endl;
+			}
 		}
 	}
 
@@ -500,7 +503,10 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << "(set-logic QF_NRA_ODE)" << endl;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
+		if(find(this->assigned_var.begin(), this->assigned_var.end(), this->var.at(i)) == this->assigned_var.end())
+		{
+			smt2_string << "(declare-fun " << this->var.at(i) << " () Real)" << endl;
+		}
 		smt2_string << "(declare-fun " << this->var.at(i) << "_0_0 () Real)" << endl;
 		smt2_string << "(declare-fun " << this->var.at(i) << "_0_t () Real)" << endl;
 	}
@@ -561,7 +567,10 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << this->time_var << "_0_t ";
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << this->var.at(i) << "_0_t ";
+		if(find(this->assigned_var.begin(), this->assigned_var.end(), this->var.at(i)) == this->assigned_var.end())
+		{
+			smt2_string << this->var.at(i) << "_0_t ";
+		}
 	}
 	smt2_string << "] (integral 0. time_0 [";
 
@@ -572,7 +581,10 @@ vector<string> SMT2Generator::generate_smt2(int index, Box box)
 	smt2_string << this->time_var << "_0_0 " ;
 	for(int i = 0; i < this->var.size(); i++)
 	{
-		smt2_string << this->var.at(i) << "_0_0 ";
+		if(find(this->assigned_var.begin(), this->assigned_var.end(), this->var.at(i)) == this->assigned_var.end())
+		{
+			smt2_string << this->var.at(i) << "_0_0 ";
+		}
 	}
 	smt2_string << "] flow_1))" << endl;
 
